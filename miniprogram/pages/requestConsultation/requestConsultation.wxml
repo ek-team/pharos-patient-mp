@@ -1,0 +1,81 @@
+<!--pages/requestConsultation/requestConsultation.wxml-->
+<view>
+    <!--    医生团队  -->
+    <view class="backContainer headContiner" wx:if="{{type=='团队'}}">
+        <view class="avatarContainer">
+            <view wx:for="{{doctorTeamPeopleList}}" wx:key="id" class="{{doctorTeamPeopleList.length==1?'oneAvatarList':doctorTeamPeopleList.length<=4?'twoAvatarList':'threeAvatarList'}}">
+                <image  wx:if="{{index<9}}" src="{{item.avatar?item.avatar:'../../images/defaultAvatar.png'}}"
+            class="{{doctorTeamPeopleList.length==1?'headImg':doctorTeamPeopleList.length<=4?'twoAvatar':'threeAvatar'}}"></image>
+            </view>
+            <!-- <view wx:key="id" class="oneAvatarList">
+                <image   src="../../images/teamAvatar.jpg" class="headImg"></image>
+            </view> -->
+        </view>
+        <view class="doctorInfo">
+            <view class="doctorName">{{teamInfo.name}}</view>
+        </view>
+    </view>
+    <!-- 医生个人信息 -->
+    <view class="backContainer headContiner" wx:if="{{type=='医生'}}">
+        <view class="oneAvatarContainer">
+            <image src="{{doctorInfo.avatar?doctorInfo.avatar:'../../images/defaultAvatar.png'}}" class="headImg"></image>
+        </view>
+        <view class="doctorInfo">
+            <view class="doctorName">{{doctorInfo.nickname}}</view>
+            <view class="jobInformation" ></view>
+        </view>
+    </view>
+    <!-- 病情描述 -->
+    <view class="backContainer userInfoContainer">
+        <view class="infoTitle">请描述您的病情</view>
+        <view class="inputContainer">
+            <textarea value="{{illnessDesc}}" bindinput="inputDesc"  class="inputContent" placeholder-class="remarkPlaceholder"  placeholder="请输入病情描述，如发病时间，主要病症，治疗经过，目前状况等" />
+        </view>
+        <!-- 上传图片 -->
+        <view class="pictureContainer">
+            <view class="cameraContainer" bindtap="uploadPicture">
+                <image src="../../images/icon_photo@2x.png" class="cameraIcon"></image>
+                <text class="remindText">上传照片</text>
+            </view>
+            <view class="pictureListContainer" wx:if="{{pictureList.length>0}}" wx:for="{{pictureList}}" wx:key="id">
+                <image src="{{item}}" class="pictureImg" bindtap="previewBigImg" data-src="{{item}}"></image>
+                <image src="../../images/close.png" class="closeIcon" wx:if="{{index==pictureList.length-1}}" bindtap="deleteImg" mode="aspectFill"></image>
+            </view>
+            <view class="rightContainer" wx:if="{{pictureList.length==0}}">
+                <text class="rightRemindText">上传检查单/患处照片（最多9张） 仅医生可见</text>
+            </view>
+        </view>
+    </view>
+    <!-- 过敏史 -->
+    <view class="backContainer userInfoContainer">
+        <view class="infoTitle ">请完善下列内容</view>
+        <view class="medicalHistoryContainer" wx:for="{{medicalHistoryList}}" wx:key="id">
+            <view class="itemTitle">{{item.name}}</view>
+            <view class="{{item.status==2?'checkItem':'noCheckItem'}}" bindtap="checkStatus" data-index="{{index}}" data-status="2">
+                <span wx:if="{{index==0||index==1}}">无</span>
+                <span wx:if="{{index==2||index==3}}">正常</span>
+                <span wx:if="{{index==4}}">无</span>
+            </view>
+            <view class="{{item.status==1?'checkItem':'noCheckItem'}}" bindtap="checkStatus" data-index="{{index}}" data-status="1">
+                <span wx:if="{{index==0||index==1}}">有</span>
+                <span wx:if="{{index==2||index==3}}">异常</span>
+                <span wx:if="{{index==4}}">备孕中</span>
+            </view>
+        </view>
+    </view>
+    <view class="backContainer agreementContainer blackText">
+        <view class="blueText explain">咨询说明</view>
+        <view>1.医生会在您提交咨询申请后的24小时内处理。</view>
+        <view>2.医生处理了您的咨询申请后，您可在24小时内与医生进行沟通，到达时间后咨询单会自动结束。</view>
+        <view>3.医生的回复内容仅为建议，具体诊疗请前往医院进行。</view>
+        <!-- <text class="blackText">提交即表示您阅读并同意</text> -->
+        <!-- <text class="blackText blueText">《会员注册及咨询服务协议》</text> -->
+    </view>
+    <view class="footerContainer">
+        <view class="bottomContainer">
+            <view class="previousStep">上一步</view>
+            <view class="commitBtn" bindtap="commitOrder">提交<span wx:if="{{from!='free'}}">({{serviceInfo.price}}元/次)</span></view>
+        </view>
+
+    </view>
+</view>

@@ -1,0 +1,81 @@
+<!--pages/applyInvoice/applyInvoice.wxml-->
+<view class="allContainer">
+    <!-- <view class="formItem imgItem">
+        <view class="itemLeft">
+            发票信息
+        </view>
+        <view class="itemRight imgRight">
+           查看发票样图
+           <image src='../../images/right.png' class="arrow" bindtap="viewImg"></image>
+        </view>
+    </view> -->
+    <view class="formItem">
+        <view class="itemLeft">
+            抬头类型
+        </view>
+        <view class="itemRight">
+            <radio-group direction="horizontal" bindchange="checkChange">
+                <radio value="0" color="#1989fa" class="marginRadio" checked="{{form.category!=1?true:false}}">个人/非企业单位</radio>
+                <radio value="1" color="#1989fa" checked="{{form.category==1?true:false}}">企业单位</radio>
+            </radio-group>
+        </view>
+    </view>
+    <view class="formItem" wx:if="{{form.category==1}}">
+        <view class="itemLeft">
+            发票抬头<text class="mustText">*</text>
+        </view>
+        <view class="itemRight">
+            <input value="{{form.company}}" class="inputItem" placeholder="请填写企业名称" bindinput="inputContent" data-type="company"/>
+        </view>
+    </view>
+    <view class="formItem" wx:if="{{form.category==1}}">
+        <view class="itemLeft">
+            税号<text class="mustText">*</text>
+        </view>
+        <view class="itemRight">
+            <input value="{{form.taxNumber}}" class="inputItem" placeholder="请填写纳税人识别号" bindinput="inputContent" data-type="taxNumber"/>
+        </view>
+    </view>
+    <!-- <view class="formItem">
+        <view class="itemLeft">
+            发票金额
+        </view>
+        <view class="itemRight">
+            <input value="{{form.amount}}"  class="inputItem" placeholder="请填写发票金额" bindinput="inputContent" data-type="amount"/>
+        </view>
+    </view> -->
+    <view class="splitContainer">接收信息</view>
+    <view class="formItem">
+        <view class="itemLeft">
+            接收人<text class="mustText">*</text>
+        </view>
+        <view class="itemRight">
+            <input value="{{form.name}}" class="inputItem" placeholder="请输入接收人" bindinput="inputContent" data-type="name"/>
+        </view>
+    </view>
+    <view class="formItem">
+        <view class="itemLeft">
+            联系电话<text class="mustText">*</text>
+        </view>
+        <view class="itemRight">
+            <input value="{{form.phone}}" class="inputItem" placeholder="请输入联系电话" bindinput="inputContent" data-type="phone"/>
+        </view>
+    </view>
+    <view class="formItem">
+        <view class="itemLeft">
+            电子邮件<text class="mustText">*</text>
+        </view>
+        <view class="itemRight">
+            <input value="{{form.email}}" class="inputItem" placeholder="请输入收件人的电子邮件" bindinput="inputContent" data-type="email"/>
+        </view>
+    </view>
+    <view class="formItem">
+        <view class="itemLeft">
+            发票备注栏内容(选填)
+        </view>
+        <view class="itemRight">
+            <input value="{{form.remark}}" class="inputItem" placeholder="备注" bindinput="inputContent" data-type="remark"/>
+        </view>
+    </view>
+    <view class="submitContianer" bindtap="submitForm" wx:if="{{!showDetail}}">提交</view>
+</view>

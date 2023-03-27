@@ -1,0 +1,70 @@
+{
+    "pages": [
+        "pages/my/my",
+        "pages/goodsDetail/goodsDetail",
+        "pages/orderDetail/orderDetail",
+        "pages/applyDetail/applyDetail",
+        "pages/news/news",
+        "pages/orderConfirm/orderConfirm",
+        "pages/decorationService/decorationService",
+        "pages/index/index",
+        "pages/serviceConfirm/serviceConfirm",
+        "pages/consultationApply/consultationApply",
+        "pages/consultation/consultation",
+        "pages/choosePatient/choosePatient",
+        "pages/chooseServiceTeam/chooseServiceTeam",
+        "pages/service/service",
+        "pages/login/login",
+        "pages/myOrder/myOrder",
+        "pages/serviceDetail/serviceDetail",
+        "pages/requestConsultation/requestConsultation",
+        "pages/chatPage/chatPage",
+        "pages/addPatient/addPatient",
+        "pages/myAddress/myAddress",
+        "pages/addAddress/addAddress",
+        "pages/updateAddress/updateAddress",
+        "pages/privacy/privacy",
+        "pages/myRetrieveOrder/myRetrieveOrder",
+        "pages/logisticInfo/logisticInfo",
+        "pages/createRetrieveOrder/createRetrieveOrder",
+        "pages/applyPay/applyPay",
+        "pages/friendsRepay/friendsRepay",
+        "pages/servicePage/servicePage",
+        "pages/exerciseData/exerciseData",
+        "pages/form/form",
+        "pages/applyInvoice/applyInvoice",
+        "pages/savePersonInfo/savePersonInfo"
+    ],
+    "window": {
+        "backgroundColor": "#F6F6F6",
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#F6F6F6",
+        "navigationBarTitleText": "法罗适",
+        "navigationBarTextStyle": "black"
+    },
+    "tabBar": {
+        "color": "#7D7978",
+        "selectedColor": "#2097F3",
+        "list": [
+            {
+                "iconPath": "/images/icon_xiaoxi_not.png",
+                "selectedIconPath": "/images/icon_xiaoxi_sel.png",
+                "pagePath": "pages/news/news",
+                "text": "消息"
+            },
+            {
+                "iconPath": "/images/icon_fuwu_not.png",
+                "selectedIconPath": "/images/icon_fuwu_sel.png",
+                "pagePath": "pages/service/service",
+                "text": "服务"
+            },
+            {
+                "iconPath": "/images/icon_mine_not.png",
+                "selectedIconPath": "/images/icon_mine_sel.png",
+                "pagePath": "pages/my/my",
+                "text": "我的"
+            }
+        ]
+    },
+    "sitemapLocation": "sitemap.json"
+}

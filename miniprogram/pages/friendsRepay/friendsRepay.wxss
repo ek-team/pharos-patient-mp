@@ -1,0 +1,116 @@
+/* pages/friendsRepay/friendsRepay.wxss */
+.repayContainer{
+    display: flex;
+    flex-direction: column;
+}
+.contentContainer{
+    display: flex;
+    flex-direction: column;
+    margin:24rpx 30rpx 32rpx 24rpx;
+    background: #fff;
+}
+.selfContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 36rpx 42rpx 52rpx 42rpx;
+}
+.myHead{
+    width: 96rpx;
+    height: 96rpx;
+    background-color: rgb(236, 189, 221);
+    margin-right:16rpx;
+    border-radius: 50%;
+}
+.nickText{
+    font-size: 16px;
+font-family: PingFangSC-Regular, PingFang SC;
+font-weight: 400;
+color: #333333;
+line-height: 44rpx;
+}
+.qrCodeContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.remindText{
+    font-size: 14px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #333333;
+    line-height: 40rpx;
+}
+.qrCodeImg{
+    width: 348rpx;
+    height: 348rpx;
+    margin: 16rpx 0 28rpx 0;
+    background-color: rgb(236, 189, 221);
+}
+/* 操作方法 */
+.remindContinaer{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.titles{
+    font-size: 17px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: #2097F3;
+    line-height: 48rpx;
+    margin-left:42rpx;
+}
+.miniTitle{
+    margin-top: 8rpx;
+    font-size: 13px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #6FC0FE;
+    line-height: 36rpx;
+    position: absolute;
+    /* top:20rpx; */
+}
+.remindImg{
+    width: 100%;
+}
+/* 保存按钮 */
+.footContiner{
+    display: flex;
+    flex-direction: column;
+    /* position: fixed; */
+    bottom: 0;
+    width: 100%;
+}
+.footerRemind{
+    font-size: 13px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #888888;
+    line-height: 36rpx;
+    margin-bottom: 44rpx;
+    margin-bottom: 216rpx;
+    display: flex;
+    justify-content: center;
+    margin-top: 138rpx;
+}
+.optionContianer{
+    background: #fff;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.saveContainer{
+    height: 80rpx;
+    background: linear-gradient(270deg, #3C9EE9 0%, #6FC3F6 100%);
+    border-radius: 8rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 16rpx 30rpx 92rpx 30rpx;
+    font-size: 17px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: #FFFFFF;
+    line-height: 48rpx;
+}

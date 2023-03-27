@@ -1,0 +1,24 @@
+<!-- pages/myAddress/myAddress.wxml -->
+<view class="container">
+    <!-- 地址列表 -->
+    <view class="addressList" wx:if="{{addressList.length>0}}">
+        <view class="addressItem" wx:for="{{addressList}}" wx:key='index' bindtap="chooseAddress" data-address="{{item}}">
+            <radio class="radioCheck" value="{{item.id}}+{{item.name}}" checked="{{item.checked}}" wx:if="{{type=='check'}}"/>
+            <view class="addressInfo">
+                <view class="addressTop">
+                    <view class="addressName">{{item.addresseeName}}</view>
+                    <view class="addrsssPhone">{{item.addresseePhone}}</view>
+                </view>
+                <view class="addressBottom">
+                    <view class="isDefault" wx:if="{{item.isDefault==1}}">默认</view>
+                    <view class="address">{{item.province}}{{item.city}}{{item.area}}{{item.address}}</view>
+                </view>
+            </view>
+            <view class="edit" catchtap="editAddress" data-id="{{item.id}}">编辑</view>
+        </view>
+    </view>
+    <!-- 添加收货地址 -->
+    <view class="fixBottom">
+        <button class="save" bindtap="addAddress">添加收货地址</button>
+    </view>
+</view>

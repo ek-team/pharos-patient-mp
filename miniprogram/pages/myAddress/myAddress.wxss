@@ -1,0 +1,84 @@
+/* pages/myAddress/myAddress.wxss */
+/* 地址列表 */
+.addressList{
+    width: 100%;
+    padding: 16rpx 30rpx 40rpx 32rpx ;
+    box-sizing: border-box;
+    background-color: #fff;
+    margin-top:32rpx ;
+}
+/* 添加收货地址按钮 */
+.fixBottom{
+    width: 100%;
+    height: 168rpx;
+    background-color: #fff;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    padding: 16rpx 32rpx 0;
+    box-sizing: border-box;
+}
+.save{
+    width: 100% !important;
+    /* height: 68rpx; */
+    height: 88rpx;
+    line-height: 88rpx;
+    background: linear-gradient(270deg, #3C9EE9 0%, #6FC3F6 100%);
+    /* border-radius: 34rpx; */
+    border-radius: 40rpx;
+    padding: 0!important;
+    color: #fff !important;
+    font-size: 28rpx;
+}
+.addressItem{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24rpx 0;
+    border-bottom: 1rpx solid #eee;
+}
+.addressItem:last-child{
+    border-bottom:none
+}
+.addressTop{
+    display: flex;
+    align-items: center;
+}
+.addressName{
+    font-size: 15px;
+    color: #333;
+    font-weight: bold;
+}
+.addrsssPhone{
+    font-size: 14px;
+    color: #333;
+    margin-left: 40rpx;
+}
+.addressBottom{
+    display: flex;
+    align-items: flex-start ;
+    margin-top: 12rpx;
+}
+.isDefault{
+    width: 88rpx;
+    height: 32rpx;
+    color:#ED4C4C ;
+    font-size: 12px;
+    background-color: #FFE4E4;
+    border-radius: 4rpx;
+    margin-right: 8rpx;
+    text-align: center;
+}
+.address{
+    font-size: 14px;
+    color: #333;
+}
+.edit{
+    height: 50rpx;
+    line-height: 50rpx;
+    padding-left: 34rpx;
+    box-sizing: border-box;
+    border-left: 2rpx solid #F0F0F0;
+    font-size: 13px;
+    color: #999;
+}

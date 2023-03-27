@@ -1,0 +1,91 @@
+<!--pages/myOrder/myOrder.wxml-->
+<view>
+    <view class="navTop">
+        <view class="{{activeIndex==index?'activeItem':'navItem'}}" wx:key="id" data-index="{{index}}" bindtap="checkNav" wx:for="{{navList}}">{{item.title}}</view>
+    </view>
+    <scroll-view scroll-y="true" refresher-enabled="true" bindrefresherrefresh="pullRefresher" refresher-triggered="{{isTrigger}}" bindscrolltolower="getMoreOrder" style='height:{{boxHeight}}px;'>
+        <view class="orderContainer">
+            <view class="orderItem" wx:key="id" wx:for="{{orderList}}" wx:key="id" >
+                <!-- 订单号、状态 -->
+                <view class="orderTop" bindtap="watchOrderDetail" data-orderId="{{item.id}}">
+                    <view>订单号：{{item.orderNo}}</view>
+                    <view>{{item.status==1?'待付款':item.status==2?'待发货':item.status==3?'待收货':item.status==4?'使用中':'已回收'}}</view>
+                </view>
+                <!-- 订单信息 -->
+                <view class="orderInfoContainer"  bindtap="watchOrderDetail" data-orderId="{{item.id}}">
+                    <view class="medecineItem">
+                        <view class="imgBox">
+                            <image src="{{item.productPic?item.productPic:''}}" 
+                            	class="goodsPictrue"></image>
+                        </view>
+                        <view class="rightInfoBox">
+                            <view class="infoItem">
+                                <view class="goodsName">
+                                    {{item.servicePack?item.servicePack.name:''}}
+                                </view>
+                                <view>x1</view>
+                            </view>
+                            <view class="infoItem">
+                                <view>{{item.saleSpecId}}</view>
+                                <view>￥{{item.payment}}</view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="medecineItem" wx:for="{{item.servicePackageInfos}}" wx:for-item="serviceItem" wx:key="id">
+                        <view class="imgBox">
+                            <image src="{{item.servicePackageInfos?item.servicePackageInfos[0].image:''}}" class="goodsPictrue"></image>
+                        </view>
+                        <view class="rightInfoBox">
+                            <view class="infoItem">
+                                <view class="goodsName">
+                                    {{serviceItem.name}}
+                                    <!-- <view class="freeTitle">赠送</view> -->
+                                </view>
+                                <view>x{{serviceItem.count}}</view>
+                            </view>
+                            <view class="infoItem">
+                                <view>{{item.productSpec}}</view>
+                                <view>￥0</view>
+                            </view>
+                        </view>
+                    </view>
+                </view>    
+                <view class="concatService">
+                    <image src='../../images/btn_kefu.png' class="customerServiceIcon" bindtap="callToService" data-serviceinfo="{{item.servicePack}}"></image>
+                    <text bindtap="callToService" data-serviceinfo="{{item.servicePack}}">联系客服</text>
+                </view> 
+                <!-- 实付款、按钮 -->
+                <view class="bottomContainer">
+                    <view class="payInfo">
+                        <!-- <image src='../../images/btn_kefu.png' class="customerServiceIcon"></image> -->
+                        <view class="creatTimeText">创建时间:{{item.createTime}}</view>
+                        <view>实付款￥{{item.payment}}</view>
+                    </view>
+                    <view class="optionContainer">
+                        <!-- <view class="buttonItem cancelBtn"  bindtap="toOrderDetail" data-item="{{item}}">查看详情</view> -->
+                        <!-- <view class="concatService">
+                            <image src='../../images/btn_kefu.png' class="customerServiceIcon" bindtap="callToService" data-serviceinfo="{{item.servicePack}}"></image>
+                            <text bindtap="callToService" data-serviceinfo="{{item.servicePack}}">联系客服</text>
+                        </view> -->
+                        <view class="buttonItem cancelBtn" wx:if="{{item.status!=1}}" data-item="{{item}}" bindtap="toLogisticInfo">查看物流</view>
+                        <view class="buttonItem cancelBtn" wx:if="{{item.billImage}}" data-url="{{item.billImage}}" bindtap="topreviewBillImage">
+                           查看发票
+                        </view>
+                        <view class="buttonItem cancelBtn" wx:if="{{item.status>1}}" data-item="{{item}}" bindtap="toApplyInvoice">
+                            <span></span>{{item.billId?'开票信息':'申请开票'}}
+                            <!-- <span></span> -->
+                        </view>
+                        <view class="buttonItem confirmBtn" wx:if="{{item.status==3}}" bindtap="receipt" data-item="{{item}}">确认收货</view>
+                        <view class="buttonItem confirmBtn friendsPayBtn" wx:if="{{item.status==1}}" bindtap="toFriendPay" data-item="{{item}}">好友代付</view>
+                        <view class="buttonItem confirmBtn payButton" wx:if="{{item.status==1}}" bindtap="toPay" data-item="{{item}}">付款</view>
+                        <view class="buttonItem confirmBtn" wx:if="{{item.status==4&&item.orderType==1}}" bindtap="toRetrieveOrder" data-item="{{item}}">回收</view>
+                    </view>
+                    
+                </view>
+            </view>
+        </view>
+        <view wx:if="{{orderList.length==0}}" class="noneContianer">
+            <image src="../../images/img1@2x.png" class="noneOrder"></image>
+        </view>
+    </scroll-view>
+</view>

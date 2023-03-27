@@ -1,0 +1,50 @@
+<!--pages/logisticInfo/logisticInfo.wxml-->
+<view class="container">
+    <!-- 物流信息 -->
+    <view class="infoTop">
+        <!-- <view class="infoTitle">物流信息</view> -->
+        <view class="infoDetails">
+            <image class="car" src="../../images/logistics_icon1.png"></image>
+            <view class="">
+                <view class="courierName">{{logisticsCom?logisticsCom:'未发货'}}</view>
+                <view class="courierNo" wx:if="{{logisticsNo!=-1}}">
+                    <view class="">运单号：{{userOrder.deliverySn}}</view>
+                    <image class="copy" src="../../images/btn_copy.png" bindtap="copy"></image>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!-- 物流详情 -->
+    <view class="logisticsDetail" wx:if="{{logisticsNo!=-1}}">
+        <!-- <view class="logisticsItem">
+            <view class="logisticsItemLeft">
+                <image src='../../images/logistics_icon2.png' class="logisticsImage" wx:if="{{status=='shutdown'}}"></image>
+                <image src='../../images/shou.png' class="logisticsImage" wx:else></image>
+                <view class="splitLine"></view>
+            </view>
+            <view class="logisticsItemRight">
+                <view class="logisticsContext">{{phone}}</view>
+                <view class="logisticsItemStatus">
+                    {{address}}
+                </view>
+
+            </view>
+        </view> -->
+        <!-- 物流 -->
+        <view class="logisticsItem" wx:for="{{logisticsInfo}}" wx:key="index">
+            <view class="logisticsItemLeft">
+                <view class="splitLine" wx:if="{{index!=0}}"></view>
+                <image src='../../images/logistics_icon2.png' class="logisticsImage" wx:if="{{index==0}}" ></image>
+                <image src='../../images/logistics_icon4.png' class="logisticsImage" wx:if="{{index!=0}}" ></image>
+                <view class="splitLine" wx:if="{{index!=logisticsInfo.length-1}}"></view>
+            </view>
+            <view class="logisticsItemRight">
+                <view class="logisticsItemStatus">
+                    <view class="logisticsItemTime">{{item.time}}</view>
+                </view>
+                <view class="{{index!=logisticsInfo.length-1?'logisticsContext':'lastLogisticsContext'}}">{{item.context}}</view>
+            </view>
+
+        </view>
+    </view>
+</view>

@@ -1,0 +1,54 @@
+<!--pages/serviceDetail/serviceDetail.wxml-->
+<view>
+    <view class="orderContainer">
+        <view class="orderItem" wx:key="id" bindtap="toChat" data-item="{{serviceInfo}}">
+            <!-- 订单信息 -->
+            <view class="orderInfoContainer">
+                <view class="medecineItem">
+                    <view class="imgBox">
+                        
+                        <image wx:if="{{serviceInfo.servicePackageInfo&&serviceInfo.servicePackageInfo.image}}" src="{{serviceInfo.servicePackageInfo?serviceInfo.servicePackageInfo.image:'../../images/service.png'}}" class="goodsPictrue"></image>
+                        <image wx:else="" src="../../images/service.png" class="goodsPictrue"></image>
+                    </view>
+                    <view class="rightInfoBox">
+                        <view class="infoItem">
+                            <view class="goodsName">
+                                {{serviceInfo.servicePackageInfo?serviceInfo.servicePackageInfo.name:''}}
+                                <view class="goodsNum">x{{serviceInfo.totalCount}}</view>
+                            </view>
+                            <view>已使用{{serviceInfo.useCount}}</view>
+                        </view>
+                    </view>
+                    <view class="useContainer">
+                        <!-- wx:if="{{serviceInfo.useCount<=serviceInfo.totalCount&&serviceStatus==0}}" -->
+                        <view class="useButton">去使用</view>
+                    </view>
+                </view>
+            </view>
+
+        </view>
+    </view>
+    <view class="doctorTeamContainer">
+        <view class="teamName">{{dovctorTeam.name}}</view>
+        <view class="remark">{{dovctorTeam.teamDesc}}</view>
+        <view class="doctorContainer">
+            <view class="userContainer" wx:key="id" wx:for="{{dovctorTeam.doctorTeamPeopleList}}">
+                <image src="{{item.avatar?item.avatar:'../../images/defaultAvatar.png'}}" class="headImg" ></image>
+                <text>{{item.userName}}</text>
+            </view>
+            
+            
+        </view>
+    </view>
+    <view class="contentContainer">
+        <view class="serviceTitle" bindtap="changeNav" data-value="0">
+            服务介绍
+            <view class="borderActive" wx:if="{{activeIndex==0}}"></view>
+        </view>
+        <!-- <view bindtap="changeNav" data-value="1">
+            使用记录
+            <view class="borderActive" wx:if="{{activeIndex==1}}" ></view>
+        </view> -->
+    </view>
+    <view class="textDetail">{{serviceInfo.servicePackageInfo?serviceInfo.servicePackageInfo.serviceDetail:''}}</view>
+</view>

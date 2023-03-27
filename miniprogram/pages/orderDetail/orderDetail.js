@@ -1,0 +1,231 @@
+// pages/orderDetail/orderDetail.js
+const { http } = require("../../utils/http");
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    orderId: 0,//订单id
+    orderDetail: {},//订单详情
+    showProtocol:false,
+    protocoDetail:{}
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    console.log(options.orderId)
+    this.setData({
+      orderId: options.orderId
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    this.getOrderDetailById();
+  },
+  // 订单详情
+  getOrderDetailById() {
+    http('purchase/order/user/orderDetail', 'get', '', {
+      orderId: this.data.orderId
+    }).then(res => {
+
+      this.setData({
+        orderDetail: res.data
+      })
+      this.getProtocolDetail()
+      // console.log('协议id',res.data.servicePack.protocolId)
+    })
+  },
+  toApplyDetail(e){
+    // let item=e.currentTarget.dataset.item
+    wx.navigateTo({
+      url: '../serviceDetail/serviceDetail?id='+this.data.orderDetail.userServicePackageInfoId,
+    })
+  },
+  // 协议详情
+  getProtocolDetail(){
+    let protocolId=this.data.orderDetail.servicePack.protocolId
+    // let url=
+    http('protocols/getById/'+protocolId,'get').then(res=>{
+      if(res.data){
+        this.setData({
+          protocolDetail:res.data
+        })
+      }
+      // console.log('协议内容',this.data.showProtocol)
+    })
+  },
+  // 产品详情购买页
+  toGoodsDetail(){
+    console.log('订单详情',this.data.orderDetail)
+    // return
+    wx.navigateTo({
+      url: '../goodsDetail/goodsDetail?id='+this.data.orderDetail.servicePackId,
+    })
+  },
+  // 去支付
+  toPay() {
+    // console.log(this.data.orderDetail.orderNo);
+    var that=this;
+    http('wxpay/unifiedOrder', 'get', '', {
+      orderNo: that.data.orderDetail.orderNo,
+    }, true).then(res => {
+      console.log('支付', res.data)
+      let payData = res.data
+      wx.requestPayment({
+        nonceStr: payData.nonceStr,
+        package: payData.packageValue,
+        paySign: payData.paySign,
+        timeStamp: payData.timeStamp,
+        signType: payData.signType,
+        success(res) {
+          wx.showToast({
+            title: '支付成功',
+            icon: 'none',
+            duration: 2000,
+            mask: true
+          })
+          that.getOrderDetailById();
+        },
+        fail(err) {
+          wx.showToast({
+            title: '支付失败',
+            icon: 'none',
+            duration: 2000,
+            mask: true
+          })
+        }
+      })
+    })
+
+  },
+  // 查看协议
+  viewProtocol(){
+   
+    this.setData({
+      showProtocol:true
+    })
+  },
+  closeProrocol() {
+    this.setData({
+        showProtocol: false
+    })
+  },
+  // 拨打客服电话
+  callToService(e){
+    let serviceinfo=e.currentTarget.dataset.serviceinfo
+    if(!serviceinfo){   
+        return
+    }
+    // console.log('服务信息',serviceinfo.afterSaleMobile)
+    var that = this;
+    wx.showModal({
+      title: serviceinfo.afterSaleText+'\n'+serviceinfo.afterSaleMobile,
+      cancelText: '暂不',
+      cancelColor: '#666666',
+      confirmText: '立即拨打',
+      confirmColor: '#576B95',
+      success(res) {
+        if (res.confirm) {
+          wx.makePhoneCall({
+            phoneNumber: serviceinfo.afterSaleMobile,
+            success: function () {
+              console.log('拨打电话成功')
+            },
+            fail: function () {
+              console.log('拨打电话失败')
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+},
+//  查看发票
+  viewBillImage(){
+    wx.previewImage({
+      urls: [this.data.orderDetail.billImage],
+    })
+  },
+  // 查看物流
+  toLogisticInfo() {
+    wx.navigateTo({
+      url: '../logisticInfo/logisticInfo?id=' + this.data.orderId,
+    })
+  },
+  // 回收
+  toRetrieveOrder() {
+    wx.navigateTo({
+      url: '../createRetrieveOrder/createRetrieveOrder?deptId=' + this.data.orderDetail.deptId + '&orderId=' + this.data.orderId,
+    })
+  },
+  // 确认收货
+  receipt() {
+    let that=this
+    wx.showModal({
+      content: '确保实际收到货后再确认收货',
+      success(res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          http('purchase/order/confirmReceieve', 'get', '', {
+            id: that.data.orderId
+          },true).then(res => {
+            if (res.code == 0) {
+              that.getOrderDetailById();
+              wx.setStorageSync('listRefresh', true)
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

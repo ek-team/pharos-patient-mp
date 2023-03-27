@@ -1,0 +1,59 @@
+<!--pages/form/form.wxml-->
+<view class="ouContainer">
+    <view class="titleContainer">
+    {{formContent.title}}
+    </view>
+    <view class="formContentContainer">
+        <view class="formContainer" wx:for="{{formSetList}}" wx:key="id">
+        <view class="ouContainer formItem">
+        <!-- type 1输入框  2单选 3多行文本 4文本 5图片 6多选框-->
+            <view>
+            {{index+1}}<span class="mustText" wx:if="{{item.isMust==1}}">*</span>.
+            {{item.type==4?item.text:item.name}}
+            </view>
+            <view class="fillContainer" wx:if="{{item.type==1}}">
+                <input class="formInput" value="{{item.answer}}" data-index="{{index}}" bindinput="formInput" placeholder="{{item.placeholder}}"/>
+            </view>
+            <view class="fillContainer " wx:if="{{item.type==2}}">
+                <radio-group bindchange="checkChange" class="radioContainer" data-index="{{index}}" data-type='radio'>
+                    <label class="checkItem" wx:for="{{item.formOptionsList}}" wx:for-item="indexs" wx:for-item="checks" wx:key="index"  data-item='{{checks}}' data-index="{{indexs}}">
+                        <radio class="radioCheck" value="{{checks.id}}" checked="{{formContent.formUserDataList.length>0&&checks.checked}}" />
+                        <text>{{checks.text}}</text>
+                    </label>
+                </radio-group>
+            </view>
+            <view class="fillContainer" wx:if="{{item.type==3}}">
+                <textarea class="formInput" value="{{item.answer}}" data-index="{{index}}" bindinput="formInput" placeholder="{{item.placeholder}}"/>
+            </view>
+            <view class="fillContainer " wx:if="{{item.type==5}}" data-index="{{index}}" bindtap="clickItem">
+                 <!-- 上传图片 -->
+                <view class="pictureContainer">
+                    <view class="cameraContainer" bindtap="uploadPicture">
+                        <image src="../../images/icon_photo@2x.png" class="cameraIcon"></image>
+                        <text class="remindText">上传照片</text>
+                    </view>
+                    <view class="pictureListContainer" wx:if="{{item.answer&&item.answer.length>0}}" wx:for="{{item.answer}}" wx:key="id" wx:for-item="url">
+                        <image src="{{url}}" class="pictureImg" bindtap="previewBigImg" data-src="{{url}}"></image>
+                        <image src="../../images/close.png" class="closeIcon" wx:if="{{index==item.answer.length-1&&formContent.formUserDataList.length==0}}" bindtap="deleteImg" mode="aspectFill"></image>
+                    </view>
+                    <!-- <view class="rightContainer" >
+                        <text class="rightRemindText"></text>
+                    </view> -->
+                </view>
+            </view>
+            <view class="fillContainer" wx:if="{{item.type==6}}">
+                <checkbox-group bindchange="checkChange" data-index="{{index}}" data-type='checkBox'>
+                    <label class="checkBoxItem" wx:for="{{item.formOptionsList}}" wx:for-item="indexs" wx:for-item="checks" wx:key="index" >
+                        <view class="weui-cell__hd">
+                        <checkbox value="{{checks.id}}" checked="{{formContent.formUserDataList.length>0&&checks.checked}}" />
+                        </view>
+                        <view class="weui-cell__bd">{{checks.text}}</view>
+                    </label>
+                </checkbox-group>
+            </view>
+        </view>
+    </view>
+    </view>
+    
+    <view class="{{disableClick?'submitContainer notSubmit':'submitContainer'}}" wx:if="{{formContent.formUserDataList.length==0}}" bindtap="submitForm">提交</view>
+</view>

@@ -1,0 +1,53 @@
+<!-- pages/patientInfo/patientInfo.wxml -->
+<view class="container">
+    <view class="infoBox">
+        <!-- 患者姓名 -->
+        <view class="infoItem">
+            <view class="infoTitle">姓名</view>
+            <view class="inputView">
+                <input class="infoInput" type="text" value="{{patientName}}" bindinput="patientNameInput" />
+            </view>
+        </view>
+        <!-- 患者身份证号 -->
+        <view class="infoItem">
+            <view class="infoTitle">身份证号</view>
+            <view class="inputView">
+                <input class="infoInput" type="text"  value="{{patientID}}" bindinput="patientIDInput"  maxlength="18"/>
+            </view>
+        </view>
+        <!-- 患者手机号 -->
+        <view class="infoItem">
+            <view class="infoTitle">手机号</view>
+            <view class="inputView">
+                <input class="infoInput" type="text"  value="{{phone}}" bindinput="phoneInput"  maxlength="11"/>
+            </view>
+        </view>
+        <!-- 性别 -->
+        <!-- <view class="infoItem">
+            <view class="infoTitle">性别</view>
+            <view class="inputView">
+                <view class='{{patientSex==1?"activItem":"normalItem"}} allItem' bindtap='chooseSex' data-sex='1'>
+                    男
+                </view>
+                <view class='{{patientSex==0?"activItem":"normalItem"}} allItem' bindtap='chooseSex' data-sex='0'>
+                    女
+                </view>
+            </view>
+        </view> -->
+        <!-- 出生年月 -->
+        <!-- <view class="infoItem">
+            <view class="infoTitle">出生年月</view>
+            <view class="inputView">
+                <picker mode="date" value="{{patientDate}}" start="1900-01-01" end="2200-12-30" bindchange="bindDateChange" class="infoPicker">
+                    <view class="flexBetween">
+                        <view class="picker">{{patientDate}}</view>
+                        <image class="arrow" src="../../images/right.png"></image>
+                    </view>
+                </picker>
+            </view>
+        </view> -->
+    </view>
+    <view class="finish" bindtap='savePatientInfo'>
+        完成
+    </view>
+</view>

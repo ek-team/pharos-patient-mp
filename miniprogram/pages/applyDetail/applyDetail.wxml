@@ -1,0 +1,50 @@
+<!--pages/applyDetail/applyDetail.wxml-->
+<view class="container">
+  <!-- 我的病情 -->
+  <view class="myState">
+    <view class="mystateTitle">我的病情</view>
+    <view class="myStateContent">{{applyInfo.illnessDesc}}</view>
+    <view class="statePic">
+      <image class="stateImg" wx:for="{{applyInfo.imageUrlList}}" src="{{item}}" wx:key="id"></image>
+    </view>
+  </view>
+  <!-- 其他 -->
+  <view class="otherState">
+    <view class="mystateTitle">其他</view>
+    <view class="otherCell">
+      <view class="otherCellTitle">过敏史</view>
+      <view class="otherCellBtn">
+        <view class="{{applyInfo.allergy==2?'greeyBtn blueBtn':'greeyBtn'}}">无</view>
+        <view class="{{applyInfo.allergy==1?'greeyBtn blueBtn':'greeyBtn'}}">有</view>
+      </view>
+    </view>
+    <view class="otherCell">
+      <view class="otherCellTitle">过往病史</view>
+      <view class="otherCellBtn">
+        <view class="{{applyInfo.pastMedicalHistory==2?'greeyBtn blueBtn':'greeyBtn'}}">无</view>
+        <view class="{{applyInfo.pastMedicalHistory==1?'greeyBtn blueBtn':'greeyBtn'}}">有</view>
+      </view>
+    </view>
+    <view class="otherCell">
+      <view class="otherCellTitle">肝功能</view>
+      <view class="otherCellBtn">
+        <view class="{{applyInfo.liverFunction==2?'greeyBtn blueBtn':'greeyBtn'}}">正常</view>
+        <view class="{{applyInfo.liverFunction==1?'greeyBtn blueBtn':'greeyBtn'}}">异常</view>
+      </view>
+    </view>
+    <view class="otherCell">
+      <view class="otherCellTitle">肾功能</view>
+      <view class="otherCellBtn">
+        <view class="{{applyInfo.kidneyFunction==2?'greeyBtn blueBtn':'greeyBtn'}}">正常</view>
+        <view class="{{applyInfo.kidneyFunction==1?'greeyBtn blueBtn':'greeyBtn'}}">异常</view>
+      </view>
+    </view>
+    <!-- <view class="otherCell">
+      <view class="otherCellTitle">备孕情况</view>
+      <view class="otherCellBtn">
+        <view class="{{applyInfo.pregnancy==2?'greeyBtn blueBtn':'greeyBtn'}}">无</view>
+        <view class="{{applyInfo.pregnancy==1?'greeyBtn blueBtn':'greeyBtn'}}">备孕中</view>
+      </view>
+    </view> -->
+  </view>
+</view>

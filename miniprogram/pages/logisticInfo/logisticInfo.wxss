@@ -1,0 +1,116 @@
+/* pages/logisticInfo/logisticInfo.wxss */
+.infoTop{
+    width: 100%;
+    padding:0 32rpx 32rpx ;
+    box-sizing: border-box;
+    background: linear-gradient(180deg, #3C9EE9 0%, #6FC3F6 100%);
+}
+.infoTitle{
+    color: #fff;
+    text-align: center;
+    font-size: 30rpx;
+}
+.infoDetails{
+    width: 100%;
+    height: 140rpx;
+    background-color: #fff;
+    border-radius: 12rpx;
+    margin-top: 36rpx;
+    padding: 0 22rpx;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+.car{
+    width: 68rpx;
+    height: 68rpx;
+    object-fit: cover;
+    margin-right: 20rpx;
+}
+.courierName{
+    font-size: 30rpx;
+    color: #333;
+
+}
+.courierNo{
+    color: #666;
+    font-size: 22rpx;
+    margin-top: 8rpx;
+    display: flex;
+    align-items: center;
+}
+.copy{
+    width: 32rpx;
+    height: 32rpx;
+    object-fit: cover;
+    margin-left: 8rpx;
+
+}
+/* 物流详情 */
+.logisticsDetail{
+    width: 100%;
+    margin-top: 40rpx;
+}
+.logisticsItem{
+    min-height: 120rpx;
+    width: 100%;
+    padding:0 32rpx;
+    box-sizing: border-box;
+    display: flex;
+}
+.logisticsItem:last-child{
+    margin-bottom: 100rpx;
+}
+.logisticsItemLeft{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 24rpx;
+}
+.logisticsImage{
+    width: 48rpx;
+    height: 48rpx;
+    object-fit: cover;
+}
+.splitLine{
+    width: 0;
+    flex: 1;
+    border: 1rpx dashed #E6E6E6;
+}
+.logisticsItemRight{
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+.logisticsContext{
+    color:#848484 ;
+    font-size: 22rpx;
+    margin-top: 4rpx;
+    margin-bottom: 10rpx;
+}
+.lastLogisticsContext{
+    color:#848484 ;
+    font-size: 22rpx;
+    margin-top: 4rpx;
+    margin-bottom:0rpx;
+}
+.logisticsItemStatus{
+    color: #848484;
+    font-size: 24rpx;
+    display: flex;
+    align-items: center;
+    /* margin-top: 10rpx; */
+
+}
+.logisticsItemTime{
+    margin-left: 12rpx;
+}
+.logisticsItem:first-child >.logisticsItemRight{
+    justify-content: flex-start;
+}
+.logisticsItem:last-child>.logisticsItemRight{
+    justify-content: flex-end;
+}

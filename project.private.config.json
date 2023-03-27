@@ -1,0 +1,118 @@
+{
+  "setting": {
+    "compileHotReLoad": true
+  },
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "db guide",
+          "pathName": "pages/databaseGuide/databaseGuide",
+          "query": ""
+        },
+        {
+          "name": "pages/getOpenId/index",
+          "pathName": "pages/getOpenId/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/deployService/index",
+          "pathName": "pages/deployService/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/requestConsultation/requestConsultation",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/orderConfirm/orderConfirm",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/createRetrieveOrder/createRetrieveOrder",
+          "query": "deptId=1",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "图文咨询填写页",
+          "pathName": "pages/requestConsultation/requestConsultation",
+          "query": "id=5&type=团队&chatUserId=4432",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/applyDetail/applyDetail",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/friendsRepay/friendsRepay",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "产品详情页",
+          "pathName": "pages/goodsDetail/goodsDetail",
+          "query": "id=68",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/servicePage/servicePage",
+          "query": "idCard=1499",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "表单页",
+          "pathName": "pages/form/form",
+          "query": "formId=27&followPlanId=65",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "申请开票",
+          "pathName": "pages/applyInvoice/applyInvoice",
+          "query": "orderNo=1623523763872071680",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "扫码进入保存个人信息",
+          "pathName": "pages/savePersonInfo/savePersonInfo",
+          "query": "token=919c30a0-df6a-48d7-bc11-6fbbddad7203",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "法罗适健康跳转到服务列表页",
+          "pathName": "pages/servicePage/servicePage",
+          "query": "idCard=411627199208254415",
+          "launchMode": "default",
+          "scene": 1037,
+          "referrerInfo": {
+            "appId": "wx5e46dffdc68e71cd",
+            "extraData": "{\"idCard\":\"411627199208254415\"}"
+          }
+        }
+      ]
+    }
+  },
+  "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
+  "projectname": "fls-admin"
+}

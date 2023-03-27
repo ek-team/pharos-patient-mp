@@ -1,0 +1,384 @@
+<!--pages/chatPage/chatPage.wxml-->
+<!--pages/chatPage/chatPage.wxml-->
+<view class="allContainer" id='pageHeight' bindtap="closeAllShowPop">
+    <view class="requestContent"  wx:if="{{resquestDetail.patientOtherOrderStatus}}">
+        <view>
+            图文咨询状态:
+            {{resquestDetail.patientOtherOrderStatus==0?'待接收':resquestDetail.patientOtherOrderStatus==1?'已接收'
+            :resquestDetail.patientOtherOrderStatus==3?'咨询完成'
+            :resquestDetail.patientOtherOrderStatus==4?'会话随访,有效期'+resquestDetail.serviceEndTime
+            :'已拒绝'}}
+        </view>
+        <view wx:if="{{resquestDetail.patientOtherOrderStatus==0}}">剩余可发次数：{{resquestDetail.chatCount}}次</view>
+    </view>
+    <!-- 消息大图预览 -->
+    <view class="maskImg" bindtap="hiddenImg" wx:if="{{showBigImg}}">
+        <image mode="aspectFill" src="{{bigImgSrc}}" class="bigImg" bindload="bigImgFunc" style="width:{{bigImgwidth}}px;height: {{bigImgHeight}}px;">
+        </image>
+    </view>
+    <!-- 发送语音时样式 -->
+    <view class="voiceBg" wx:if="{{startVoiceInput}}" bindtap="closeVoiceBg">
+        <view class="vioceActiveBox">
+            <image src="../../images/bg_gif1@2x.gif" class="voiceActiveImg"></image>
+        </view>
+        <view class="optionBox">
+            <!-- <view class="revoke" @touchstart="revokeVoice" tabindex='-1' @focus="revokeVoice">撤销</view> -->
+            <view class="optionSend">松开</view>
+            <view>发送</view>
+        </view>
+        <image src="../../images/bg_yuyin@2x.png" class="voiceBgImg"></image>
+    </view>
+    <!-- bindscroll="refreshData" -->
+    <scroll-view refresher-enabled="{{enabled}}" scroll-into-view="{{ toView }}" refresher-threshold="30" style="height: fit-content;max-height: 92vh;" class="purchase-body rotateDiv" refresher-triggered="{{triggered}}" bindscrolltolower="getMoreRecords" :eventhandle="true" scroll-top="{{scrollTop}}" scroll-x="false" scroll-y="true">
+        <!-- 消息对话 -->
+        <view class="dialogTop">
+            <view style="width: 100%;height:122rpx;"></view>
+            <view style="width: 100%;height:200rpx;" wx:if="{{showExtend}}"></view>
+            <view class="dialogInfo rotateDiv" wx:for="{{list}}" wx:key='index' id="msg-{{index}}">
+                <!-- 时间 -->
+                <view class="oneTime" wx:if='{{item.showTime}}'>
+                    <view>{{item.msgTime}}</view>
+                </view>
+                <view style="display: flex;flex-direction: row;justify-content: flex-end;">
+                    <!-- 对方头像、对话 -->
+                    <!-- 对方对话框 -->
+                    <view style="width: 100%;display: flex;flex-direction: row;justify-content: flex-start;margin:20rpx 0" wx:if="{{item.fromUid!=myUserId}}">
+                        <!-- 头像 -->
+                        <view class="otherAvatar" bindtap="watchDoctorIndex">
+                            <image src="{{item.user&&item.user.avatar?item.user.avatar:'../../images/defaultAvatar.png'}}" class="avatarImg" mode="aspectFill"></image>
+                            <!-- <image src="../../images/img_notlog.png" class="avatarImg" wx:else mode="aspectFill"></image> -->
+                        </view>
+                        <view class="otherRightContainer">
+                            <view class="ortherName" wx:if="{{!targetUid}}">{{chatName?chatName:''}}</view>
+                            <!-- 视频消息 -->
+                            <view class="vedioMsg" wx:if="{{item.msgType=='VIDEO_URL'}}">
+                                <video src="{{item.url}}" class="" style=" width:500rpx;">
+                                </video>
+                            </view>
+                            <!-- 文字消息 -->
+                            <view class="otherDialog" wx:if="{{item.msgType=='MESSAGE_TEXT'}}" bindtap="toCall" data-info="{{item.msg}}" data-msg="{{item}}">
+                                <span class="{{item.msgType=='MESSAGE_PRODUCT_INFO'?'productIntroduce':''}}">{{item.msg}}</span>
+                                <span></span>
+                            </view>
+                             <!-- 表单消息框 -->
+                            <view class="leftForm myPlayVoice formContent" bindtap="toForm" data-type="form" data-item="{{item}}"  wx:if="{{item.msgType=='FORM'}}" >
+                                <view class="formLeft">
+                                    <image src="../../images/icon_for@2x.png" class="voiceImg formImg"></image>
+                                    {{item.form.title}}   
+                                </view>
+                                <view class="formRight">{{item.str2==1?'查看':'填写'}}</view>                          
+                            </view>
+                            <!-- 图片消息 -->
+                            <view class="dialogBox" wx:if="{{item.msgType=='MESSAGE_PIC'}}">
+                                <image mode="widthFix" data-index="{{index}}" wx:if="{{item.url}}" data-src="{{item.url}}" src="{{item.url}}" class="otherDialogImg" bindtap="showBigImg">
+                                </image>
+                                <span class="picRemindText">{{item.msg}}</span>
+                            </view>
+                            <!-- 随访计划 -->
+                            <view class="patientInformation" wx:if="{{item.msgType=='FOLLOW_UP_PLAN'}}">
+                                <view class="inquiriesBox">
+                                    <view class="recruitTitle">随访计划</view>
+                                    <view class="splitBox">
+                                        <view class="inquiriesSplite"></view>
+                                    </view>
+                                    <view class="patientInfoBox">
+                                        <view class="patientInfoItem">
+                                            <view class="infoTitleBox">
+                                                <image src="../../images/message.png" class="messageeIcon" />
+                                                <span class="infoTitle">计划内容</span>
+                                            </view>
+                                            <view class="infoContent planContent">{{item.followUpPlanNotice?item.followUpPlanNotice.followUpPlanContent.notice:''}}</view>
+                                            <view class="prescriptionOption">
+                                                <text>{{item.followUpPlanNotice.followUpPlanContent.form.title}}</text>
+                                                <view class="prescriptionButton" wx:if="{{item.followUpPlanNotice.followUpPlanContent.formId}}" data-item="{{item}}" bindtap="toForm">{{item.followUpPlanNotice.form==0?'填写表单':'查看表单'}}</view>
+                                            </view>
+                                            <!-- <view class="" wx:if="{{item.followUpPlanNotice.followUpPlanContent.formId}}" ></view> -->
+                                        </view>
+                                    </view>
+                                </view>
+
+                            </view>
+                            <!-- 语音消息 -->
+                           
+                            <view class="otherDialog otherPlayVoice" bindtap="voiceActive" wx:if="{{item.msgType=='VIDEO'}}" data-voicesrc="{{item.url}}" data-voiceIndex="{{index}}" data-msgId="{{item.id}}" data-targetId="{{item.fromUid}}">
+                                <!-- <view wx:if="{{item.msgType=='VIDEO'&&index==isPlayIndex&&isPlayVoice}}" class="playVoiceBox leftImg">
+                                    <image src="../../images/playVoice.png" class="voiceImg"></image>
+                                    <image src="../../images/playVoice.png" wx:if="{{!playImgone}}" class="voiceImg" ></image>  
+                                </view> -->
+                                <!-- 未读语音消息 -->
+                                <!-- <view class="otherNoRead" wx:if="{{item.videoRead==1}}"></view> -->
+                                <image src="../../images/voice_left.png" class="voiceImg"></image>
+                                <span class="videoDuration" wx:if="{{item.videoDuration}}">{{item.videoDuration}}s″</span>
+                            </view>
+                            <!-- wx:if="{{item.msgType=='VIDEO'&&index==isPlayIndex&&isPlayVoice}}" -->
+                           
+                        </view>
+                        <view wx:if="{{item.msgType=='VIDEO'&&item.fromUid!=myUserId&&index==isPlayIndex&&isPlayVoice}}" class="playVoiceBox leftImg">
+                            <!-- wx:if="{{item.msgType=='VIDEO'&&item.fromUid!=myUserId&&index==isPlayIndex&&isPlayVoice}}" -->
+                                    <!-- wx:if="{{item.msgType=='VIDEO'&&index==isPlayIndex&&isPlayVoice}}" -->
+                                <!-- 正在播放.<text wx:if="{{!playImgone}}">.</text> -->
+                                    <image src="../../images/playVoice.png" class="voiceImg"></image>
+                                    <image src="../../images/playVoice.png" wx:if="{{!playImgone}}" class="voiceImg" ></image>
+                                    <!-- wx:if="{{!playImgone}}" -->
+                                   
+                        </view>
+                    </view>
+                    <!-- 自己对话框、头像 -->
+                    <view style="width: 100%;display: flex;flex-direction: row;justify-content: flex-end;" wx:if="{{item.fromUid==myUserId}}">
+                        <!-- 文字消息对话框 -->
+                        <view class="myDialog" wx:if="{{item.msgType=='MESSAGE_TEXT'}}" bindlongpress="showWithdrawMsg" data-index="{{index}}" data-id="{{item.id}}" bindtap="toCall" data-info="{{item.msg}}">
+                            {{item.msg}}
+                            <!-- <view class="myTextNoRead" >
+                            <span wx:if="{{!item.readed}}" class="noReadText">未读</span>
+                            <span wx:else="">已读</span>
+                           </view> -->
+                        </view>
+                         <!-- 视频消息 -->
+                         <view class="vedioMsg" wx:if="{{item.msgType=='VIDEO_URL'}}">
+                                <video src="{{item.url}}" class="" style=" width:500rpx;">
+                                </video>
+                            </view>
+                        <!-- 图片消息对话框 -->
+                        <view class="myDialogBox" wx:if="{{item.msgType=='MESSAGE_PIC'}}">
+                            <image src="{{item.url}}" wx:if="{{item.url}}" class="dialogImg" mode="widthFix" data-index="{{index}}" data-src="{{item.url}}" data-index="{{index}}" data-id="{{item.id}}" bindtap="showBigImg" bindload="imgFuc" bindlongpress="showWithdrawMsg" />
+                            <!-- <view class="myImgNoRead" >
+                                <span wx:if="{{!item.readed}}" class="noReadText">未读</span>
+                                <span wx:else="">已读</span>
+                            </view> -->
+                        </view>
+                        <!-- 图文咨询消息 -->
+                        <view class="inquiriesDialog" wx:if="{{item.msgType=='PIC_CONSULTATION'}}">
+                            <view class="inquiriesBox">
+                                <view class="inquiriesTitle">图文咨询</view>
+                                <view class="splitBox">
+                                    <view class="inquiriesSplite"></view>
+                                </view>
+                                <view class="patientInfoBox">
+                                    <view class="patientInfoItem">
+                                        <view class="infoTitleBox">
+                                            <image src="../../images/message.png" class="messageeIcon" />
+                                            <span class="infoTitle">病情描述</span>
+                                        </view>
+                                        <view class="infoContent">{{item.patientOtherOrder.illnessDesc}}</view>
+                                    </view>
+                                    <view class="patientInfoItem">
+                                        <view class="infoTitleBox">
+                                            <image src="../../images/message.png" class="messageeIcon" />
+                                            <span class="infoTitle">其他病史</span>
+                                        </view>
+                                        <view class="infoContent illHistory">
+                                            <view class="historyItem">
+                                                <view class="itemTitle">过敏史：</view>
+                                                <text>{{item.patientOtherOrder.allergy==2?'无':'有'}}</text>
+                                            </view>
+                                            <view class="historyItem">
+                                                <view class="itemTitle">过往病史：</view>
+                                                <text>{{item.patientOtherOrder.pastMedicalHistory==2?'无':'有'}}</text>
+                                            </view>
+                                            <view class="historyItem">
+                                                <view class="itemTitle">肝功能:</view>
+                                                <text>{{item.patientOtherOrder.liverFunction==2?'正常':'异常'}}</text>
+                                            </view>
+                                            <view class="historyItem">
+                                                <view class="itemTitle">肾功能:</view>
+                                                <text>{{item.patientOtherOrder.kidneyFunction==2?'正常':'异常'}}</text>
+                                            </view>
+                                            <!-- <view class="historyItem">
+                                                <view class="itemTitle">备孕情况:</view>
+                                                <text>{{item.patientOtherOrder.pregnancy==2?'无':'备孕中'}}</text>
+                                            </view> -->
+                                        </view>
+                                        <view class="prescriptionOption">
+                                            <view class="consultStatus">{{item.str2==0?'待接收':item.str2==1?'已接收':'已拒绝'}}</view>
+                                            <view class="prescriptionButton" data-item="{{item}}" bindtap="toApplyDetail">查看详情</view>
+                                        </view>
+                                    </view>
+                                </view>
+                            </view>
+
+                        </view>
+                         <!-- 表单消息框 -->
+                         <view class="myDialog myPlayVoice formContent" bindtap="toForm" data-type="form" data-item="{{item}}"  wx:if="{{item.msgType=='FORM'}}" >
+                                <view class="formLeft">
+                                    <image src="../../images/icon_for@2x.png" class="voiceImg formImg"></image>
+                                    {{item.form.title}}   
+                                </view>
+                                <view class="formRight">{{item.str2==1?'查看':'填写'}}</view>                          
+                          </view>
+                        <!-- 播放语音消息动图   -->
+                        <view wx:if="{{item.msgType=='VIDEO'&&index==isPlayIndex&&isPlayVoice}}" class="playVoiceBox rightImg">
+                            <!-- <view wx:if="{{item.msgType=='VIDEO'}}" class="playVoiceBox"> -->
+                            <image src="../../images/playVoice.png" class="voiceImg" wx:if="{{isPlayVoice}}"></image>
+                            <image src="../../images/playVoice.png" style="background-color: #fff;" class="voiceImg" wx:if="{{!playImgone}}"></image>
+                            <!-- <text wx:if="{{!playImgone}}">.</text>.正在播放 -->
+                        </view>
+                        <!-- 语音消息框 -->
+                        <view class="myDialog myPlayVoice" data-index="{{index}}" data-id="{{item.id}}" bindtap="voiceActive" wx:if="{{item.msgType=='VIDEO'}}" data-voicesrc="{{item.url}}" data-voiceIndex="{{index}}" data-msgId="{{item.id}}" data-targetId="{{item.fromUid}}">
+                            <!-- 未读语音消息 -->
+                            <!-- <view class="myrNoRead" >
+                                <span wx:if="{{item.videoRead==1}}" class="noReadText">未读</span>
+                                <span wx:else>已读</span>
+                             </view> -->
+                            <span class="videoDuration rightVoice" wx:if="{{item.videoDuration}}">{{item.videoDuration}}s″</span>
+                            <image src="../../images/voice_right.png" class="voiceImg"></image>
+                        </view>
+
+                        <!-- </image> -->
+                        <!-- 自己的头像 -->
+                        <view class="myAvatarBox" wx:if='{{item.msgType!="REQUEST_TOGGLE_PATIENT"}}'>
+                            <image src="{{myAvatar}}" class="avatarImg" mode="aspectFill"> </image>
+                            <!-- <image src="{{item.user?item.user.avatar:''}}" class="avatarImg" mode="aspectFill"> </image> -->
+                        </view>
+                    </view>
+                    
+                </view>
+            </view> 
+            <view class="noMore rotateDiv" wx:if="{{noMoreData}}">---没有更多数据---</view>
+            <view class="noMore rotateDiv" wx:if="{{isLoading}}">正在加载</view>
+            <view  wx:if="{{resquestDetail.patientOtherOrderStatus}}" style="width: 100%;height:100rpx;"></view>
+            <!-- 对话框结束 -->
+            <!-- <view style="width: 100%;height:98rpx;" ></view> -->
+        </view>
+    </scroll-view>
+
+    <!-- 底部消息输入栏 -->
+    <view class="footer">
+        <view class="inputMsgContainer" wx:if="{{chatOpen}}">
+            <!-- 语音图片 -->
+            <view class="toVioceBox" bindtap="sendPicture">
+                <image src="../../images/btn_yuyin@2x.png" class="toVoiceImg" wx:if="{{showInput}}" catchtap="openVoice"></image>
+                <image src="../../images/btn_dazi@2x.png" class="toVoiceImg" wx:if="{{!showInput}}" catchtap="colseVoice"></image>
+
+                <!-- <image src="../../images/btn_xinxi@2x.png" class="toVoiceImg" wx:if="{{showInput}}"></image> -->
+                <!-- <image src="../../images/btn_xinxi@2x.png" class="toVoiceImg" wx:if="{{!showInput}}"></image> -->
+            </view>
+            <!-- 输入框 -->
+            <view style="position: relative;" wx:if="{{showInput}}">
+                <textarea auto-height="true" value="{{inputMsg}}" class="input" type="text" v-model="chatInfo" bindtap="closeExtend" bindinput="getInputValue" cursor-spacing='20'></textarea>
+            </view>
+            <!-- 按住说话 -->
+            <view style="position: relative;" wx:if="{{!showInput}}" bindlongtap="startVoice" bindtouchend="stopVoice" data-id="targetId">
+                <view class="input viocIng voiceRemind" type="text" v-model="chatInfo" bindtap="closeExtend">
+                    按住 说话
+                </view>
+            </view>
+            <!-- 表情 -->
+            <!-- <image src="../../images/btn_bq@2x.png" class="expressionIcon"></image> -->
+            <view class="sendBtn" wx:if="{{!showExtendBtn}}" bindtap="sendMessage">
+                发送
+            </view>
+            <!-- 扩展按钮 -->
+            <view class="extendBtn" bindtap="showExtend" wx:if="{{showExtendBtn}}">
+                <image src="../../images/more_icon.png" class="moreIcon"></image>
+            </view>
+        </view>
+        <!-- 会话信息过期-->
+        <view class="closeInputContainer" wx:if="{{!chatOpen}}">
+            
+            <!-- <text class="remindText" wx:if="{{resquestDetail.patientOtherOrderStatus!=0}}">会话已过期</text> -->
+            <!-- <view class="requestStatus" wx:if="{{resquestDetail.patientOtherOrderStatus!=0}}">咨询完成</view> -->
+            <view class="rightOpenContainer" wx:if="{{resquestDetail.patientOtherOrderStatus!=0}}">
+                <view class="optionButton" bindtap="openChatDialog">发起咨询</view>
+            </view> 
+            <!-- <view class="requestStatus " wx:if="{{resquestDetail.patientOtherOrderStatus!=0}}">再次咨询</view> -->
+            <!-- <view class="openChatContainer" bindtap="openChatDialog" wx:if="{{resquestDetail.patientOtherOrderStatus!=0}}"> 
+               重新打开会话 
+            </view> -->
+            <view class="openChatContainer" wx:if="{{resquestDetail.patientOtherOrderStatus==0}}">待接收</view>
+        </view>
+        <!-- 分割线 -->
+        <view class="spliteLine" wx:if="{{showExtend}}"></view>
+        <!-- 扩展功能 -->
+        <view class="extended" wx:if="{{showExtend}}">
+            <!-- 相册 -->
+            <view class="theOneFunction" bindtap="sendPicture">
+                <view class="albumBox">
+                    <image src="../../images/btn_zp@2x.png" class="ablumIcon"></image>
+                </view>
+                <text class="fontSize">相册</text>
+            </view>
+            <!-- 视频 -->
+            <!-- <view class="theOneFunction" bindtap="sendVideo">
+                <view class="albumBox">
+                    <image src="../../images/btn_hh@2x.png" class="ablumIcon"></image>
+                </view>
+                <text class="fontSize">发送视频</text>
+            </view> -->
+            <!-- 会话信息 -->
+            <view class="theOneFunction" bindtap="showMetaDialog">
+                <view class="albumBox">
+                    <image src="../../images/btn_hh@2x.png" class="ablumIcon"></image>
+                </view>
+                <text class="fontSize">会话信息</text>
+            </view>
+            <!-- 发红包 -->
+            <!-- <view class="theOneFunction" bindtap="toRedEnvelopes">
+                <view class="albumBox">
+                    <image src="../../images/hongbao.png" class="ablumIcon"></image>
+                </view>
+                <text>红包</text>
+            </view> -->
+        </view>
+    </view>
+    <!-- 填写主诉弹窗 -->
+    <view class="metaDialog suitContainer" wx:if="{{showSuit}}" bindtap='confirmDialog'>
+        <view class="metaDialogBox suitDialogBox" catchtap='catchtap'>
+            <text class="metaTitle">填写主诉</text>
+            <!-- 会话开始时间 -->
+            <view class="detailInfoItem suitItem">
+                <input class="infoInput" type="text" value="{{paitentSuit}}" bindinput="getInputSuit" />
+                <!-- <textarea auto-height="true" value="{{paitentSuit}}" class="input" type="text" bindtap="closeExtend" bindinput="getInputSuit" cursor-spacing='20'></textarea> -->
+            </view>
+            <view class="confirmContainer">
+                <view class="confirmBtn suitConfirmBtn" bindtap="sendSuitMsg">
+                确定
+            </view>
+            </view>
+            
+        </view>
+    </view>
+    <!-- 会话详细信息弹窗 -->
+    <view class="metaDialog" wx:if="{{metaDialog}}" bindtap='confirmDialog'>
+        <view class="metaDialogBox" catchtap='catchtap'>
+            <text class="metaTitle">会话信息</text>
+            <view class="detailInfoItem">
+                <text class="leftText">会话打开路径</text>
+                <view class="rightText">
+                    <text>图文咨询</text>
+                    <!-- <image src="../../images/right.png" class="selectIcon"></image> -->
+                </view>
+            </view>
+            <!-- 会话有效期 -->
+            <view class="detailInfoItem">
+                <text class="leftText">会话有效期</text>
+                <view class="rightText">
+                    <text>1天</text>
+                </view>
+            </view>
+            <!-- 会话开始时间 -->
+            <view class="detailInfoItem">
+                <text class="leftText">会话开始时间</text>
+                <view class="rightText">
+                    <text>{{dialogInfo.serviceStartTime}}</text>
+                </view>
+            </view>
+            <!-- 会话结束时间 -->
+            <view class="detailInfoItem">
+                <text class="leftText">会话结束时间</text>
+                <view class="rightText">
+                    <text>{{dialogInfo.serviceEndTime}}</text>
+                </view>
+            </view>
+            <!-- 会话状态 -->
+            <view class="detailInfoItem">
+                <text class="leftText">会话状态</text>
+                <view class="rightText">
+                    <view class="chatStatus">{{dialogInfo.status==1?'有效':'无效'}}</view>
+                </view>
+            </view>
+            <view class="confirmBtn" bindtap="confirmDialog">
+                确定
+            </view>
+        </view>
+    </view>
+</view>

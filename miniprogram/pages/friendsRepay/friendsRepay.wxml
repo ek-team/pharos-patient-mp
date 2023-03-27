@@ -1,0 +1,28 @@
+<!--pages/friendsRepay/friendsRepay.wxml-->
+<view class="repayContainer">
+    <view class="contentContainer">
+        <!-- 头像昵称 -->
+        <view class="selfContainer">
+            <image src="" class="myHead"></image>
+            <text class="nickText">昵称昵称</text>
+        </view>
+        <!-- 二维码 -->
+        <view class="qrCodeContainer">
+            <text class="remindText">我有个订单</text>
+            <text class="remindText">需要你帮我付一下款</text>
+            <image src="" class="qrCodeImg"></image>
+        </view>
+        <text class="titles">操作方法</text>
+        <view class="remindContinaer">
+            <text class="titles miniTitle">长按此图片，识别二维码进行支付</text>
+            <image src="../../images/bg2@2x.png" class="remindImg" mode="widthFix"></image>
+        </view>  
+    </view>
+    
+    <view class="footContiner">  
+        <view class="footerRemind">请将此付款图片保存，发给帮您代付的朋友</view>  
+    </view>
+    <view class="optionContianer">
+            <view class="saveContainer">保存此付款图片 </view>
+    </view>
+</view>

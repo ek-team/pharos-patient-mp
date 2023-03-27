@@ -1,0 +1,130 @@
+/* pages/form/form.wxss */
+page{
+    background-color: #fff;
+}
+.ouContainer{
+    display: flex;
+    flex-direction: column;
+}
+.titleContainer{
+    display: flex;
+    justify-content: center;
+}
+.formContentContainer{
+    display: flex;
+    flex-direction: column;
+}
+.formContainer{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20rpx;
+}
+.formContainer:last-child{
+    margin-bottom: 100rpx;
+}
+.formItem{
+    padding: 0 20rpx 0 40rpx;
+}
+.mustText{
+    color:red;
+}
+.radioContainer{
+    display: flex;
+    flex-direction: column;
+}
+.fillContainer{
+    margin-top: 20rpx;
+    padding-left: 20rpx;
+}
+.formInput{
+    border: 1px solid #6b6969;
+    padding: 10rpx;
+    width: 500rpx;
+    border-radius: 10rpx;
+    border-color: #ccc9c9;
+}
+.checkItem{
+    /* margin-right: 20rpx; */
+    margin-bottom: 20rpx;
+}
+.checkBoxItem{
+    display: flex;
+    flex:row;
+    margin-bottom: 20rpx;
+}
+.submitContainer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 20rpx 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(68, 159, 233);
+    color:#fff;
+}
+.notSubmit{
+  background-color: #ccc9c9;
+}
+/* 上传图片 */
+/* 上传图片 */
+.pictureContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.cameraContainer{
+    width: 140rpx;
+    height: 140rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #F8FAFC;
+    border-radius: 4rpx;
+    margin-right: 16rpx;
+    margin-bottom: 20rpx;
+}
+.cameraIcon{
+    width: 56rpx;
+    height: 56rpx;
+}
+.remindText{
+    font-size: 11px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #888888;
+    line-height: 32rpx;
+}
+.pictureListContainer{
+    width: 140rpx;
+    height: 140rpx;
+    margin-right: 16rpx;
+    margin-bottom: 20rpx;
+    position: relative;
+}
+.pictureImg{
+    width: 140rpx;
+    height: 140rpx;
+}
+.closeIcon{
+    width: 30rpx;
+    height: 30rpx;
+    position: absolute;
+    right: -10rpx;
+    top: -10rpx;
+    background-color: #fff;
+    border-radius: 50%;
+}
+.rightContainer{
+    display: flex;
+    flex:1;
+    align-items: center;
+}
+.rightRemindText{
+    font-size: 13px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #C9C9C9;
+    line-height: 36rpx;
+}

@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "van-stepper": "@vant/weapp/stepper/index",
+    "van-picker": "@vant/weapp/picker/index",
+    "van-popup": "@vant/weapp/popup/index"
+
+  },
+  "navigationBarBackgroundColor":"#ffffff",
+  "navigationBarTitleText":"服务确认"
+}

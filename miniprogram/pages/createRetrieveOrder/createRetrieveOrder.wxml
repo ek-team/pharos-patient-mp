@@ -1,0 +1,170 @@
+<!--pages/createRetrieveOrder/createRetrieveOrder.wxml-->
+<view>  
+    <view class="orderContainer">
+    <!-- 快递信息 -->
+    <view class="receiptContainer">
+            <view class="receiptTitle">物品信息</view>
+            <view class="receiptUserInfo">
+                <view class="infoLeft">物品名称</view>
+                <view class="infoRight">
+                    <picker bindchange="bindPickerChange" value="{{cargoIndex}}" range="{{cargoList}}" data-type="cargo">
+                        <view class="picker">
+                        <span class="remindText" wx:if="{{cargoIndex==null}}">选择物品名称</span>{{cargoList[cargoIndex]}}
+                        <image class="rightIcon" src="../../images/right.png"></image>
+                        </view>
+                    </picker>
+                </view>
+            </view>
+            <view class="receiptUserInfo">
+                <view class="infoLeft">物品重量</view>
+                <view class="infoRight" style="margin-right: 20rpx;">
+                   <input value="{{weight}}" type="number"  data-type="weight" bindinput="contentInput" class="inputContent"  placeholder="请输入物品重量"/>
+                   （kg）
+                </view>
+            </view>
+            <view class="receiptUserInfo remarkContent">
+                <view class="infoLeft">备注：</view>
+                <view class="infoRight">
+                   <textarea class="remarkDetail" value="{{remark}}" data-type="remark" bindinput="contentInput"   placeholder="请输入备注">
+                   </textarea>
+                </view>
+            </view>
+        </view>
+        <!-- 快递信息 -->
+        <view class="receiptContainer">
+            <view class="receiptTitle">快递信息</view>
+            <view class="receiptUserInfo">
+                <view class="infoLeft">快递公司</view>
+                <view class="infoRight">
+                    <picker bindchange="bindPickerChange" value="{{uploadExpressIndex}}" range="{{expressList}}" data-type="uploadExpress">
+                        <view class="picker">
+                        <span class="remindText" wx:if="{{uploadExpressIndex==null}}">选择快递公司</span>{{expressList[uploadExpressIndex]}}
+                        <image class="rightIcon" src="../../images/right.png"></image>
+                        </view>
+                    </picker>
+                </view>
+            </view>
+            <view class="receiptUserInfo">
+                <view class="infoLeft">预约日期</view>
+                <view class="infoRight">
+                    <picker bindchange="bindPickerChange" value="{{dateIndex}}" range="{{dateList}}" data-type="date">
+                        <view class="picker">
+                        <span class="remindText" wx:if="{{dateIndex==null}}">选择预约日期</span>{{dateList[dateIndex]}}
+                        <image class="rightIcon" src="../../images/right.png"></image>
+                        </view>
+                    </picker>
+                   <!-- <input class="inputContent"  placeholder="请输入物品名称"/> -->
+                </view>
+            </view>
+            <view class="receiptUserInfo">
+                <view class="infoLeft">预约时间</view>
+                <view class="infoRight" style="margin-right: 20rpx;">
+                    <picker mode="time" value="{{pickupStartTime}}" start="{{startTime}}" end="21:00" bindchange="bindPickerChange" data-type="startTime">
+                        <view class="picker">
+                       {{pickupStartTime}}
+                        </view>
+                    </picker>
+                    <view class="splitTime">-</view>
+                    <picker mode="time" value="{{pickupEndTime}}" start="{{endStartTime}}" end="21:00" bindchange="bindPickerChange" data-type="endTime">
+                        <view class="picker">
+                        {{pickupEndTime}}
+                        </view>
+                    </picker>
+                </view>
+            </view>
+            <!-- <view class="receiptUserInfo">
+                <view class="infoLeft">单号</view>
+                <view class="infoRight">
+                    <view class="info"> 
+                        <input bindinput="inputDeliverySn" value="{{deliverySn}}" placeholder="请输入快递单号" /> 
+                    </view>
+                </view>
+            </view> -->
+        </view>
+        <!-- 寄件人信息 -->
+        <view class="receiptContainer">
+            <view class="receiptTitle">寄件信息</view>
+            <view class="receiptUserInfo">
+                <view class="infoLeft">寄件人</view>
+                <view class="infoRight">
+                    <input class="detailAddress" value="{{myAddress.addresseeName}}" placeholder="请输入寄件地址" data-type="sendName" bindinput="contentInput"  />
+                    <!-- <view class="info"> 
+                        <text class="infoName"> {{myAddress.addresseeName}}</text>{{myAddress.addresseePhone}}
+                    </view> -->
+                    <!-- <image class="rightIcon" src="../../images/right.png" bindtap="toSelectMyAddress"></image> -->
+                </view>
+            </view>
+            <view class="receiptUserInfo">
+                <view class="infoLeft">手机号</view>
+                <view class="infoRight">
+                    <input class="detailAddress" type="number" 	maxlength="11" value="{{myAddress.addresseePhone}}" placeholder="请输入手机号" data-type="sendPhone" bindinput="contentInput"  />
+                </view>
+            </view>
+            <view class="receiptUserInfo">
+                <view class="infoLeft">寄件地址</view>
+                <view class="infoRight">
+                    <input class="detailAddress" value="{{myAddress.receiverDetailAddress}}" placeholder="请输入寄件地址" data-type="address" bindinput="contentInput"  />
+                    <!-- <view class="info"> {{myAddress.receiverDetailAddress}}</view> -->
+                    <!-- <image class="rightIcon" src="../../images/right.png"></image> -->
+                </view>
+            </view>
+            <!-- <view class="receiptUserInfo">
+                    <view class="infoLeft">寄件地区:</view>
+                    <view class="addressContent">
+                    <picker class="addressPicker" mode="region" bindchange="bindRegionChange" value="{{region}}">
+                        <view class='acea-row row-between-wrapper rightContainer'>
+                            <view class="picker" wx:if="{{region}}">{{region[0]}}，{{region[1]}}，{{region[2]}}</view>
+                            <image class="rightIcon" src="../../images/right.png"></image>
+                        </view>
+                    </picker>
+                </view>
+            </view>
+            <view class="receiptUserInfo remarkContent">
+                    <view class="infoLeft">详细地址：</view>
+                    <view class="infoRight">
+                    <textarea class="remarkDetail" value="{{detailAddress}}" data-type="address" bindinput="contentInput"   placeholder="请输入详细地址">
+                    </textarea>
+                    </view>
+            </view> -->
+        </view>
+        <!-- 收货人信息 -->
+        <view class="receiptContainer">
+            <view class="receiptTitle">收货信息</view>
+            <view class="receiptUserInfo">
+                <view class="infoLeft">收货人手机号</view>
+                <view class="infoRight">
+                    <view class="info"> 
+                        <text class="infoName">{{recoveryInfo.name}} </text>{{recoveryInfo.phone}}
+                    </view>
+                    <!-- <image class="rightIcon" src="../../images/right.png"></image> -->
+                </view>
+            </view>
+            <view class="receiptUserInfo">
+                <view class="infoLeft">收货地址</view>
+                <view class="infoRight">
+                    <view class="info"> 
+                        {{recoveryInfo.retrieveRegion}}{{recoveryInfo.retrieveDetailAddress}}
+                    </view>
+                <!-- <image class="rightIcon" src="../../images/right.png"></image> -->
+                </view>
+            </view>
+        </view>
+        <!-- 设备信息 -->
+        <view class="receiptContainer bottomBox">
+            <view class="pictureContainer">
+                <view class="cameraContainer" bindtap="uploadPicture">
+                    <image src="../../images/icon_photo@2x.png" class="cameraIcon"></image>
+                    <text class="remindText">上传照片</text>
+                </view>
+                <view class="pictureListContainer" wx:if="{{pictureList.length>0}}" wx:for="{{pictureList}}" wx:key="id">
+                    <image src="{{item}}" class="pictureImg" bindtap="previewBigImg" data-src="{{item}}"></image>
+                    <image src="../../images/close.png" class="closeIcon" wx:if="{{index==pictureList.length-1}}" bindtap="deleteImg" mode="aspectFill"></image>
+                </view>
+                <view class="rightContainer" wx:if="{{pictureList.length==0}}">
+                    <text class="rightRemindText">上传商品图</text>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="commitOption" bindtap="saveRetrieveOrder" wx:if="{{showButton}}">确认</view>
+</view>

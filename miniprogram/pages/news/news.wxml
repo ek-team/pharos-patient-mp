@@ -1,0 +1,46 @@
+<!--pages/news/news.wxml-->
+<view class="container">
+  <!-- 搜索科室、疾病 -->
+  <view class="searchInput">
+    <!-- <van-search value="{{ value }}" placeholder="请输入" show-action bind:search="onSearch" bind:cancel="onCancel" bind:change='onChange' /> -->
+    <van-search value="{{ value }}" placeholder="请输入" bind:change='onChange' />
+
+  </view>
+  <!-- 消息 -->
+  <scroll-view scroll-y="true" class="news" style='height:{{boxHeight}}px;' refresher-enabled="true" bindrefresherrefresh="pullRefresher" refresher-triggered="{{isTrigger}}" bindscrolltolower="scrollList">
+    <van-swipe-cell right-width="{{ 65 }}" style="width: 100%;" wx:for="{{messageList}}" wx:key="index">
+      <van-cell-group>
+        <view class="cell" bindtap="toChatPage" data-chatUserId="{{item.chatUserId}}" data-item="{{item}}">
+          <view class='ticBox'>
+            <view class="tixImg" wx:if="{{item.groupType==0}}">
+              <image src="{{item.avatar?item.avatar:'../../images/defaultAvatar.png'}}" class="tix"></image>
+            </view>
+            <!-- 一行2个头像 -->
+            {{}}
+            <view class="tixMore" wx:if="{{item.groupType==1&&item.doctorTeamPeopleList.length<=4}}">
+              <image wx:for="{{item.doctorTeamPeopleList}}" wx:for-item="items" wx:for-index="indexs" wx:key='indexs' src="{{items.avatar?items.avatar:'../../images/defaultAvatar.png'}}" class="tixSmall2"></image>
+            </view>
+            <!-- 一行3个头像 -->
+            <view class="tixMore" wx:if="{{item.groupType==1&&item.doctorTeamPeopleList.length>4}}">
+            <!-- {{item.doctorTeamPeopleList}} -->
+              <image wx:for="{{item.doctorTeamPeopleList}}" wx:for-item="items" wx:key='indexs' wx:for-index="indexs" src="{{items.avatar?items.avatar:'../../images/defaultAvatar.png'}}" class="tixSmall3" wx:if='{{indexs<9}}'>
+              </image>
+            </view>
+            <view class="num" wx:if="{{item.hasNewMsg>0}}">{{item.hasNewMsg<99?item.hasNewMsg:'99+'}}</view>
+            </view>
+            <view class="messageBox">
+              <view class="messageBoxTop">
+                <text class="messageTitle">{{item.nickname}}</text>
+                <text class="messageTime">{{item.lastChatTime}}</text>
+              </view>
+              <view class="messageBoxBottom">
+                <text class="messageContent">{{item.lastMsg}}</text>
+                <view class="{{item.canService?'greenCicle':''}} cicle"></view>
+              </view>
+            </view>
+          </view>
+      </van-cell-group>
+      <view slot="right">删除</view>
+    </van-swipe-cell>
+  </scroll-view>
+</view>

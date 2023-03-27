@@ -1,0 +1,126 @@
+/* pages/savePerdonInfo/savePersonInfo.wxss */
+/* pages/patientInfo/patientInfo.wxss */
+.infoBox{
+    width: 100%;
+    padding: 0 30rpx;
+    box-sizing: border-box;
+  }
+  .infoItem{
+    width:100%;
+    height: 105rpx;
+    border-bottom: 2rpx solid #e5e5e5;
+    display: flex;
+    align-items: center;
+  }
+  .infoItem:first-child{
+   margin-top: 19rpx;
+  }
+  .infoTitle{
+    width:160rpx;
+    color: #333;
+    font-size: 28rpx;
+    line-height: 105rpx;
+    /* border: 1px solid #e5e5e5; */
+  }
+  .inputView{
+    flex: 1;
+    display: flex; 
+    align-items: center;
+    height: 100rpx;
+    color:#D1D1D1;
+    font-size: 13px;
+    /* align-items: flex-end; */
+  }
+  .avatarImg{
+    width: 80rpx;
+    height: 80rpx;
+    /* background-color: #D1D1D1; */
+  }
+  .flexBetween{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+  }
+  .infoInput{
+    width: 100%;
+    height: 90rpx;
+    color: #535353;
+    font-size: 32rpx;
+  }
+  /* 切换按钮 */
+  .allItem{
+    width: 120rpx;
+    height: 54rpx;
+    border-radius: 8rpx;
+    font-size: 32rpx;
+    text-align: center;
+    line-height: 48rpx;
+    margin-right: 24rpx;
+  }
+  .activItem{
+    background: #65BCFF;
+    color: #fff;
+  }
+  .normalItem{
+    background: #F2F2F2;
+    color: #333;
+  }
+  .arrow{
+    width: 36rpx;
+    height: 40rpx;
+    object-fit: cover;
+  }
+  .picker{
+    height: 100rpx;
+    line-height: 100rpx;
+  }
+  /* picker */
+  .infoPicker{
+    width:100%;
+    font-size:26rpx;
+    height: 100rpx;
+  }
+  /* input placeholder */
+  .input-placeholder{
+    color: #D1D1D1;
+    font-size: 26rpx;
+  }
+  .noBottom{
+    border-bottom: none;
+  }
+  .infoTextarea{
+    border-bottom: 2rpx solid #e5e5e5;
+    padding-bottom:30rpx ;
+  }
+  .inputText{
+    color: #535353;
+    font-size: 26rpx;
+    height: 86rpx;
+  }
+  /* 完成 */
+  .finish{
+    width: 660rpx;
+    height: 80rpx;
+    background: linear-gradient(270deg, #3C9EE9 0%, #6FC3F6 100%);
+    border-radius: 49rpx;
+    color: #fff;
+    font-size: 30rpx;
+    line-height: 80rpx;
+    text-align: center;
+    margin: 0 auto;
+    margin-top:68rpx ;
+    margin-bottom: 68rpx;
+    
+  }
+  /* 默认 */
+  .default{
+    width: 100%;
+    height: 80rpx;
+    margin-top: 20rpx;
+    padding: 0 32rpx;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }

@@ -1,0 +1,43 @@
+<!--pages/applyPay/applyPay.wxml-->
+<!-- <text>pages/applyPay/applyPay.wxml</text> -->
+<view class="container">
+  <view class="applyInfo">
+    <view class="applyCell">
+      <view class="applyTitle">支付类型</view>
+      <view class="applyValue">图文咨询</view>
+    </view>
+    <view class="applyCell">
+      <view class="applyTitle">订单金额</view>
+      <view class="applyValue">￥{{orderMoney}}</view>
+    </view>
+    <view class="applyCell">
+      <view class="applyTitle">合计</view>
+      <view class="applyValue">￥{{totalMoney}}</view>
+    </view>
+  </view>
+  <!-- 支付方式 -->
+  <view class="payBox">
+    <view class="payMethods">支付方式</view>
+    <radio-group bindchange="payChange">
+      <view class="payCell">
+        <view class="payLeft">
+          <image src="../../images/icon_wechat@2x.png" class="payImg"></image>
+          <text class="peyText">微信支付</text>
+          <image src="../../images/icon_tuijian@2x.png" class="payImg"></image>
+        </view>
+        <radio value="1" checked="{{payMethods==1}}" />
+      </view>
+      <!-- <view class="payCell">
+        <view class="payLeft">
+          <image src="../../images/icon_pay@2x.png" class="payImg"></image>
+          <text class="peyText">找朋友帮忙付</text>
+        </view>
+        <radio value="2" checked="{{payMethods==2}}" />
+      </view> -->
+
+    </radio-group>
+  </view>
+  <view class="confirmView">
+    <button class="confirm" bindtap="toPay">立即支付</button>
+  </view>
+</view>

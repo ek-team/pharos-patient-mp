@@ -1,0 +1,126 @@
+<view class="container" >
+  <scroll-view scroll-y="{{modal?false:true}}" 	bindscroll="pageScroll" scroll-into-view="{{ toView }}"  style="height: {{scrollHeight+'rpx'}};" >
+  <!-- 轮播图 -->
+  <view class="swiper medicineDetail">
+    <view class="page-body">
+      <view class="page-section page-section-spacing swiper">
+        <swiper indicator-dots="true" autoplay="true" interval="3000" duration="1000" indicator-active-color='#F25F5F'>
+          <block wx:for="{{topSwiper}}" wx:key="index">
+            <swiper-item>
+              <view class="swiper-item swiper-image">
+                <image src="{{item.image}}" mode="aspectFit" class="slideImage" lazy-load='true' bindtap="moreImage" data-index="{{index}}"></image>
+              </view>
+            </swiper-item>
+          </block>
+        </swiper>
+      </view>
+    </view>
+  </view>
+  <!-- 标题 -->
+  <view class="goodsTitle">{{name}}
+  </view>
+  <!-- class="{{modal?'colseScroll':'showScroll'}}" -->
+
+
+  <!-- 提供服务 -->
+  <view class="goodsService" bindtap="watch" wx:if="{{introductionsImage!=''&&showIntroduction}}">
+    <image class="introductionsImage" src="{{introductionsImage}}" mode="widthFix"></image>
+  </view>
+  <!-- 商品详情 -->
+  <view  class="detailView">
+    <view class="detailTitle" id="nodeId" >
+      <view class="detailTitleItem" wx:for="{{servicePackDetails}}" wx:key="index" bindtap="chooseCheck" data-index='{{index}}'>
+        <text class="detailName">{{item.title}}</text>
+        <view class="bluecheck" wx:if="{{servicePackDetailscheck==index}}"></view>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{toTop}}" class="detailView detailTitleTop">
+    <view class="detailTitle" >
+      <view class="detailTitleItem" wx:for="{{servicePackDetails}}" wx:key="index" bindtap="chooseCheck" data-index='{{index}}'>
+        <text class="detailName">{{item.title}}</text>
+        <view class="bluecheck" wx:if="{{servicePackDetailscheck==index}}"></view>
+      </view>
+    </view>
+  </view>
+  <view class="detailInfo">
+    <!-- wx:if="{{servicePackDetailscheck==index}}" -->
+    <view class="detailInfoItem" wx:for="{{servicePackDetails}}" id="{{'richId-'+index}}" wx:key="index" >   
+      <rich-text nodes="{{item.content}}" ></rich-text>
+    </view>
+  </view>
+ 
+  </scroll-view>
+   <!-- 立即预定 -->
+   <view class="bottomBox">
+    <!-- <view class="icon" bindtap="toHome">
+      <image src='../../images/btn_hoom.png' class="bottomIcon"></image>
+      <text class="iconText">首页</text>
+    </view> -->
+    <view class="icon" bindtap="kefu">
+      <image src='../../images/btn_kefu.png' class="bottomIcon"></image>
+      <text class="iconText">客服</text>
+    </view>
+    <button class="reserve" bindtap="booking">立即预定</button>
+  </view>
+  <!-- 弹框 -->
+  <van-popup show="{{modal}}" position="bottom"  closeable bind:close="cancelBook"  custom-style="height: 1100rpx;">
+    <view class="modal">
+      <view class="modalTop">
+        <image class="moadlPic" src="{{checkSpecListInfo.urlImage?checkSpecListInfo.urlImage:topSwiper[0].image}}" bindtap="viewImg"></image>
+        <view class="modalTitle">{{name}}
+          <view class="selectedText">
+            <view class="choosePrice">￥{{checkSpecListInfo.price?checkSpecListInfo.price:price}} </view>
+            <view class="cheooseRemark" >{{checkSpecListInfo.remark?checkSpecListInfo.remark:noticeText}}</view>
+          </view>
+        </view>
+      </view>
+      <scroll-view scroll-y="true" style="height: 640rpx;">
+        <!-- 购买或者租赁 -->
+         <!-- <view class="modalSubtitle">租赁/购买</view> -->
+        <!-- <view>
+          <view class="modalChoose">
+            <view class="{{chooseBuy==1?'chooseViewCheck':''}} chooseView" wx:if="{{buy==1||buy==3}}" bindtap="chooseHas" data-buy="1">租赁</view>
+            <view class="{{chooseBuy==2?'chooseViewCheck':''}} chooseView" wx:if="{{buy==2||buy==3}}" bindtap="chooseHas" data-buy="2">购买</view>
+          </view>
+        </view> -->
+        <!-- 租期 -->
+        <!-- <view wx:if="{{chooseBuy==1}}">
+          <view class="modalSubtitle">租期</view>
+          <view class="modalChoose">
+            <view wx:for="{{rentDays}}" wx:key='index' class="{{index==selectedRentIndex?'chooseViewCheck':''}} chooseView" bindtap="chooseRentDay" data-rentDay="{{index}}">{{item}}</view>
+          </view>
+        </view> -->
+        <!-- 服务周期 -->
+        <!-- <view wx:if="{{chooseBuy==2}}">
+          <view class="modalSubtitle">服务周期</view>
+          <view class="modalChoose">
+            <view wx:for="{{buyDays}}" wx:key='index' class="{{index==selectedBuyIndex?'chooseViewCheck':''}} chooseView" bindtap="chooseBuyDay"  data-buyDay="{{index}}">{{item}}</view>
+          </view>
+        </view> -->
+        <!-- productSpec -->
+        <!-- <view wx:for="{{productSpec}}" wx:key='index'>
+          <view class="modalSubtitle">{{item.name}}</view>
+          <view class="modalChoose">
+            <view wx:for="{{item.productSpecDesc}}" wx:for-index="id" wx:for-item="items" wx:key="id" class="{{items.checked?'chooseViewCheck':''}} chooseView" bindtap="chooseStep" data-productSpecId='{{items.productSpecId}}' data-id="{{items.id}}">{{items.descText}}</view>
+          </view>
+        </view> -->
+        <!-- saleSpec 规格选择 -->
+        <view wx:for="{{saleSpec}}" wx:key='index'>
+          <!-- {{item.name=='服务周期'?'服务周期（天）':item.name}} -->
+          <view class="modalSubtitle">{{item.name}}</view>   
+          <view class="modalChoose">
+            <view wx:for="{{item.saleSpecDescs}}" wx:for-index="id" wx:for-item="items" wx:key="id" class="{{items.checked?'chooseViewCheck':items.disabled?'disabledCheck':'chooseView'}} chooseView" bindtap="chooseSale" data-saleSpecId="{{items.saleSpecId}}" data-id="{{items.id}}" data-desc="{{items.remark}}">
+            <span wx:if="{{item.name=='服务周期'}}">{{items.name}}</span>
+            <span wx:else="">{{items.name}}</span>  
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+      <view class="operateBtn">
+        <view class="cancelBtn" bindtap="cancelBook">取消</view>
+        <view class="{{checkSpecListInfo.status==0&&checkSpecList.length==saleSpec.length?'confirmBtn':'confirmBtn disabeldStatus'}}" bindtap="confirmBook">确定</view>
+      </view>
+    </view>
+  </van-popup>
+</view>

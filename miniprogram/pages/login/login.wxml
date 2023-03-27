@@ -1,0 +1,16 @@
+<!--pages/login/login.wxml-->
+<!-- <text>pages/login/login.wxml</text> -->
+<view class="container">
+  <view class="recommanLogin">推荐登录方式</view>
+  <button bindtap="getUserProfile">
+    <view class="loginBtn">
+      <image src="../../images/weixin.png" class="weixinLogo"></image>
+      <view class="loginText">微信账号快捷登录</view>
+    </view>
+  </button>
+  <view class="loginAgree">
+    <text>登录即代表您同意</text>
+    <text class="blueAgree" bindtap="readPolicy">《隐私政策》</text>
+  
+  </view>
+</view>

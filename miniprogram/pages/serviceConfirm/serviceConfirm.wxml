@@ -1,0 +1,67 @@
+<!--pages/serviceConfirm/serviceConfirm.wxml-->
+<view class="container">
+  <!-- 服务框 -->
+  <view class="confirmView">
+    <!-- 服务内容 -->
+    <view class="serviceItem">
+      <image class="servicePic" src="{{orderDetail.img}}"></image>
+      <view class="serviceRight">
+        <view class="serviceName">{{orderDetail.name}}</view>
+        <view class="serviceInfo">
+          <view>{{orderDetail.text}}</view>
+          <!-- <van-stepper value="{{ 1 }}" bind:change="onChange" /> -->
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 医生指导 -->
+  <view class="doctorGuidance">
+    <view class="doctorView" wx:for="{{orderDetail.servicePackageInfos}}" wx:key="index">
+      <image class="servicePic" src="{{item.image}}"></image>
+      <view class="serviceRight">
+        <view class="serviceRightTop">
+          <view class="serviceName">{{item.name}}</view>
+          <!-- <view class="gift">赠品</view> -->
+        </view>
+        <view class="serviceRightBottom">
+          <view class="money"></view>
+          <view class="servicenum">x {{item.count}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="serviceIntroduceBox">
+     <text>服务介绍</text>
+     <view class="serviceDetailExplain">
+      {{orderDetail.servicePackageInfos?orderDetail.servicePackageInfos[0].serviceDetail:''}}
+    </view>
+    </view>
+    
+    <!-- 选择主治医生和就诊人 -->
+    <view class="chooseTeam">
+      <view class="notice">
+        <image src="../../images/icon_tishi.png" class="tishi"></image>
+        医生服务需要先行确定服务团队及就诊人
+      </view>
+      <view class="chooseView" bindtap="chooseTeam">
+        <view class="chooseTitle">主治医生</view>
+        <view class="choosePlaceholder">{{doctorTeam.doctorTeamName?doctorTeam.doctorTeamName:'请选择您的医生服务团队 >'}}</view>
+      </view>
+      <!-- <view class="chooseView" bindtap="chooseDisease">
+        <view class="chooseTitle">病种</view>
+        <view class="choosePlaceholder">{{checkedDiseases.name?checkedDiseases.name:'请选择病种 >'}}</view>
+      </view> -->
+      <view class="chooseView" bindtap="choosePatient">
+        <view class="chooseTitle">就诊人</view>
+        <view class="choosePlaceholder">{{patient.patientName?patient.patientName:'请选择就诊人 >'}}</view>
+      </view>
+    </view>
+  </view>
+  <!-- 下一步 -->
+  <view class="nextView">
+    <button class="confirm" bindtap="nextStep">下一步</button>
+  </view>
+  <!-- 选择器 -->
+  <van-popup position='bottom' custom-style="height: 550rpx;" bind:close="closeDiseasesPopup" show="{{diseasesPopup}}">
+    <van-picker show-toolbar title="病种" columns="{{ teamDiseases }}" value-key="name" bind:cancel="closeDiseasesPopup" bind:confirm="confirmDiseases" />
+  </van-popup>
+</view>

@@ -1,0 +1,40 @@
+/* pages/login/login.wxss */
+.recommanLogin {
+  color: #333;
+  font-size: 32rpx;
+  margin-top: 136rpx;
+}
+
+.loginBtn {
+  width: 446rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+  border: 4rpx solid #2097F3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 80rpx;
+}
+.weixinLogo{
+  width: 48rpx;
+  height: 48rpx;
+  object-fit: cover;
+  margin-right: 10rpx;
+}
+.loginText{
+  color: #2097F3;
+  font-size: 28rpx;
+}
+/* 登录同意 */
+.loginAgree{
+  position: fixed;
+  bottom: 120rpx;
+  left: 0;
+  right: 0;
+  color: #999;
+  font-size: 24rpx;
+  text-align: center;
+}
+.blueAgree{
+  color: #2097F3;
+}

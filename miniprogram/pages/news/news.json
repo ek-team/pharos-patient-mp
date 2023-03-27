@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "van-cell": "@vant/weapp/cell/index",  
+    "van-cell-group": "@vant/weapp/cell-group/index",     
+    "van-swipe-cell": "@vant/weapp/swipe-cell/index",
+    "van-search": "@vant/weapp/search/index"
+  },
+  "navigationBarBackgroundColor":"#ffffff",
+  "navigationBarTitleText":"消息"
+}

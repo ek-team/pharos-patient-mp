@@ -1,0 +1,43 @@
+<!--pages/savePerdonInfo/savePersonInfo.wxml-->
+<view class="container">
+    <view class="infoBox">
+      <view class="infoItem">
+            <view class="infoTitle">头像</view>
+            <view class="inputView" bindtap="chooseAvatar">
+              <span wx:if="{{!info.avatar}}">请点击上传头像 ></span>
+            <image wx:if="{{info.avatar}}" src="{{info.avatar}}" class="avatarImg"></image>
+            </view>
+        </view>
+        <!-- 患者姓名 -->
+        <view class="infoItem">
+            <view class="infoTitle">姓名</view>
+            <view class="inputView">
+                <input class="infoInput" type="text" placeholder="请输入姓名" data-type='name' value="{{info.patientName}}" bindinput="contentInput" />
+            </view>
+        </view>
+        <!-- 患者身份证号 -->
+        <view class="infoItem">
+            <view class="infoTitle">身份证号</view>
+            <view class="inputView">
+                <input class="infoInput" type="text" placeholder="请输入身份证号" data-type='idCard'  value="{{info.idCard}}" bindinput="contentInput"  maxlength="18"/>
+            </view>
+        </view>
+
+        <view class="infoItem">
+            <view class="infoTitle">手机号</view>
+            <view class="inputView">
+                <input class="infoInput" type="number" value="{{info.phone}}" data-type='phone' placeholder="请输入手机号" bindinput="contentInput" />
+            </view>
+        </view>
+        <!-- 体重 -->
+        <view class="infoItem">
+            <view class="infoTitle">体重（kg）</view>
+            <view class="inputView">
+                <input class="infoInput" type="number" value="{{info.weight}}" data-type='weight'  placeholder="请输入体重" bindinput="contentInput" />
+            </view>
+        </view>
+    </view>
+    <view class="finish" bindtap='savePatientInfo'>
+        完成
+    </view>
+</view>

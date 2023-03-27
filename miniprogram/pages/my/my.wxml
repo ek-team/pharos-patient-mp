@@ -1,0 +1,61 @@
+<view class="container">
+  <!-- 头部 -->
+  <view class="topView">
+    <image src='../../images/bg_mine@2x.png' class="mineBg"></image>
+    <view class="info">
+      <image class="avatar" src="{{info.avatar}}"></image>
+      <view class="name">{{info.nickname?info.nickname:'法罗适'}}</view>
+    </view>
+  </view>
+  <!-- 我的订单 -->
+  <view class="orderView">
+    <!-- <view class="orderText">
+      <text class="myOrderText">我的订单</text>
+      <text class="allText" bindtap="toMyOrder">全部 ></text>
+    </view> -->
+    <!-- 订单状态 -->
+    <view class="orderStatus">
+      <!-- <view class="orderItem" wx:for="{{orderStatus}}" wx:key='index' data-status="{{item.status}}" bindtap="toMyOrder">
+        <image class="orderIcon" src="{{item.pic}}"></image>
+        <view class="orderName">{{item.name}}</view>
+        <view class="orderNum" wx:if="{{item.num>0}}">{{item.num}}</view>
+      </view> -->
+      <view class="orderItem" bindtap="toMyOrder">
+        <image class="orderIcon" src="../../images/icon_fukuan.png"></image>
+        <view class="orderName">订单</view>
+      </view>
+      <view class="orderItem" bindtap="toMyRetrieveOrder">
+        <image class="orderIcon" src="../../images/icon_fahuo.png"></image>
+        <view class="orderName">回收单</view>
+      </view>
+      <view class="orderItem" bindtap="toMySportData">
+        <image class="orderIcon" src="../../images/icon_shouhuo.png"></image>
+        <view class="orderName">锻炼数据</view>
+      </view>
+    </view>
+  </view>
+  <!-- 我的回收单 -->
+  <!-- <view class="orderView retrieveView">
+    <view class="orderText">
+      <text class="myOrderText">我的回收单</text>
+      <text class="allText" bindtap="toMyRetrieveOrder">全部 ></text>
+    </view>
+    <view class="orderStatus">
+      <view class="orderItem" wx:for="{{retrieveOrderStatus}}" wx:key='index' data-status="{{item.status}}" bindtap="toMyRetrieveOrder">
+        <image class="orderIcon" src="{{item.pic}}"></image>
+        <view class="orderName">{{item.name}}</view>
+        <view class="orderNum" wx:if="{{item.num>0}}">{{item.num}}</view>
+      </view>
+    </view>
+  </view> -->
+  <!-- menu -->
+  <view class="menuview">
+    <view class="menuItem" wx:for="{{menuList}}" wx:key="index" bindtap="toPage" data-url='{{item.path}}'>
+      <view class="menuLeft">
+        <image src='{{item.pic}}' class="menuPic"></image>
+        <text class="menuName">{{item.name}}</text>
+      </view>
+      <image src='../../images/right.png' class="arrow" data-url="{{item.path}}" bindtap="toPage"></image>
+    </view>
+  </view>
+</view>

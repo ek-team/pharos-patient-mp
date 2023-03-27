@@ -1,0 +1,112 @@
+/* pages/addAddress/addAddress.wxss */
+/* 表单信息 */
+.addressForm{
+  width: 100%;
+  padding:30rpx 30rpx 36rpx 32rpx ;
+  box-sizing: border-box;
+  background-color: #fff;
+  margin-top: 32rpx;
+}
+.addressItem{
+  width: 688rpx;
+  height: 92rpx;
+  margin: 0 auto;
+  border-bottom: 2rpx solid#E2E2E2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.addressText{
+  font-size: 14px;
+  font-weight: 400;
+  color: #999;
+}
+.addressContent{
+  flex: 1;
+}
+.addressPlaceholder {
+  font-size: 26rpx;
+  font-weight: 400;
+  color: #cecece;
+  text-align: end;
+}
+.addressInput{
+  text-align: right;
+  font-size: 15px;
+  color: #333;
+}
+.addressPicker{
+  text-align: right;
+  font-size: 15px;
+  color: #333;
+}
+.addressDetail{
+  width: 688rpx;
+  margin: 0 auto;
+  padding-top: 26rpx;
+}
+.addressTextarea{
+  margin-top: 18rpx;
+}
+.detail{
+  width: 100%;
+  height: 148rpx;
+  background-color:#FAFAFA ;
+  padding: 18rpx 20rpx;
+  box-sizing: border-box;
+  font-size: 15px;
+  color: #333;
+}
+/* 默认地址 */
+.defaultAddress{
+  width: 100%;
+  height: 80rpx;
+  background-color: #fff;
+  margin-top: 20rpx;
+  padding: 0 32rpx;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.defaultText{
+  color: #333;
+  font-size: 26rpx;
+}
+/* 删除收货地址 */
+.delAddress{
+  width: 100%;
+  height:80rpx ;
+  margin-top: 20rpx;
+  background-color: #fff;
+  padding: 22rpx 34rpx;
+  box-sizing: border-box;
+  font-size:14px;
+  color: #F56A6A;
+}
+/* 保存按钮 */
+.fixBottom{
+  width: 100%;
+  height: 168rpx;
+  background-color: #fff;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  padding: 16rpx 32rpx 0;
+  box-sizing: border-box;
+}
+.save{
+  width: 100% !important;
+  /* height: 68rpx;
+  line-height: 68rpx; */
+  /* font-size: 14px; */
+   /* border-radius: 34rpx; */
+  height: 88rpx;
+  line-height: 88rpx;
+  border-radius: 40rpx;
+  font-size: 15px;
+  background: linear-gradient(270deg, #3C9EE9 0%, #6FC3F6 100%);
+  padding: 0!important;
+  color: #fff !important;
+  
+}

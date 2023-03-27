@@ -1,0 +1,26 @@
+<!--pages/chooseServiceTeam/chooseServiceTeam.wxml-->
+<view class="container">
+  <!-- 医生团队 -->
+  <view class="doctorTeam">
+    <radio-group bindchange="teamChange">
+      <!-- 每一个团队 -->
+      <label class="teamView" wx:for="{{team}}" wx:key="id"  data-item="{{item}}" data-index="{{index}}">
+        <view class="teamLeft">
+          <view class="teamName">{{item.name}}</view>
+          <view class="teamFocus">{{item.teamDesc}}</view>
+          <!-- <view class="teamPic">
+            <view class="userContainer" wx:key="id" wx:for="{{item.doctorTeamPeopleList}}">
+                <image src="{{item.avatar?item.avatar:'../../images/defaultAvatar.png'}}" class="headImg" ></image>
+                <text>{{item.userName}}</text>
+            </view>
+          </view> -->
+        </view>
+        <radio value="{{item.id}}+{{item.name}}" checked="{{item.checked}}" />
+      </label>
+    </radio-group>
+  </view>
+  <!-- 确认部分 -->
+  <view class="confirmView">
+    <button class="confirm" bindtap="confirm">确定</button>
+  </view>
+</view>

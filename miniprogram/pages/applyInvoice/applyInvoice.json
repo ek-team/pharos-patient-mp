@@ -1,0 +1,6 @@
+{
+  "usingComponents": {},
+  "navigationBarTitleText":"申请开票",
+  "enablePullDownRefresh":false,
+  "navigationBarBackgroundColor":"#ffffff"
+}

@@ -1,0 +1,39 @@
+<!--pages/service/service.wxml-->
+<view>
+    <view class="navTop">
+        <view class="{{activeIndex==index?'activeItem':'navItem'}}" wx:key="id" data-index="{{index}}" bindtap="checkNav" wx:for="{{navList}}">{{item.title}}</view>
+    </view>
+    <scroll-view scroll-y="true" refresher-enabled="true" bindrefresherrefresh="pullRefresher" refresher-triggered="{{isTrigger}}" bindscrolltolower="getMoreOrder" style='height:{{boxHeight}}px;'>
+        <view class="orderContainer">
+            <view class="orderItem" wx:key="id" wx:for="{{serviceList}}">
+                <!-- 订单信息 -->
+                <view class="orderInfoContainer" bindtap="toServiceDetail" data-item="{{item}}">
+                    <view class="medecineItem">
+                        <view class="imgBox">
+                            <image wx:if="{{item.servicePackageInfo&&item.servicePackageInfo.image}}" src="{{item.servicePackageInfo.image}}" class="goodsPictrue"></image>
+                            <image wx:else="" src="../../images/service.png" class="goodsPictrue"></image>
+                        </view>
+                        <view class="rightInfoBox">
+                            <view class="infoItem">
+                                <view class="goodsName">
+                                    {{item.servicePackageInfo?item.servicePackageInfo.name:''}}
+                                    <view class="goodsNum">x{{item.totalCount}}</view>
+                                </view>
+                                <view>已使用{{item.useCount}}</view>
+                            </view>
+                            <view class="rightIconBox">
+                                <image src="../../images/right.png" class="rightIcon"/>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="serviceExpiredTime">截止有效期：{{item.expiredTime}}</view>
+                </view>
+
+            </view>
+        </view> 
+        <view wx:if="{{serviceList.length==0&&noLoading}}" class="noneContianer">
+            <image src="../../images/img1@2x.png" class="noneOrder"></image>
+        </view>
+    </scroll-view>
+    <view class="backContianer" bindtap="backFaros">返回<text class="backName">"法罗适医康"</text>小程序</view>
+</view>

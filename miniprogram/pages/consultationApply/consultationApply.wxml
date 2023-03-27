@@ -1,0 +1,15 @@
+<!--pages/consultationApply/consultationApply.wxml-->
+<view class="container">
+ <!-- 医生信息框 -->
+ <view class="doctor">
+    <image src="" class="pic"></image>
+    <view>
+      <view class="doctorName">姜周</view>
+      <view class="doctorInfo">
+        副主任医师 新生儿科
+      </view>
+    </view>
+  </view>
+  <!-- 描述病情 -->
+  
+</view>

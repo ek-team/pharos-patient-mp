@@ -1,0 +1,137 @@
+/* pages/news/news.wxss */
+.searchInput {
+  width: 100%;
+  height: 88rpx;
+  background: #fff;
+}
+
+/* 消息页面 */
+.news {}
+
+.cell {
+  height: 148rpx;
+  width: 100%;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #F3F3F3;
+  background-color: #fff;
+}
+.cell:last-child{
+  border-bottom:none;
+}
+.ticBox{
+  width: 88rpx;
+  height: 88rpx;
+  margin-right: 28rpx;
+  position: relative;
+
+}
+.tixImg{
+  width: 88rpx;
+  height: 88rpx;
+  background-color: #FAF9F9;
+
+}
+.tixMore{
+  width: 88rpx;
+  height: 88rpx;
+  padding: 2rpx 0 0 2rpx;
+  box-sizing: border-box;
+  background-color: #FAF9F9;
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  flex-wrap: wrap;
+}
+.tix {
+  width: 88rpx;
+  height: 88rpx;
+  object-fit: cover;
+}
+.tixSmall2{
+  width:40rpx;
+  height: 40rpx;
+  object-fit: cover;
+  margin-right: 2rpx;
+}
+.tixSmall3{
+  width:27rpx;
+  height: 27rpx;
+  object-fit: cover;
+  margin-right: 2rpx;
+}
+
+.messageBox {
+  width: 80%;
+
+}
+
+.messageBoxTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.messageTitle {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: 600;
+}
+
+.messageTime {
+  color: #C9C9C9;
+  font-size: 22rpx;
+
+}
+
+.messageBoxBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8rpx;
+}
+
+.messageContent {
+  color: #848484;
+  font-size: 28rpx;
+  width: 500rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.num{
+  height: 28rpx;
+  padding: 0 10rpx;
+  background-color: #FF5A5A ;
+  box-sizing: border-box;
+  border-radius:14rpx ;
+  font-size: 20rpx;
+  color: #fff;
+  position: absolute;
+  top: -10rpx;
+  right: -10rpx;
+}
+
+.cicle {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  background: #B4B4B4;
+}
+.greenCicle{
+  background: #6DD400;
+}
+/* van-swipe-cell */
+/* .van-swipe-cell__left, */
+.van-swipe-cell__right {
+  display: inline-block;
+  width: 65px;
+  height: 148rpx;
+  font-size: 32rpx;
+  line-height: 148rpx;
+  color: #fff;
+  text-align: center;
+  background-color: #f44;
+}

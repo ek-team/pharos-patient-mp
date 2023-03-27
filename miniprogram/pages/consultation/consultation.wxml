@@ -1,0 +1,45 @@
+<!--pages/consultation/consultation.wxml-->
+<view class="container">
+  <!-- 医生信息框 -->
+  <view class="doctor">
+    <image src="" class="pic"></image>
+    <view>
+      <view class="doctorName">姜周</view>
+      <view class="doctorInfo">
+        副主任医师 新生儿科
+      </view>
+    </view>
+  </view>
+  <!-- 选择就诊人信息框 -->
+  <view class="chooseview">
+    <view class="chooseTop">
+      <view class="chooseText">选择就诊人</view>
+      <view class="patientManage">
+        <text>就诊人管理</text>
+        <image src="../../images/right.png" class="right"></image>
+      </view>
+    </view>
+    <!-- 就诊人 -->
+    <view class="patientList">
+      <view wx:for="{{5}}" wx:key="index" class="{{index==0?'patientItemChecked':''}} patientItem">
+        <!-- 选中 -->
+        <image src='../../images/right_blue.png' class="rightBlue" wx:if="{{index==0}}"></image>
+        <view class="patientName">王三</view>
+        <view class="patientInfo">
+          <text>男</text>
+          <text>20岁</text>
+          <text>55KG</text>
+        </view>
+      </view>
+      <!-- 添加就诊人 -->
+      <view class="addPatient">
+        <image src="../../images/btn_add.png" class="addBtn"></image>
+        <view class="addText">添加就诊人</view>
+      </view>
+    </view>
+  </view>
+  <!-- 下一步 -->
+  <view class="confirmView">
+    <button class="confirm">下一步</button>
+  </view>
+</view>

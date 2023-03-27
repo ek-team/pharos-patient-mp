@@ -1,0 +1,7 @@
+<!--pages/decorationService/decorationService.wxml-->
+<!-- <text>pages/decorationService/decorationService.wxml</text> -->
+<view class="container">
+  <view class="richText">
+    <rich-text nodes="{{introductionsContent}}"></rich-text>
+  </view>
+</view>

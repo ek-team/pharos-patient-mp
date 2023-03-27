@@ -1,0 +1,48 @@
+<!-- pages/addAddress/addAddress.wxml -->
+<view class="container">
+    <!-- 表单 -->
+    <view class="addressForm">
+        <view class="addressItem">
+            <view class="addressText">收货人姓名:</view>
+            <view class="addressContent">
+                <input class="addressInput" type="text" placeholder="名字" placeholder-class="addressPlaceholder" value="{{name}}" bindinput="nameInput"/>
+            </view>
+        </view>
+        <view class="addressItem">
+            <view class="addressText">联系电话:</view>
+            <view class="addressContent">
+                <input class="addressInput" type="number" placeholder="手机号" placeholder-class="addressPlaceholder" value="{{phone}}" bindinput="phoneInput"/>
+            </view>
+        </view>
+        <view class="addressItem">
+            <view class="addressText">选择地区:</view>
+            <view class="addressContent">
+                <picker class="addressPicker" mode="region" bindchange="bindRegionChange" value="{{region}}">
+                    <view class='acea-row row-between-wrapper'>
+                        <view class="picker">{{region[0]}}，{{region[1]}}，{{region[2]}}</view>
+                        <view class='iconfont icon-dizhi font-color'></view>
+                    </view>
+                </picker>
+            </view>
+        </view>
+        <view class="addressDetail">
+            <view class="addressText">详细地址:</view>
+            <view class="addressTextarea">
+                <textarea class="detail" bindblur="bindTextAreaBlur" placeholder="街道/小区楼栋/乡村名称" placeholder-class="addressPlaceholder" value="{{address}}" bindinput="addressInput"/>
+            </view>
+        </view>
+    </view>
+    <!-- 设置为默认地址 -->
+    <view class="defaultAddress">
+        <view class="defaultText">设为默认地址</view>
+        <switch checked="{{defaultAddress}}" bindchange="addressChange" color="#2DD19E" />
+    </view>
+    <!-- 删除收货地址 -->
+    <view class="delAddress" >
+        <view class="" bindtap="delAddress">删除收货地址</view>
+    </view>
+    <!-- 保存 -->
+    <view class="fixBottom">
+        <button class="save" disabled="{{saveDisabled}}"  bindtap='save'>保存</button>
+    </view>
+</view>
