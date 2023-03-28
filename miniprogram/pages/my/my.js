@@ -162,11 +162,11 @@ Page({
   toPage(e) {
     let url = e.currentTarget.dataset.url
     if (url) {
-      if (url == '../privacy/privacy') {
-        wx.redirectTo({
-          url: url,
-        })
-      } else {
+      // if (url == '../privacy/privacy') {
+      //   wx.redirectTo({
+      //     url: url,
+      //   })
+      // } else {
         if(url == '../choosePatient/choosePatient'){
           url='../choosePatient/choosePatient?type=edit'
         }
@@ -185,7 +185,7 @@ Page({
         wx.navigateTo({
           url: url,
         })
-      }
+     // }
     }
   },
   // 获取用户信息

@@ -12,6 +12,7 @@ Page({
     id: 34,//产品id
     token: '',//token
     name: '',//服务包名称
+    showName: '',//服务包显示名称
     preSaleMobile: null,//客服电话
     preSaleText: null,//点击客服的提示文字
     servicePackDetails: [],//详情部分
@@ -246,6 +247,7 @@ Page({
         preSaleMobile: res.data.preSaleMobile,
         preSaleText: res.data.preSaleText,
         name: res.data.name,
+        showName: res.data.showName,
         topSwiper: chooseBuy==1?res.data.servicePackProductPicsBuy:res.data.servicePackProductPicsBuy,//1租用，2购买
         servicePackDetails: res.data.servicePackDetails,
         productSpec: productSpec,
