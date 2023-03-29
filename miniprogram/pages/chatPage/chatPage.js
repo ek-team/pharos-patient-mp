@@ -479,23 +479,35 @@ Page({
     },
     // 查看大图
     showBigImg(e){
+
+      
+  
       wx.setStorageSync('catImage',"catImage")
       http('chatMsg/queryAllMsgIMage','get','',{
         msgId:e.currentTarget.dataset.id
     }).then(res=>{
-     let iamges=[e.currentTarget.dataset.src]
+     let iamges=[]
+     let imgShow=0;
      if(res.data){
       if(res.data.length>1){
+
+        
+
+        
         for(let i=0;i<res.data.length;i++){
-           if(iamges.indexOf(res.data[i])==-1){
-             iamges.push(res.data[i])
+          console.log(i+"++++"+res.data[i])
+           if(e.currentTarget.dataset.src==res.data[i]){
+             
+             imgShow=i;
            }
+           iamges.push(res.data[i])
         }
        }
      }
    
       wx.previewImage({
-        urls: iamges,
+        current: iamges[imgShow],     
+        urls: iamges.reverse(),
     })
     })
 

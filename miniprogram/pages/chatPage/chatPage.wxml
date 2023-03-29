@@ -57,7 +57,7 @@
                             </view>
                             <!-- 文字消息 -->
                             <view class="otherDialog" wx:if="{{item.msgType=='MESSAGE_TEXT'}}" bindtap="toCall" data-info="{{item.msg}}" data-msg="{{item}}">
-                                <span class="{{item.msgType=='MESSAGE_PRODUCT_INFO'?'productIntroduce':''}}">{{item.msg}}</span>
+                                <text user-select="true" class="{{item.msgType=='MESSAGE_PRODUCT_INFO'?'productIntroduce':''}}">{{item.msg}}</text>
                                 <span></span>
                             </view>
                              <!-- 表单消息框 -->
@@ -70,10 +70,15 @@
                             </view>
                             <!-- 图片消息 -->
                             <view class="dialogBox" wx:if="{{item.msgType=='MESSAGE_PIC'}}">
-                                <image mode="widthFix" data-index="{{index}}" wx:if="{{item.url}}" data-src="{{item.url}}" src="{{item.url}}" class="otherDialogImg" bindtap="showBigImg">
+                                <image mode="widthFix" data-index="{{index}}" wx:if="{{item.url}}" data-src="{{item.url}}" src="{{item.url}}" class="otherDialogImg" bindtap="showBigImg"
+                                
+                                data-index="{{index}}" data-id="{{item.id}}"  bindlongpress="showWithdrawMsg"
+                                >
                                 </image>
                                 <span class="picRemindText">{{item.msg}}</span>
                             </view>
+                            
+                            
                             <!-- 随访计划 -->
                             <view class="patientInformation" wx:if="{{item.msgType=='FOLLOW_UP_PLAN'}}">
                                 <view class="inquiriesBox">
@@ -127,7 +132,9 @@
                     <view style="width: 100%;display: flex;flex-direction: row;justify-content: flex-end;" wx:if="{{item.fromUid==myUserId}}">
                         <!-- 文字消息对话框 -->
                         <view class="myDialog" wx:if="{{item.msgType=='MESSAGE_TEXT'}}" bindlongpress="showWithdrawMsg" data-index="{{index}}" data-id="{{item.id}}" bindtap="toCall" data-info="{{item.msg}}">
-                            {{item.msg}}
+                          <text user-select="true">{{item.msg}} </text>
+                          
+                           
                             <!-- <view class="myTextNoRead" >
                             <span wx:if="{{!item.readed}}" class="noReadText">未读</span>
                             <span wx:else="">已读</span>
@@ -140,12 +147,20 @@
                             </view>
                         <!-- 图片消息对话框 -->
                         <view class="myDialogBox" wx:if="{{item.msgType=='MESSAGE_PIC'}}">
-                            <image src="{{item.url}}" wx:if="{{item.url}}" class="dialogImg" mode="widthFix" data-index="{{index}}" data-src="{{item.url}}" data-index="{{index}}" data-id="{{item.id}}" bindtap="showBigImg" bindload="imgFuc" bindlongpress="showWithdrawMsg" />
+                            <image src="{{item.url}}" wx:if="{{item.url}}" class="dialogImg" mode="widthFix" data-index="{{index}}" data-src="{{item.url}}" bindtap="showBigImg"
+                            
+
+                            data-index="{{index}}" data-id="{{item.id}}"  bindlongpress="showWithdrawMsg"
+                        />
+                
                             <!-- <view class="myImgNoRead" >
                                 <span wx:if="{{!item.readed}}" class="noReadText">未读</span>
                                 <span wx:else="">已读</span>
                             </view> -->
                         </view>
+
+                    
+
                         <!-- 图文咨询消息 -->
                         <view class="inquiriesDialog" wx:if="{{item.msgType=='PIC_CONSULTATION'}}">
                             <view class="inquiriesBox">

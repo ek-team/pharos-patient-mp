@@ -26,6 +26,7 @@ Page({
         // 服务包详情跳转参数
         from:null,
         userServiceId:null,
+        isClick:true,//是否可点击
     },
 
     /**
@@ -200,6 +201,8 @@ Page({
     },
     // 提交咨询
     commitOrder(){
+
+      
         if(!this.data.illnessDesc){
             wx.showToast({
               title: '请输入病情描述！',
@@ -207,6 +210,17 @@ Page({
             })
             return
         }
+
+        this.setData({
+          isClick:false
+        })
+        setTimeout(()=>{
+          this.setData({
+            isClick:true
+          })
+        },2000)
+
+
         let imageUrl=''
         let id=null;
         this.data.pictureList.map(item=>{
@@ -256,8 +270,12 @@ Page({
           url: '../applyPay/applyPay?money='+this.data.serviceInfo.price+'&type='+this.data.type+'&id='+id+'&chatUserId='+this.data.chatUserId+'&userServiceId='+
           this.data.userServiceId,
         })
-        // console.log('提交的参数',form)
+    
+     
+       
+    
     },
+
     /**
      * 生命周期函数--监听页面隐藏
      */

@@ -74,7 +74,8 @@
     <view class="footerContainer">
         <view class="bottomContainer">
             <view class="previousStep">上一步</view>
-            <view class="commitBtn" bindtap="commitOrder">提交<span wx:if="{{from!='free'}}">({{serviceInfo.price}}元/次)</span></view>
+            <view class="commitBtn"
+            bindtap="{{isClick?'commitOrder':''}}">提交<span wx:if="{{from!='free'}}">({{serviceInfo.price}}元/次)</span></view>
         </view>
 
     </view>
