@@ -33,6 +33,8 @@ Page({
         maxDate: new Date(2100, 10, 1).getTime(),
         holidays:0,
         disablePay:false,
+        isDefault: 0,//是否默认地址 全部 -0 默认-1
+        addressList: [],//地址列表
     },
 
     /**
@@ -68,6 +70,8 @@ Page({
             this.setData({
                 address: wx.getStorageSync('address')
             })
+        }else{
+          this.getAddress();
         }
         if (this.data.orderDetail.protocolType == 1) {
             this.setData({
@@ -82,6 +86,31 @@ Page({
         this.getCalculatePrice();
         this.getAgreement();
         this.getDeliveryTime();
+    
+    },
+
+    //获取地址
+    getAddress(){
+      http('address/getAddressList', 'get','').then(res => {
+         console.log(res.data)
+        res.data.map(item=>{
+          if(item.id==this.data.addressId){
+            item.checked=true
+          }else{
+            item.checked=false
+          }
+
+          if(item.isDefault==1){
+          
+            this.setData({
+              address:item
+            })
+          }
+        })
+       
+       
+    
+      })
     },
     // 选择支付方式
     checkPayMethods(e) {
