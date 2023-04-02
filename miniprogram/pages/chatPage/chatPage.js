@@ -10,6 +10,10 @@ Page({
      * 页面的初始数据
      */
     data: {
+ 
+        videoSrc: 'https://ewj-pharos.oss-cn-hangzhou.aliyuncs.com/image/USwluot0sCx3f9f7b164332a517b3ff38c2065b9c488.mp4',
+     
+
         targetUid:null,
         teamId:null,
         chatName:null,
@@ -449,6 +453,8 @@ Page({
                         wx.hideLoading()
                         if (uploadFileRes.data) {
                             let videoUrl=uploadFileRes.data
+                            videoUrl=videoUrl.substr(1,videoUrl.length-2)
+                            
                             console.log('上传视频成功',uploadFileRes.data)
                             let videoMessage = {
                                     msgType: "VIDEO_URL",
@@ -460,7 +466,7 @@ Page({
                             }else{
                                 videoMessage.targetUid=_this.data.targetUid
                             }
-                            // console.log('发送消息的参数',videoMessage)
+                            console.log('发送消息的参数',videoMessage)
                             wx.removeStorageSync('noClose')
                             app.sendMessage(videoMessage)
                             _this.detailQueryChat()
@@ -489,7 +495,7 @@ Page({
      let iamges=[]
      let imgShow=0;
      if(res.data){
-      if(res.data.length>1){
+      if(res.data.length>=1){
 
         
 

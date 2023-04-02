@@ -52,7 +52,10 @@
                             <view class="ortherName" wx:if="{{!targetUid}}">{{chatName?chatName:''}}</view>
                             <!-- 视频消息 -->
                             <view class="vedioMsg" wx:if="{{item.msgType=='VIDEO_URL'}}">
-                                <video src="{{item.url}}" class="" style=" width:500rpx;">
+                                <video
+                                 src="{{item.url}}" 
+                                 show-center-play-btn="{{false}}"
+                                 class="" style=" width:500rpx;">
                                 </video>
                             </view>
                             <!-- 文字消息 -->
@@ -142,7 +145,9 @@
                         </view>
                          <!-- 视频消息 -->
                          <view class="vedioMsg" wx:if="{{item.msgType=='VIDEO_URL'}}">
-                                <video src="{{item.url}}" class="" style=" width:500rpx;">
+                                <video 
+                                show-center-play-btn="{{false}}"
+                                src="{{item.url}}"  class="" style=" width:500rpx;">
                                 </video>
                             </view>
                         <!-- 图片消息对话框 -->
@@ -313,12 +318,12 @@
                 <text class="fontSize">相册</text>
             </view>
             <!-- 视频 -->
-            <!-- <view class="theOneFunction" bindtap="sendVideo">
+            <view class="theOneFunction" bindtap="sendVideo">
                 <view class="albumBox">
-                    <image src="../../images/btn_hh@2x.png" class="ablumIcon"></image>
+                    <image src="../../images/send_video.png" class="ablumIcon"></image>
                 </view>
                 <text class="fontSize">发送视频</text>
-            </view> -->
+            </view>
             <!-- 会话信息 -->
             <view class="theOneFunction" bindtap="showMetaDialog">
                 <view class="albumBox">

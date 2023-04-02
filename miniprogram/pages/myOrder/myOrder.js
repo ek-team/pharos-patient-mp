@@ -198,9 +198,55 @@ Page({
         //     })
         //     return
         // }
-        wx.navigateTo({
+       
+
+
+
+        if(!item.billId){
+
+          console.log('订单信息',item)
+          http('purchase/order/checkOrderBill','get','',{
+            id:item.id
+        }).then(resp=>{
+  
+  
+          console.log(resp.data)
+          if(resp.data==10){ 
+  
+            wx.showModal({    
+              content: '当前订单已经超期，无法申请开票',
+              complete: (res) => {
+                if (res.cancel) {
+                  
+                }else if (res.confirm) {
+                 
+                }
+              }
+            })
+  
+  
+          }else if(resp.data==20){
+            wx.navigateTo({
+              url: '../applyInvoice/applyInvoice?orderNo='+item.orderNo
+          })
+          }
+   
+  
+  
+      
+        })
+         
+
+        }else{
+
+          wx.navigateTo({
             url: '../applyInvoice/applyInvoice?orderNo='+item.orderNo
         })
+        }
+   
+
+
+
     },
     // 好友代付
     toFriendPay(e){
