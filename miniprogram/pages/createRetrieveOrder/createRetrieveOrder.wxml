@@ -4,8 +4,13 @@
     <!-- 快递信息 -->
     <view class="receiptContainer">
             <view class="receiptTitle">物品信息</view>
+
+
             <view class="receiptUserInfo">
-                <view class="infoLeft">物品名称</view>
+          
+                <view class="infoLeft">
+                <text style="color: red;">*</text>
+                物品名称</view>
                 <view class="infoRight">
                     <picker bindchange="bindPickerChange" value="{{cargoIndex}}" range="{{cargoList}}" data-type="cargo">
                         <view class="picker">
@@ -15,8 +20,12 @@
                     </picker>
                 </view>
             </view>
+          
+
             <view class="receiptUserInfo">
-                <view class="infoLeft">物品重量</view>
+                <view class="infoLeft">
+                  <text style="color: red;">*</text>
+                物品重量</view>
                 <view class="infoRight" style="margin-right: 20rpx;">
                    <input value="{{weight}}" type="number"  data-type="weight" bindinput="contentInput" class="inputContent"  placeholder="请输入物品重量"/>
                    （kg）
@@ -32,9 +41,14 @@
         </view>
         <!-- 快递信息 -->
         <view class="receiptContainer">
-            <view class="receiptTitle">快递信息</view>
+            <view class="receiptTitle">
+            
+            快递信息</view>
             <view class="receiptUserInfo">
-                <view class="infoLeft">快递公司</view>
+                <view class="infoLeft">
+                  <text style="color: red;">*</text>
+                快递公司</view>
+
                 <view class="infoRight">
                     <picker bindchange="bindPickerChange" value="{{uploadExpressIndex}}" range="{{expressList}}" data-type="uploadExpress">
                         <view class="picker">
@@ -45,7 +59,9 @@
                 </view>
             </view>
             <view class="receiptUserInfo">
-                <view class="infoLeft">预约日期</view>
+                <view class="infoLeft">
+                  <text style="color: red;">*</text>
+                预约日期</view>
                 <view class="infoRight">
                     <picker bindchange="bindPickerChange" value="{{dateIndex}}" range="{{dateList}}" data-type="date">
                         <view class="picker">
@@ -57,7 +73,9 @@
                 </view>
             </view>
             <view class="receiptUserInfo">
-                <view class="infoLeft">预约时间</view>
+                <view class="infoLeft">
+                  <text style="color: red;">*</text>
+                预约时间</view>
                 <view class="infoRight" style="margin-right: 20rpx;">
                     <picker mode="time" value="{{pickupStartTime}}" start="{{startTime}}" end="21:00" bindchange="bindPickerChange" data-type="startTime">
                         <view class="picker">
@@ -85,7 +103,9 @@
         <view class="receiptContainer">
             <view class="receiptTitle">寄件信息</view>
             <view class="receiptUserInfo">
-                <view class="infoLeft">寄件人</view>
+                <view class="infoLeft">
+                  <text style="color: red;">*</text>
+                寄件人</view>
                 <view class="infoRight">
                     <input class="detailAddress" value="{{myAddress.addresseeName}}" placeholder="请输入寄件地址" data-type="sendName" bindinput="contentInput"  />
                     <!-- <view class="info"> 
@@ -95,13 +115,17 @@
                 </view>
             </view>
             <view class="receiptUserInfo">
-                <view class="infoLeft">手机号</view>
+                <view class="infoLeft">
+                  <text style="color: red;">*</text>
+                手机号</view>
                 <view class="infoRight">
                     <input class="detailAddress" type="number" 	maxlength="11" value="{{myAddress.addresseePhone}}" placeholder="请输入手机号" data-type="sendPhone" bindinput="contentInput"  />
                 </view>
             </view>
             <view class="receiptUserInfo">
-                <view class="infoLeft">寄件地址</view>
+                <view class="infoLeft">
+                  <text style="color: red;">*</text>
+                寄件地址</view>
                 <view class="infoRight">
                     <input class="detailAddress" value="{{myAddress.receiverDetailAddress}}" placeholder="请输入寄件地址" data-type="address" bindinput="contentInput"  />
                     <!-- <view class="info"> {{myAddress.receiverDetailAddress}}</view> -->
@@ -131,7 +155,9 @@
         <view class="receiptContainer">
             <view class="receiptTitle">收货信息</view>
             <view class="receiptUserInfo">
-                <view class="infoLeft">收货人手机号</view>
+                <view class="infoLeft">
+                  <text style="color: red;">*</text>
+                收货人手机号</view>
                 <view class="infoRight">
                     <view class="info"> 
                         <text class="infoName">{{recoveryInfo.name}} </text>{{recoveryInfo.phone}}
@@ -140,7 +166,9 @@
                 </view>
             </view>
             <view class="receiptUserInfo">
-                <view class="infoLeft">收货地址</view>
+                <view class="infoLeft">
+                  <text style="color: red;">*</text>
+                收货地址</view>
                 <view class="infoRight">
                     <view class="info"> 
                         {{recoveryInfo.retrieveRegion}}{{recoveryInfo.retrieveDetailAddress}}
