@@ -31,14 +31,14 @@
     <view class="doctorTeamContainer">
         <view class="teamName">{{dovctorTeam.name}}</view>
         <view class="remark">{{dovctorTeam.teamDesc}}</view>
-        <view class="doctorContainer">
+        <!-- <view class="doctorContainer">
             <view class="userContainer" wx:key="id" wx:for="{{dovctorTeam.doctorTeamPeopleList}}">
                 <image src="{{item.avatar?item.avatar:'../../images/defaultAvatar.png'}}" class="headImg" ></image>
                 <text>{{item.userName}}</text>
             </view>
             
             
-        </view>
+        </view> -->
     </view>
     <view class="contentContainer">
         <view class="serviceTitle" bindtap="changeNav" data-value="0">
