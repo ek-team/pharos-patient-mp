@@ -5,21 +5,28 @@
         <view class="infoItem">
             <view class="infoTitle">姓名</view>
             <view class="inputView">
-                <input class="infoInput" type="text" value="{{patientName}}" bindinput="patientNameInput" />
+                <input
+                
+                disabled="{{hasUserInfo}}"
+                 class="infoInput" type="text" value="{{patientName}}" bindinput="patientNameInput" />
             </view>
         </view>
         <!-- 患者身份证号 -->
         <view class="infoItem">
             <view class="infoTitle">身份证号</view>
             <view class="inputView">
-                <input class="infoInput" type="text"  value="{{patientID}}" bindinput="patientIDInput"  maxlength="18"/>
+                <input 
+                disabled="{{hasUserInfo}}"
+                class="infoInput" type="text"  value="{{patientID}}" bindinput="patientIDInput"  maxlength="18"/>
             </view>
         </view>
         <!-- 患者手机号 -->
         <view class="infoItem">
             <view class="infoTitle">手机号</view>
             <view class="inputView">
-                <input class="infoInput" type="text"  value="{{phone}}" bindinput="phoneInput"  maxlength="11"/>
+                <input
+                disabled="{{hasUserInfo}}"
+                 class="infoInput" type="text"  value="{{phone}}" bindinput="phoneInput"  maxlength="11"/>
             </view>
         </view>
         <!-- 性别 -->
@@ -47,7 +54,7 @@
             </view>
         </view> -->
     </view>
-    <view class="finish" bindtap='savePatientInfo'>
+    <view wx:if="{{!hasUserInfo}}" class="finish" bindtap='savePatientInfo'>
         完成
     </view>
 </view>

@@ -1,0 +1,71 @@
+<view class="container" >
+
+<scroll-view scroll-y="{{modal?false:true}}" 	bindscroll="pageScroll" scroll-into-view="{{ toView }}"  style="height: {{scrollHeight+'rpx'}};" >
+<!-- 轮播图 -->
+<view class="swiper medicineDetail">
+  <view class="page-body">
+    <view class="page-section page-section-spacing swiper">
+      <swiper indicator-dots="true" autoplay="true" interval="3000" duration="1000" indicator-active-color='#F25F5F'>
+        <block wx:for="{{topSwiper}}" wx:key="index">
+          <swiper-item>
+            <view class="swiper-item swiper-image">
+              <image src="{{item.image}}" mode="aspectFit" class="slideImage" lazy-load='true' bindtap="moreImage" data-index="{{index}}"></image>
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+  </view>
+</view>
+<!-- 标题 -->
+<view class="goodsTitle">{{showName}}
+</view>
+<image style="width: 100%;margin-bottom: 200rpx;" mode="widthFix" src="{{abbreviatedRentRuleImage}}" bindtap="viewImg"></image>
+
+</scroll-view>
+ <!-- 立即预定 -->
+ <view class="bottomBox">
+  <!-- <view class="icon" bindtap="toHome">
+    <image src='../../images/btn_hoom.png' class="bottomIcon"></image>
+    <text class="iconText">首页</text>
+  </view> -->
+  <view class="icon" bindtap="kefu">
+    <image src='../../images/btn_kefu.png' class="bottomIcon"></image>
+    <text class="iconText">客服</text>
+  </view>
+  <button class="reserve" bindtap="booking">立即续租服务</button>
+</view>
+<!-- 弹框 -->
+<van-popup show="{{modal}}" position="bottom"  closeable bind:close="cancelBook"  custom-style="height: 1100rpx;">
+  <view class="modal">
+    <view class="modalTop">
+      <image class="moadlPic" src="{{rentRuleImage}}" bindtap="viewImg"></image>
+      <view class="modalTitle">{{showName}}
+        <view class="selectedText">
+          <view class="choosePrice">￥{{rentRuleAmount}} </view>
+       
+        </view>
+      </view>
+    </view>
+    <scroll-view scroll-y="true" style="height: 640rpx;">
+      
+      <view >
+      
+        <view class="modalSubtitle">{{'续租方案'}}</view>   
+        <view class="modalChoose">
+          <view wx:for="{{rentRuleList}}" wx:for-index="id" wx:for-item="items" wx:key="id" class="{{rentRuleId==items.id?'chooseViewCheck':rentRuleId!=items.id?'disabledCheck':'chooseView'}} chooseView" bindtap="chooseSale"  data-id="{{items.id}}"   data-amount="{{items.amount}}"  data-day="{{items.day}}">
+
+          <span >{{items.day+'天/'+items.amount+'元'}}</span>  
+          </view>
+        </view>
+      </view>
+
+      
+    </scroll-view>
+    <view class="operateBtn">
+      <view class="cancelBtn" bindtap="cancelBook">取消</view>
+      <view class="{{rentRuleId!=-1?'confirmBtn':'confirmBtn disabeldStatus'}}" bindtap="confirmBook">确定</view>
+    </view>
+  </view>
+</van-popup>
+</view>

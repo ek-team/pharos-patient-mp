@@ -1,0 +1,349 @@
+/* pages/orderConfirm/orderConfirm.wxss */
+.orderContainer{
+  display: flex;
+  flex-direction: column;
+}
+.orderItem{
+  /* margin-top: 24rpx; */
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 24rpx 30rpx 22rpx 32rpx;
+  margin: 24rpx 30rpx 0rpx 32rpx;
+  border-radius: 16rpx;
+}
+.orderTop{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #888888;
+  font-size: 13px;
+  line-height: 36rpx;
+  margin-bottom: 32rpx;
+}
+.orderInfoContainer{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24rpx;
+}
+.medecineItem{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 28rpx;
+}
+.imgBox{
+  margin-right: 24rpx;
+}
+.goodsPictrue{
+  width: 156rpx;
+  height: 156rpx;
+}
+.rightInfoBox{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex: 1;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #888888;
+  font-size: 13px;
+  line-height: 36rpx;
+}
+.goodsName{
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  font-size: 16px;
+  color: #333333;
+  line-height: 44rpx;
+  display: flex;
+  flex-direction: row;
+}
+.goodsNum{
+  margin-left: 20rpx;
+  font-size: 13px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #888888;
+}
+.infoItem{
+  margin-bottom: 8rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.rightIconBox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bottomContainer{
+  display: flex;
+  flex-direction: column;
+}
+.payInfo{
+  display: flex;
+  justify-content: flex-end;
+  font-size: 15px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #333333;
+}
+.optionContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 32rpx;
+}
+.buttonItem{
+  width: 200rpx;
+  height: 72rpx;
+  border-radius: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  line-height: 42px;
+}
+.cancelBtn{
+  border: 1px solid #DBDBDB;
+  color: #585858;
+  margin-right: 32rpx;
+}
+.confirmBtn{
+  border: 1px solid #F79600;
+  color: #F79600;
+}
+.payContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 32rpx;
+}
+.payTitle{
+  font-size: 14px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #333333;
+}
+.payNum{
+  font-size: 13px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #888888;
+}
+
+.receiptContainer{
+  margin: 24rpx 30rpx 0rpx 32rpx;
+  padding: 28rpx 20rpx 0rpx 20rpx;
+  background-color: #fff;
+  margin-top: 24rpx;
+  border-radius: 16rpx;
+}
+.receiptTitle{
+  font-size: 16px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: bold;
+  color: #333333;
+  line-height: 44rpx;
+  margin-bottom: 28rpx;
+}
+.receiptUserInfo{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 32rpx;
+}
+.infoLeft{
+  font-size: 14px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #333333;
+  line-height: 40rpx;
+}
+.infoRight{
+  font-size: 13px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #888888;
+  display: flex;
+  flex-direction: row;
+}
+.info{
+  margin-right: 26rpx;
+  max-width: 364rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  text-align: right;
+}
+.infoName{
+  margin-right: 10rpx;
+}
+.rightIcon{
+  width: 36rpx;
+  height: 36rpx;
+}
+/* 发货 */
+.checkDeliverTime{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 28rpx;
+}
+.leftTitle{
+  font-size: 16px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: bold;
+  color: #333333;
+  line-height: 44rpx;
+}
+.checkTimeOtion{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.remindText{
+  margin-right: 26rpx;
+  font-size: 13px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #888888;
+  line-height: 36rpx;
+}
+/* 支付方式 */
+.methodsItem{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+.payLeft{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.payIcon{
+  width: 56rpx;
+  height: 56rpx;
+}
+.payMethodsText{
+  font-size: 14px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #333333;
+  line-height: 40rpx;
+  margin: 0 16rpx;
+}
+.noCheck{
+  width: 40rpx;
+  height: 40rpx;
+  border: 1px solid #D0D0D0;
+  border-radius: 50%;
+}
+.checkImg{
+  width: 48rpx;
+  height: 44rpx;
+}
+.bottomMargin{
+  margin-bottom: 214rpx;
+}
+.agreeText{
+  font-size: 14px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #333333;
+  line-height: 40rpx;
+}
+.agreementText{
+  color:#2097F3;
+}
+.payOption{
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  background-color: #fff;
+  padding: 16rpx 30rpx 92rpx 52rpx;
+}
+.payAmount{
+  font-size: 16px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #333333;
+  line-height: 44rpx;
+}
+.payOptionContainer{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.payButton{
+  width: 440rpx;
+  height: 80rpx;
+  background: linear-gradient(270deg, #3C9EE9 0%, #6FC3F6 100%);
+  border-radius: 8rpx;
+  margin-left: 100rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 17px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #FFFFFF;
+  line-height: 48rpx;
+}
+.disablePay{
+  width: 440rpx;
+  height: 80rpx;
+  background: linear-gradient(270deg, #D0D0D0 0%, #e0dfdf 100%);
+  border-radius: 8rpx;
+  margin-left: 100rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 17px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #FFFFFF;
+  line-height: 48rpx;
+  /* background-color: #D0D0D0; */
+}
+/* 协议 */
+.protocolName{
+  height: 98rpx;
+  width: 100%;
+  text-align: center;
+  padding: 20rpx 10rpx;
+  box-sizing: border-box;
+  font-weight: 600;
+  font-size: 32rpx;
+  line-height: 70rpx;
+}
+.scroll{
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  height: 750rpx;
+}
+/* 阅读的按钮 */
+.readProtocol{
+  width: 540rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  /* height: 64rpx; */
+  /* line-height: 68rpx; */
+  background-color: #F3F3F3;
+  font-size: 26rpx;
+  margin: 0 auto;
+  border-radius: 68rpx;
+  text-align: center;
+  margin-top: 10rpx;
+  color: #888888;
+}
+.hasReadProtocol{
+  background: linear-gradient(270deg, #3C9EE9 0%, #6FC3F6 100%);
+  color: #fff;
+}

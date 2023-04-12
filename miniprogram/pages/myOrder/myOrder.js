@@ -246,6 +246,9 @@ Page({
    
 
 
+        
+
+
 
     },
     // 好友代付
@@ -348,6 +351,17 @@ Page({
           url: '../createRetrieveOrder/createRetrieveOrder?deptId='+item.deptId+'&orderId='+item.id,
         })
     },
+
+    //服务续租
+    torentRuleOrder(e){
+      let item=e.currentTarget.dataset.item
+
+      wx.navigateTo({
+        url: '../rentRuleOrder/rentRuleOrder?orderNo='+item.orderNo+'&servicePackId='+item.servicePack.id,
+      })
+    },
+
+
     // 查看详情
     watchOrderDetail(e){
         let orderId=e.currentTarget.dataset.orderid
@@ -357,6 +371,11 @@ Page({
     },
     // 确认收货
     receipt(e){
+
+      let item=e.currentTarget.dataset.item
+
+      console.log('------',item)
+    
         let that=this;
         let orderId=e.currentTarget.dataset.item.id;
         wx.showModal({

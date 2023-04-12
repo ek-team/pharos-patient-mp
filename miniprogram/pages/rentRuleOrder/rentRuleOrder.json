@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "van-stepper": "@vant/weapp/stepper/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "van-tab":"@vant/weapp/tab/index",
+    "van-tabs":"@vant/weapp/tabs/index"
+  },
+  "navigationBarBackgroundColor":"#ffffff",
+  "navigationBarTitleText":"服务续租",
+  "enablePullDownRefresh":false
+}

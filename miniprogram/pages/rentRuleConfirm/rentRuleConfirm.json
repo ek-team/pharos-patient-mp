@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "van-calendar": "@vant/weapp/calendar/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "van-datetime-picker": "@vant/weapp/datetime-picker/index"
+  },
+  "navigationBarBackgroundColor":"#ffffff",
+  "navigationBarTitleText":"订单确认"
+}

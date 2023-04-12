@@ -78,7 +78,11 @@
                         <view class="buttonItem confirmBtn" wx:if="{{item.status==3}}" bindtap="receipt" data-item="{{item}}">确认收货</view>
                         <view class="buttonItem confirmBtn friendsPayBtn" wx:if="{{item.status==1}}" bindtap="toFriendPay" data-item="{{item}}">好友代付</view>
                         <view class="buttonItem confirmBtn payButton" wx:if="{{item.status==1}}" bindtap="toPay" data-item="{{item}}">付款</view>
+                     
+                        <view class="buttonItem cancelBtn " wx:if="{{item.status==4&&item.orderType==1}}" bindtap="torentRuleOrder" data-item="{{item}}">服务续租</view>
                         <view class="buttonItem confirmBtn" wx:if="{{item.status==4&&item.orderType==1}}" bindtap="toRetrieveOrder" data-item="{{item}}">回收</view>
+                    
+
                     </view>
                     
                 </view>

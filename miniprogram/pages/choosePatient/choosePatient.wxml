@@ -25,7 +25,7 @@
           </view>
         </view>
         <!-- wx:if="{{type=='edit'}}" -->
-        <view class="edit" catchtap="editPatient" data-item="{{item}}" >编辑</view>
+        <view class="edit" catchtap="editPatient" data-item="{{item}}" >查看</view>
         
       </label>
     </radio-group>

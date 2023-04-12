@@ -1,4 +1,5 @@
 <view class="container" >
+
   <scroll-view scroll-y="{{modal?false:true}}" 	bindscroll="pageScroll" scroll-into-view="{{ toView }}"  style="height: {{scrollHeight+'rpx'}};" >
   <!-- 轮播图 -->
   <view class="swiper medicineDetail">
@@ -68,7 +69,7 @@
     <view class="modal">
       <view class="modalTop">
         <image class="moadlPic" src="{{checkSpecListInfo.urlImage?checkSpecListInfo.urlImage:topSwiper[0].image}}" bindtap="viewImg"></image>
-        <view class="modalTitle">{{name}}
+        <view class="modalTitle">{{showName}}
           <view class="selectedText">
             <view class="choosePrice">￥{{checkSpecListInfo.price?checkSpecListInfo.price:price}} </view>
             <view class="cheooseRemark" >{{checkSpecListInfo.remark?checkSpecListInfo.remark:noticeText}}</view>
