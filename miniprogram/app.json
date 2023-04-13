@@ -35,8 +35,10 @@
     "pages/applyInvoice/applyInvoice",
     "pages/savePersonInfo/savePersonInfo",
     "pages/rentRuleOrder/rentRuleOrder",
-    "pages/rentRuleConfirm/rentRuleConfirm"
-   
+    "pages/rentRuleConfirm/rentRuleConfirm",
+    "pages/rentRuleList/rentRuleList",
+    "pages/mpWeiXing/mpWeiXing"
+
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

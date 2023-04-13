@@ -18,7 +18,7 @@ Page({
         expressCodeList:['jd', 'debangkuaidi', 'shunfeng','jtexpress', 'yuantong','shentong', 'zhongtong','yunda','youzhengguonei','huitongkuaidi','annengwuliu','yousuwuliu'],
         cargoIndex:null,
         cargoList:['日用品','食品','文件','衣物','数码产品','其他'],
-        weight:25,//物品重量
+        weight:10.5,//物品重量
         dateList:['今天','明天','后天'],
         dateIndex:null,
         pickupStartTime:'9:00',

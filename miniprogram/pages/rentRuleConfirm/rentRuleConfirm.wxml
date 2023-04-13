@@ -69,16 +69,7 @@
     </view>
     <!-- 期望发货时间 -->
     <van-calendar show="{{showCalendar}}" show-confirm="{{ false }}" bind:confirm="onConfirm" title='期望发货时间' formatter="{{formatter}}" bind:close='closeCalendar' />
-    <!-- 协议 -->
-    <!-- height: 1100rpx; -->
-    <van-popup position='bottom' custom-style="height: 1000rpx;" bind:close="closeProrocol" show="{{showProtocol}}">
-        <view class="protocolName">{{protocoDetail.name}}</view>
-        <scroll-view scroll-y="true" class="scroll" bindscrolltolower='read'>
-            <rich-text nodes="{{protocoDetail.content}}"></rich-text>
-        </scroll-view>
-        <view class="{{hasRead?'hasReadProtocol' :''}} readProtocol " bindtap="hasRead">我已阅读并知晓相关使用协议</view>
-    </van-popup>
-    <!-- 手术时间 -->
+    
 
 
 </view>

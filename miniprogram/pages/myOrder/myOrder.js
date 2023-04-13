@@ -354,11 +354,16 @@ Page({
 
     //服务续租
     torentRuleOrder(e){
-      let item=e.currentTarget.dataset.item
+      
 
+    
+    
+      let item=e.currentTarget.dataset.item
       wx.navigateTo({
-        url: '../rentRuleOrder/rentRuleOrder?orderNo='+item.orderNo+'&servicePackId='+item.servicePack.id,
+        url: '../rentRuleList/rentRuleList?orderId='+item.id,
       })
+
+
     },
 
 

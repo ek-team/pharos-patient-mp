@@ -13,4 +13,5 @@
     <text class="blueAgree" bindtap="readPolicy">《隐私政策》</text>
   
   </view>
+  <official-account></official-account>
 </view>

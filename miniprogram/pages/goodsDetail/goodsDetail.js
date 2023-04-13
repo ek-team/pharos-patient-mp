@@ -73,6 +73,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+
+
+
+
+
+
     if(!wx.getStorageSync('noGetNewData')){
       // console.log('刷新',wx.getStorageSync('noGetNewData'))
       wx.removeStorageSync('doctorTeam');
@@ -85,6 +91,10 @@ Page({
       // console.log('不刷新',wx.getStorageSync('noGetNewData'))
       wx.removeStorageSync('noGetNewData');
     }
+
+    
+
+
   },
   pageScroll(e) {
     let that=this
@@ -154,12 +164,18 @@ Page({
   },
   // 获取用户信息
   getUserInfo() {
+
+
+
+
+
+
     http('user/info', 'get').then(res => {
       if (!res.data.maOpenId) {
         wx.login({
           success(res) {
             if (res.code) {
-              console.log(res.code)
+              console.log(res.data)
               http('user/initMaOpenId', 'get', '', {
                 code: res.code
               }).then(res => {
@@ -177,6 +193,36 @@ Page({
         }
         
       }
+
+
+      
+    http('user/isSubscribe', 'get').then(res => {
+
+      console.log('----------------'+(res.data))
+      if(!res.data.isSubscribe){
+
+        wx.showModal({
+          title: '请先关注公众号',
+          cancelText: '取消',
+          cancelColor: '#666666',
+          confirmText: '关注',
+          confirmColor: '#576B95',
+          success(res) {
+            if (res.confirm) {
+              wx.navigateTo({
+                url: '../mpWeiXing/mpWeiXing',
+              })
+      
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+
+     
+      }
+    })
+
       this.getDetailById();
 
     })

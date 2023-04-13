@@ -58,4 +58,5 @@
       <image src='../../images/right.png' class="arrow" data-url="{{item.path}}" bindtap="toPage"></image>
     </view>
   </view>
+
 </view>

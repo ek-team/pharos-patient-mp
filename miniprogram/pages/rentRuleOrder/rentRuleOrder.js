@@ -193,7 +193,7 @@ Page({
     confirmInfo.protocolId = this.data.id;
     
     wx.setStorageSync('rentRuleDetail', confirmInfo)
-
+  
 
     wx.navigateTo({
       url: '../rentRuleConfirm/rentRuleConfirm',
@@ -264,7 +264,16 @@ Page({
       })
       wx.setStorageSync('noGetNewData', true)
     },
+    viewImgRentRule(){
 
+      wx.previewImage({
+        urls: [this.data.abbreviatedRentRuleImage],
+      })
+      wx.setStorageSync('noGetNewData', true)
+    },
+
+
+    
   /**
    * 生命周期函数--监听页面隐藏
    */

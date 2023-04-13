@@ -127,15 +127,9 @@ Page({
   // 去支付
   toPay() {
 
-    if (!this.data.agreeProtocol) {
-      wx.showToast({
-        title: '请同意产品协议',
-        icon: 'none',
-        duration: 2000
-      })
-    } else {
+  
       this.getOrder();
-    }
+    
 
 
 

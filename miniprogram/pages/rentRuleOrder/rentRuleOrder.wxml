@@ -20,7 +20,7 @@
 <!-- 标题 -->
 <view class="goodsTitle">{{showName}}
 </view>
-<image style="width: 100%;margin-bottom: 200rpx;" mode="widthFix" src="{{abbreviatedRentRuleImage}}" bindtap="viewImg"></image>
+<image style="width: 100%;margin-bottom: 200rpx;" mode="widthFix" src="{{abbreviatedRentRuleImage}}" bindtap="viewImgRentRule"></image>
 
 </scroll-view>
  <!-- 立即预定 -->

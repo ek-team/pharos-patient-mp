@@ -1,0 +1,108 @@
+<!--pages/myOrder/myOrder.wxml-->
+<view>
+
+  <scroll-view scroll-y="true" refresher-enabled="true" bindrefresherrefresh="pullRefresher" refresher-triggered="{{isTrigger}}" bindscrolltolower="getMoreOrder" style='height:{{boxHeight}}px;'>
+
+
+
+    <view class="orderContainer">
+      <view class="orderItem">
+        <!-- 订单号、状态 -->
+        <view class="orderTop" bindtap="watchOrderDetail" data-orderId="{{orderDetail.id}}">
+          <view>订单号：{{orderDetail.orderNo}}</view>
+          <view>{{orderDetail.status==1?'待付款':orderDetail.status==2?'待发货':orderDetail.status==3?'待收货':orderDetail.status==4?'使用中':'已回收'}}</view>
+        </view>
+        <!-- 订单信息 -->
+        <view class="orderInfoContainer" bindtap="watchOrderDetail" data-orderId="{{orderDetail.id}}">
+          <view class="medecineItem">
+            <view class="imgBox">
+              <image src="{{orderDetail.productPic?orderDetail.productPic:''}}" class="goodsPictrue"></image>
+            </view>
+            <view class="rightInfoBox">
+              <view class="infoItem">
+                <view class="goodsName">
+                  {{orderDetail.servicePack?orderDetail.servicePack.name:''}}
+                </view>
+                <view>x1</view>
+              </view>
+              <view class="infoItem">
+                <view>{{orderDetail.saleSpecId}}</view>
+                <view>￥{{orderDetail.payment}}</view>
+              </view>
+            </view>
+          </view>
+          <view class="medecineItem" wx:for="{{orderDetail.servicePackageInfos}}" wx:for-item="serviceItem" wx:key="id">
+            <view class="imgBox">
+              <image src="{{orderDetail.servicePackageInfos?orderDetail.servicePackageInfos[0].image:''}}" class="goodsPictrue"></image>
+            </view>
+            <view class="rightInfoBox">
+              <view class="infoItem">
+                <view class="goodsName">
+                  {{serviceItem.name}}
+                  <!-- <view class="freeTitle">赠送</view> -->
+                </view>
+                <view>x{{serviceItem.count}}</view>
+              </view>
+              <view class="infoItem">
+                <view>{{orderDetail.productSpec}}</view>
+                <view>￥0</view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="concatService">
+          <image src='../../images/btn_kefu.png' class="customerServiceIcon" bindtap="callToService" data-serviceinfo="{{orderDetail.servicePack}}"></image>
+          <text bindtap="callToService" data-serviceinfo="{{orderDetail.servicePack}}">联系客服</text>
+        </view>
+        <!-- 实付款、按钮 -->
+        <view class="bottomContainer">
+          <view class="payInfo">
+            <!-- <image src='../../images/btn_kefu.png' class="customerServiceIcon"></image> -->
+            <view class="creatTimeText">创建时间:{{orderDetail.createTime}}</view>
+            <view>实付款￥{{orderDetail.payment}}</view>
+          </view>
+          <view class="optionContainer">
+
+            <view class="buttonItem cancelBtn " wx:if="{{orderDetail.status==4&&orderDetail.orderType==1}}" bindtap="torentRuleOrder" >继续续租</view>
+
+
+
+          </view>
+
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{orderDetail.rentRuleOrderList.length==0}}" class="noneContianer">
+      <image src="../../images/img1@2x.png" class="noneOrder"></image>
+    </view>
+
+    <view class="orderContainer">
+      <view class="orderItem" wx:for="{{rentRuleOrderList}}" data-index="{{index}}" >
+        <view class="orderInfoContainer" bindtap="watchOrderDetail" data-orderId="{{orderDetail.id}}">
+          <view class="medecineItem">
+            <view class="imgBox">
+              <image src="{{orderDetail.servicePack.rentRuleImage}}" class="goodsPictrue"></image>
+            </view>
+            <view class="rightInfoBox">
+              <view class="infoItem">
+                <view class="goodsName">
+                  {{'续租'+(item.day)+'天'}}
+                </view>
+                <view>x1</view>
+              </view>
+              <view class="infoItem">
+                <view> 创建时间：{{item.createTime}}</view>
+                <view>￥{{item.amount}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+
+
+      </view>
+    </view>
+
+
+
+  </scroll-view>
+</view>
