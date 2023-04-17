@@ -50,10 +50,7 @@
             </view>
           </view>
         </view>
-        <view class="concatService">
-          <image src='../../images/btn_kefu.png' class="customerServiceIcon" bindtap="callToService" data-serviceinfo="{{orderDetail.servicePack}}"></image>
-          <text bindtap="callToService" data-serviceinfo="{{orderDetail.servicePack}}">联系客服</text>
-        </view>
+      
         <!-- 实付款、按钮 -->
         <view class="bottomContainer">
           <view class="payInfo">

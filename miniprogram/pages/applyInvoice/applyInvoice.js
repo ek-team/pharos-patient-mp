@@ -126,13 +126,7 @@ Page({
                 icon:'none'
               })
               return
-        }else if (!(/^1[3|4|5|7|8]\d{9}$/.test(this.data.form.phone))) {
-            wx.showToast({
-              title: '请输入正确的手机号',
-              icon: 'none'
-            })
-            return
-        }else if(!this.data.form.email){
+        }else  if(!this.data.form.email){
             wx.showToast({
                 title: '请填写电子邮件！',
                 icon:'none'

@@ -523,7 +523,7 @@ Page({
     toForm(e){
         let item=e.currentTarget.dataset.item
         let type=e.currentTarget.dataset.type
-        console.log(item.fromUid,"pppppp")
+        console.log(item,"pppppp")
         let chatMsgId=item.id
         if(item.fromUid==wx.getStorageSync('id')){
           chatMsgId=item.str3
@@ -536,7 +536,7 @@ Page({
         }else{
             // console.log('随访计划表单详情',item)
             wx.navigateTo({
-              url: '../form/form?formId='+item.followUpPlanNotice.followUpPlanContent.formId+'&followPlanId='+item.str1,
+              url: '../form/form?formId='+item.followUpPlanNotice.followUpPlanContent.formId+'&followPlanId='+item.str1+'&chatMsgId='+chatMsgId,
             })
         }   
     },

@@ -9,15 +9,15 @@
             <view class="receiptUserInfo">
           
                 <view class="infoLeft">
-                <text style="color: red;">*</text>
+                <!-- <text style="color: red;">*</text> -->
                 物品名称</view>
                 <view class="infoRight">
-                    <picker bindchange="bindPickerChange" value="{{cargoIndex}}" range="{{cargoList}}" data-type="cargo">
+                    <!-- <picker bindchange="bindPickerChange" value="{{cargoIndex}}" range="{{cargoList}}" data-type="cargo"> -->
                         <view class="picker">
                         <span class="remindText" wx:if="{{cargoIndex==null}}">选择物品名称</span>{{cargoList[cargoIndex]}}
-                        <image class="rightIcon" src="../../images/right.png"></image>
+                        <!-- <image class="rightIcon" src="../../images/right.png"></image> -->
                         </view>
-                    </picker>
+                    <!-- </picker> -->
                 </view>
             </view>
           
@@ -46,16 +46,16 @@
             快递信息</view>
             <view class="receiptUserInfo">
                 <view class="infoLeft">
-                  <text style="color: red;">*</text>
+                  <!-- <text style="color: red;">*</text> -->
                 快递公司</view>
 
                 <view class="infoRight">
-                    <picker bindchange="bindPickerChange" value="{{uploadExpressIndex}}" range="{{expressList}}" data-type="uploadExpress">
+                    <!-- <picker bindchange="bindPickerChange" value="{{uploadExpressIndex}}" range="{{expressList}}" data-type="uploadExpress"> -->
                         <view class="picker">
                         <span class="remindText" wx:if="{{uploadExpressIndex==null}}">选择快递公司</span>{{expressList[uploadExpressIndex]}}
-                        <image class="rightIcon" src="../../images/right.png"></image>
+                        <!-- <image class="rightIcon" src="../../images/right.png"></image> -->
                         </view>
-                    </picker>
+                    <!-- </picker> -->
                 </view>
             </view>
             <view class="receiptUserInfo">

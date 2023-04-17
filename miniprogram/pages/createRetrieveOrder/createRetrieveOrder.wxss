@@ -77,10 +77,11 @@
     text-align: right;
 }
 .detailAddress{
+  border: 1px solid #eeeeee;
     margin-right: 20rpx;
     width: 400rpx;
     /* text-align: right;   */
-    background-color: #eeeeee;
+
     /* border: 1px solid #c5c5c5; */
     padding: 8rpx 10rpx;
     border-radius: 8rpx;

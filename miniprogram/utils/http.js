@@ -1,7 +1,7 @@
 const {noticeLogin}=require("../utils/noticeLogin");
-// const baseUrl = 'https://pharos3.ewj100.com/';
+const baseUrl = 'https://pharos3.ewj100.com/';
 // const baseUrl = 'http://192.168.10.5:10049/';
-const  baseUrl = 'https://api.jhxiao-school.com/';
+// const  baseUrl = 'https://api.jhxiao-school.com/';
 const app = getApp();
 function http(url, method, auth,data = {}, isShowLoading = false) {
     // data.token = wx.getStorageSync('token')

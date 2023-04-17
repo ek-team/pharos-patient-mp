@@ -46,10 +46,18 @@
 .activItem{
   background: #65BCFF;
   color: #fff;
+  margin-bottom: 20rpx;
+height: 60rpx;
+text-align: center;
+line-height: 60rpx;
 }
 .normalItem{
+  margin-bottom: 20rpx;
   background: #F2F2F2;
   color: #333;
+  height: 60rpx;
+  text-align: center;
+line-height: 60rpx;
 }
 .arrow{
   width: 16rpx;

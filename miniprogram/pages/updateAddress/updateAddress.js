@@ -82,11 +82,6 @@ Page({
         title: '请填写收货人姓名',
         icon: 'none'
       })
-    } else if (!(/^1[3|4|5|7|8]\d{9}$/.test(this.data.phone))) {
-      wx.showToast({
-        title: '请输入正确的手机号',
-        icon: 'none'
-      })
     }
     else if (this.data.regionCode.length == 0) {
       wx.showToast({

@@ -110,6 +110,8 @@ Page({
     }],
     info: {},//用户信息
 
+    trainCardId:null,
+
   },
 
   /**
@@ -132,6 +134,8 @@ Page({
    */
   onShow: function () {
     this.getUserInfo();
+
+    
   },
 
   toMyOrder(e) {
@@ -148,8 +152,12 @@ Page({
   },
   toMySportData(){
     if(this.data.info.idCard){
+
+
+
+
       wx.navigateTo({
-        url: '../exerciseData/exerciseData?idCard='+this.data.info.idCard,
+        url: '../exerciseData/exerciseData?idCard='+this.data.trainCardId,
       })
     }else{
       wx.showToast({
@@ -191,16 +199,33 @@ Page({
   // 获取用户信息
   getUserInfo() {
     http('user/info', 'get').then(res => {
-      console.log(res.data)
 
+
+      console.log(res.data)
       this.setData({
         info: res.data
       })
+
+
       this.getOrderNum();
       this.getRetrieveOrder();
+      this.getByXtUserId();
     })
   },
-  // 获取订单数量
+  // 获取设备用户
+  getByXtUserId() {
+    http('/palnUser/getByXtUserId', 'get').then(res => {
+      
+      console.log(res.data)
+
+      this.setData({
+
+        trainCardId:res.data.idCard
+
+      })
+    })
+  },
+  // 获取订单
   getOrderNum() {
     http('/purchase/order/user/listMyStateCount', 'get').then(res => {
       // console.log(res.data)

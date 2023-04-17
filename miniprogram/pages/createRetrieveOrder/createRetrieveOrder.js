@@ -16,7 +16,7 @@ Page({
         expressList: [ '京东','德邦','顺丰', '极兔','圆通','申通','中通','韵达','邮政','百世','安能','优速'],
         uploadExpressIndex:2,
         expressCodeList:['jd', 'debangkuaidi', 'shunfeng','jtexpress', 'yuantong','shentong', 'zhongtong','yunda','youzhengguonei','huitongkuaidi','annengwuliu','yousuwuliu'],
-        cargoIndex:null,
+        cargoIndex:5,
         cargoList:['日用品','食品','文件','衣物','数码产品','其他'],
         weight:10.5,//物品重量
         dateList:['今天','明天','后天'],

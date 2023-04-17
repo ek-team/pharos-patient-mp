@@ -47,6 +47,7 @@ Page({
     toTop:false,
     showIntroduction:false,
     toView:null,
+    status:0,//默认服务包启用
   },
 
   /**
@@ -212,6 +213,12 @@ Page({
               wx.navigateTo({
                 url: '../mpWeiXing/mpWeiXing',
               })
+
+              wx.navigateTo({ 
+                url: 'weixin://dl/business/?uin=MjM5NzA1NjIzMw==&mid=1000001&idx=1&sn=b3e9d9e86e45dafee5eb5c1a5d5a5b5d&scene=38' 
+                });
+
+                // https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzkwNDQyMzI1NQ==&scene=117#wechat_redirect
       
             } else if (res.cancel) {
               console.log('用户点击取消')
@@ -314,6 +321,8 @@ Page({
         buyList:buyList,
         buyPicList:res.data.servicePackProductPicsBuy,//购买的图片列表
         renPicList:res.data.servicePackProductPics,//租用图片列表
+
+        status:res.data.status,//服务包状态
       })
       wx.setStorageSync('deptId', res.data.deptId)
     })
@@ -336,6 +345,17 @@ Page({
   },
   // 立即预定
   booking() {
+
+
+  
+    if (this.data.status!=0) {
+      wx.showToast({
+      title: '该产品已售完',
+      icon:'none'
+    })
+    return
+  }
+
     this.setData({
       modal: true
     })
@@ -486,6 +506,8 @@ Page({
 },
   // 点击确定
   confirmBook() {
+
+
     if(this.data.checkSpecListInfo.status==1){
       wx.showToast({
         title: '该规格无法选择！',

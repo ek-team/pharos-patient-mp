@@ -164,7 +164,31 @@
                             </view> -->
                         </view>
 
-                    
+                        
+                            <!-- 随访计划 -->
+                            <view class="patientInformation" wx:if="{{item.msgType=='FOLLOW_UP_PLAN'}}">
+                                <view class="inquiriesBox">
+                                    <view class="recruitTitle">随访计划</view>
+                                    <view class="splitBox">
+                                        <view class="inquiriesSplite"></view>
+                                    </view>
+                                    <view class="patientInfoBox">
+                                        <view class="patientInfoItem">
+                                            <view class="infoTitleBox">
+                                                <image src="../../images/message.png" class="messageeIcon" />
+                                                <span class="infoTitle">计划内容</span>
+                                            </view>
+                                            <view class="infoContent planContent">{{item.followUpPlanNotice?item.followUpPlanNotice.followUpPlanContent.notice:''}}</view>
+                                            <view class="prescriptionOption">
+                                                <text>{{item.followUpPlanNotice.followUpPlanContent.form.title}}</text>
+                                                <view class="prescriptionButton" wx:if="{{item.followUpPlanNotice.followUpPlanContent.formId}}" data-item="{{item}}" bindtap="toForm">{{item.followUpPlanNotice.form==0?'填写表单':'查看表单'}}</view>
+                                            </view>
+                                            <!-- <view class="" wx:if="{{item.followUpPlanNotice.followUpPlanContent.formId}}" ></view> -->
+                                        </view>
+                                    </view>
+                                </view>
+
+                            </view>
 
                         <!-- 图文咨询消息 -->
                         <view class="inquiriesDialog" wx:if="{{item.msgType=='PIC_CONSULTATION'}}">

@@ -128,7 +128,16 @@
   font-weight: 500;
   margin: 0;
 }
-
+.reserveGray {
+  width: 446rpx !important;
+  height: 80rpx;
+  background: linear-gradient(270deg, #727374 0%, #727374 100%);
+  border-radius: 8rpx;
+  color: #fff;
+  font-size: 34rpx;
+  font-weight: 500;
+  margin: 0;
+}
 /* 弹框 */
 .modal {
   width: 100%;

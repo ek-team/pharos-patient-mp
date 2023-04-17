@@ -23,6 +23,7 @@ Page({
     rentRuleId: -1, //选择的续租id
     rentRuleAmount: 0, //续租价格
     rentRuleDay: 0, //续租天数
+    status:0,//默认启用
   },
 
 
@@ -140,7 +141,9 @@ Page({
         rentRuleList: res.data.rentRuleList, //续租规则
         rentRuleImage: res.data.rentRuleImage, //缩列图
         abbreviatedRentRuleImage:res.data.abbreviatedRentRuleImage,//显示图
+        status:res.data.status,
 
+        
 
 
 

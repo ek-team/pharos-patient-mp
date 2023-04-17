@@ -199,7 +199,7 @@ Page({
         let submitList=[]
         for(let i=0,item;i<list.length;i++){
             item=list[i]
-            console.log()
+     
             if(item.isMust==1&&!item.answer){
                 wx.showToast({
                   title: '请填写第'+(i+1)+'题',
@@ -219,9 +219,15 @@ Page({
           wx.hideLoading()
           return
         }
+
+        console.log('-1----'+this.data.type),
+        console.log('-----'+this.data.chatMsgId),
+        console.log('-----'+this.data.followPlanId),
+
         http('formUserData/saveData','post','',{
             formManagementDatas:submitList,
-            str:this.data.type=='form'?this.data.chatMsgId:this.data.followPlanId
+            // str:this.data.type=='form'?this.data.chatMsgId:this.data.followPlanId
+            str:this.data.chatMsgId,
         }).then(res=>{
             wx.hideLoading()
             if(res.code==0){
