@@ -1,4 +1,6 @@
-import { http } from "../../utils/http"
+import {
+  http
+} from "../../utils/http"
 
 // pages/my/my.js
 Page({
@@ -9,30 +11,30 @@ Page({
   data: {
     // 订单状态 1-待付款 2-待发货 3-待收货 4-使用中
     orderStatus: [{
-      id: 0,
-      name: '待付款',
-      status: 1,
-      pic: '../../images/icon_fukuan.png',
-      num: 0
-    }, {
-      id: 1,
-      name: '待发货',
-      status: 2,
-      pic: '../../images/icon_fahuo.png',
-      num: 0
-    }, {
-      id: 2,
-      name: '待收货',
-      status: 3,
-      pic: '../../images/icon_shouhuo.png',
-      num: 0
-    }, {
-      id: 3,
-      name: ' 使用中',
-      status: 4,
-      pic: '../../images/icon_shiyong.png',
-      num: 0
-    },
+        id: 0,
+        name: '待付款',
+        status: 1,
+        pic: '../../images/icon_fukuan.png',
+        num: 0
+      }, {
+        id: 1,
+        name: '待发货',
+        status: 2,
+        pic: '../../images/icon_fahuo.png',
+        num: 0
+      }, {
+        id: 2,
+        name: '待收货',
+        status: 3,
+        pic: '../../images/icon_shouhuo.png',
+        num: 0
+      }, {
+        id: 3,
+        name: ' 使用中',
+        status: 4,
+        pic: '../../images/icon_shiyong.png',
+        num: 0
+      },
       // {
       //   id:4,
       //   name:'待回收',
@@ -78,39 +80,46 @@ Page({
     ],
     // mene
     menuList: [{
-      id: 0,
-      name: '档案管理',
-      pic: '../../images/icon_mine_1.png',
-      path: '../choosePatient/choosePatient'
-    }, {
-      id: 1,
-      name: '地址管理',
-      pic: '../../images/icon_mine_2.png',
-      path: '../myAddress/myAddress'
-    }, 
-    // {
-    //   id: 2,
-    //   name: '锻炼数据',
-    //   pic: '../../images/icon_mine_1.png',
-    //   path: '../exerciseData/exerciseData'
-    // },
-    {
-      id: 3,
-      name: '帮助',
-      pic: '../../images/icon_mine_3.png'
-    }, {
-      id: 4,
-      name: '意见反馈',
-      pic: '../../images/icon_mine_4.png'
-    }, {
-      id: 5,
-      name: '隐私政策',
-      pic: '../../images/icon_mine_5.png',
-      path: '../privacy/privacy'
-    }],
-    info: {},//用户信息
+        id: 0,
+        name: '档案管理',
+        pic: '../../images/icon_mine_1.png',
+        path: '../choosePatient/choosePatient'
+      }, {
+        id: 1,
+        name: '地址管理',
+        pic: '../../images/icon_mine_2.png',
+        path: '../myAddress/myAddress'
+      },
+      // {
+      //   id: 2,
+      //   name: '锻炼数据',
+      //   pic: '../../images/icon_mine_1.png',
+      //   path: '../exerciseData/exerciseData'
+      // },
+      {
+        id: 3,
+        name: '联系客服',
+        pic: '../../images/icon_mine_3.png',
+        path: '../help/help'
 
-    trainCardId:null,
+      },
+      //  {
+      //   id: 4,
+      //   name: '意见反馈',
+      //   pic: '../../images/icon_mine_4.png'
+      // }
+      //, 
+
+      {
+        id: 5,
+        name: '隐私政策',
+        pic: '../../images/icon_mine_5.png',
+        path: '../privacy/privacy'
+      }
+    ],
+    info: {}, //用户信息
+
+    trainCardId: null,
 
   },
 
@@ -135,7 +144,7 @@ Page({
   onShow: function () {
     this.getUserInfo();
 
-    
+
   },
 
   toMyOrder(e) {
@@ -150,19 +159,20 @@ Page({
       url: '../myRetrieveOrder/myRetrieveOrder?status=' + status,
     })
   },
-  toMySportData(){
-    if(this.data.info.idCard){
-
-
-
+  toMySportData() {
+    if (this.data.info.idCard) {
 
       wx.navigateTo({
-        url: '../exerciseData/exerciseData?idCard='+this.data.trainCardId,
+        url: '../exerciseData/exerciseData?idCard=' + this.data.trainCardId,
+
+        // url: '../savePersonInfo/savePersonInfo'
+
+          // url: '../login/login'
       })
-    }else{
+    } else {
       wx.showToast({
         title: '暂无数据！',
-        icon:'none'
+        icon: 'none'
       })
       return
     }
@@ -175,25 +185,58 @@ Page({
       //     url: url,
       //   })
       // } else {
-        if(url == '../choosePatient/choosePatient'){
-          url='../choosePatient/choosePatient?type=edit'
+      if (url == '../choosePatient/choosePatient') {
+        url = '../choosePatient/choosePatient?type=edit'
+      }
+      if (url == '../exerciseData/exerciseData') { //用户锻炼数据
+       
+        if (this.data.info.idCard) {
+          url = '../exerciseData/exerciseData?idCard=' + this.data.info.idCard
+        } else {
+          wx.showToast({
+            title: '暂无数据！',
+            icon: 'none'
+          })
+          return
         }
-        if(url=='../exerciseData/exerciseData'){//用户锻炼数据
-          // console.log('身份证号',this.data.info.idCard)
-          if(this.data.info.idCard){
-            url='../exerciseData/exerciseData?idCard='+this.data.info.idCard
-          }else{
-            wx.showToast({
-              title: '暂无数据！',
-              icon:'none'
-            })
-            return
+      }
+
+  
+
+      if (url == '../help/help') {
+
+        var that = this;
+        wx.showModal({
+          title: '拨打客服电话'+'\n'+'400-900-1022',
+          cancelText: '暂不',
+          cancelColor: '#666666',
+          confirmText: '立即拨打',
+          confirmColor: '#576B95',
+          success(res) {
+            if (res.confirm) {
+              wx.makePhoneCall({
+                phoneNumber: '4009001022',
+                success: function () {
+                  console.log('拨打电话成功')
+                },
+                fail: function () {
+                  console.log('拨打电话失败')
+                }
+              })
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
           }
-        }
-        wx.navigateTo({
-          url: url,
         })
-     // }
+
+
+
+        return
+      }
+      wx.navigateTo({
+        url: url,
+      })
+      // }
     }
   },
   // 获取用户信息
@@ -215,12 +258,12 @@ Page({
   // 获取设备用户
   getByXtUserId() {
     http('/palnUser/getByXtUserId', 'get').then(res => {
-      
+
       console.log(res.data)
 
       this.setData({
 
-        trainCardId:res.data.idCard
+        trainCardId: res.data.idCard
 
       })
     })

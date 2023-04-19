@@ -197,38 +197,38 @@ Page({
 
 
       
-    http('user/isSubscribe', 'get').then(res => {
+    // http('user/isSubscribe', 'get').then(res => {
 
-      console.log('----------------'+(res.data))
-      if(!res.data.isSubscribe){
+    //   console.log('----------------'+(res.data))
+    //   if(!res.data.isSubscribe){
 
-        wx.showModal({
-          title: '请先关注公众号',
-          cancelText: '取消',
-          cancelColor: '#666666',
-          confirmText: '关注',
-          confirmColor: '#576B95',
-          success(res) {
-            if (res.confirm) {
-              wx.navigateTo({
-                url: '../mpWeiXing/mpWeiXing',
-              })
+    //     wx.showModal({
+    //       title: '请先关注公众号',
+    //       cancelText: '取消',
+    //       cancelColor: '#666666',
+    //       confirmText: '关注',
+    //       confirmColor: '#576B95',
+    //       success(res) {
+    //         if (res.confirm) {
+    //           wx.navigateTo({
+    //             url: '../mpWeiXing/mpWeiXing',
+    //           })
 
-              wx.navigateTo({ 
-                url: 'weixin://dl/business/?uin=MjM5NzA1NjIzMw==&mid=1000001&idx=1&sn=b3e9d9e86e45dafee5eb5c1a5d5a5b5d&scene=38' 
-                });
+    //           wx.navigateTo({ 
+    //             url: 'weixin://dl/business/?uin=MjM5NzA1NjIzMw==&mid=1000001&idx=1&sn=b3e9d9e86e45dafee5eb5c1a5d5a5b5d&scene=38' 
+    //             });
 
-                // https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzkwNDQyMzI1NQ==&scene=117#wechat_redirect
+    //             // https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzkwNDQyMzI1NQ==&scene=117#wechat_redirect
       
-            } else if (res.cancel) {
-              console.log('用户点击取消')
-            }
-          }
-        })
+    //         } else if (res.cancel) {
+    //           console.log('用户点击取消')
+    //         }
+    //       }
+    //     })
 
      
-      }
-    })
+    //   }
+    // })
 
       this.getDetailById();
 

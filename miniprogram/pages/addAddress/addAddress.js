@@ -75,7 +75,12 @@ Page({
         title: '请填写收货人姓名',
         icon: 'none'
       })
-    } 
+    } else if (!this.data.phone) {
+      wx.showToast({
+        title: '请填写收货人手机号',
+        icon: 'none'
+      })
+    }
     else if (this.data.regionCode.length == 0) {
       wx.showToast({
         title: '请选择省市区',

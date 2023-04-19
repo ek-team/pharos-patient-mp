@@ -16,6 +16,7 @@ Page({
             operationName:null,
             weight:null,
             id:null,
+            phone:null,
         },
         showButton:true,
     },
@@ -24,7 +25,11 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        wx.setStorageSync('token', options.token)
+
+      if(!wx.getStorageSync('token')){
+          wx.setStorageSync('token', options.token)
+      }
+      
         this.getUserIngo()
     },
 
@@ -43,13 +48,23 @@ Page({
     },
     // 获取用户信息
     getUserIngo(){
-        http('user/info','get','').then(res=>{
+        http('user/info','get').then(res=>{
             if(res.code==0&&res.data){
                 wx.setStorageSync('id', res.data.id)
                 app.linkInit()
-                this.data.info.id=res.data.id
+         
                 this.setData({
-                    info:this.data.info
+                  info:{
+                    avatar:res.data.avatar,
+                    nickname:res.data.nickname,
+                    patientName:res.data.patientName,
+                    idCard:res.data.idCard,
+                    operationTime:null,
+                    operationName:null,
+                    weight:res.data.weight,
+                    id:res.data.id,
+                    phone:res.data.phone,
+                },
                 })
             }
         })
@@ -143,14 +158,14 @@ Page({
             })
             return
         }
-        if(!(/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(this.data.info.idCard))) { 
-            // reg.test(this.data.patientID) === false
-          wx.showToast({
-            title: '身份证输入有误！',
-            icon:'none'
-          })
-          return ; 
-        }
+        // if(!(/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(this.data.info.idCard))) { 
+        //     // reg.test(this.data.patientID) === false
+        //   wx.showToast({
+        //     title: '身份证输入有误！',
+        //     icon:'none'
+        //   })
+        //   return ; 
+        // }
 
         if(!this.data.info.weight){
             wx.showToast({

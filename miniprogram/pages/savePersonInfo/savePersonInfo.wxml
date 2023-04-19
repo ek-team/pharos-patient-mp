@@ -17,9 +17,9 @@
         </view>
         <!-- 患者身份证号 -->
         <view class="infoItem">
-            <view class="infoTitle">身份证号</view>
+            <view class="infoTitle">证件号</view>
             <view class="inputView">
-                <input class="infoInput" type="text" placeholder="请输入身份证号" data-type='idCard'  value="{{info.idCard}}" bindinput="contentInput"  maxlength="18"/>
+                <input class="infoInput" type="text" placeholder="请输入证件号" data-type='idCard'  value="{{info.idCard}}" bindinput="contentInput"  maxlength="18"/>
             </view>
         </view>
 

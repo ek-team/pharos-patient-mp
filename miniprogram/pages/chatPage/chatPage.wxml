@@ -164,7 +164,8 @@
                             </view> -->
                         </view>
 
-                        
+
+    
                             <!-- 随访计划 -->
                             <view class="patientInformation" wx:if="{{item.msgType=='FOLLOW_UP_PLAN'}}">
                                 <view class="inquiriesBox">
@@ -189,6 +190,7 @@
                                 </view>
 
                             </view>
+                    
 
                         <!-- 图文咨询消息 -->
                         <view class="inquiriesDialog" wx:if="{{item.msgType=='PIC_CONSULTATION'}}">

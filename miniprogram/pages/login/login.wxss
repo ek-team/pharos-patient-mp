@@ -21,6 +21,46 @@
   object-fit: cover;
   margin-right: 10rpx;
 }
+/* 支付方式 */
+.methodsItem{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+.noCheck{
+  width: 40rpx;
+  height: 40rpx;
+  border: 1px solid #D0D0D0;
+  border-radius: 50%;
+}
+.checkImg{
+  width: 48rpx;
+  height: 44rpx;
+}
+.agreeText{
+  font-size: 14px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #333333;
+  line-height: 40rpx;
+}
+.agreementText{
+  color:#2097F3;
+}
+.receiptContainer{
+  width: 446rpx;
+  position: fixed;
+  bottom: 120rpx;
+  padding: 28rpx 20rpx 0rpx 20rpx;
+  background-color: #fff;
+  margin-top: 24rpx;
+  border-radius: 16rpx;
+}
+.bottomMargin{
+  margin-bottom: 214rpx;
+}
 .loginText{
   color: #2097F3;
   font-size: 28rpx;

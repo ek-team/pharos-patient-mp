@@ -109,6 +109,11 @@ Page({
       url: '../privacy/privacy',
     })
   },
+
+  //同意隐私协议
+  checkAgreeProtocol(){
+
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

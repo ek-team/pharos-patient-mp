@@ -8,10 +8,20 @@
       <view class="loginText">微信账号快捷登录</view>
     </view>
   </button>
-  <view class="loginAgree">
-    <text>登录即代表您同意</text>
+  <view class="loginAgree"> 
+  <text>登陆代表您已同意</text>
     <text class="blueAgree" bindtap="readPolicy">《隐私政策》</text>
-  
+
+    <!-- 产品协议
+    <view class="receiptContainer ">
+      <view class="methodsItem">
+        <view class="agreeText">同意<text class="agreementText" bindtap="readPolicy">《隐私政策》</text></view>
+        <image src="../../images/btn_sel@2x.png" class="checkImg" wx:if="{{agreeProtocol}}" bindtap="checkAgreeProtocol" data-agree="{{false}}"></image>
+        <view class="noCheck" bindtap="checkAgreeProtocol" data-agree="{{true}}" wx:else></view>
+      </view>
+    </view> -->
+
   </view>
-  <official-account></official-account>
+
+
 </view>

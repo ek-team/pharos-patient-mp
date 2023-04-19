@@ -67,7 +67,7 @@
                             <image src='../../images/btn_kefu.png' class="customerServiceIcon" bindtap="callToService" data-serviceinfo="{{item.servicePack}}"></image>
                             <text bindtap="callToService" data-serviceinfo="{{item.servicePack}}">联系客服</text>
                         </view> -->
-                        <view class="buttonItem cancelBtn" wx:if="{{item.status!=1}}" data-item="{{item}}" bindtap="toLogisticInfo">查看物流</view>
+                        <view class="buttonItem cancelBtn" wx:if="{{item.status==2||item.status==3}}" data-item="{{item}}" bindtap="toLogisticInfo">查看物流</view>
                         <view class="buttonItem cancelBtn" wx:if="{{item.billImage}}" data-url="{{item.billImage}}" bindtap="topreviewBillImage">
                            查看发票
                         </view>
@@ -79,7 +79,7 @@
                         <view class="buttonItem confirmBtn friendsPayBtn" wx:if="{{item.status==1}}" bindtap="toFriendPay" data-item="{{item}}">好友代付</view>
                         <view class="buttonItem confirmBtn payButton" wx:if="{{item.status==1}}" bindtap="toPay" data-item="{{item}}">付款</view>
                      
-                        <!-- <view class="buttonItem cancelBtn " wx:if="{{item.status==4&&item.orderType==1}}" bindtap="torentRuleOrder" data-item="{{item}}">服务续租</view> -->
+                        <!-- <view class="buttonItem cancelBtn " wx:if="{{item.status==4}}" bindtap="torentRuleOrder" data-item="{{item}}">服务续租</view> -->
                         <view class="buttonItem confirmBtn" wx:if="{{item.status==4&&item.orderType==1}}" bindtap="toRetrieveOrder" data-item="{{item}}">回收</view>
                     
 

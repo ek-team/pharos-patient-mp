@@ -9,7 +9,7 @@
             <view class="orderItem" wx:key="id" wx:for="{{orderList}}" wx:key="id">
                 <!-- 订单号、状态 -->
                 <view class="orderTop">
-                    <view>订单号：{{item.orderNo}}</view>
+                    <view>回收订单号：{{item.orderNo}}</view>
                      <!-- 0-待邮寄 1-待收货 2-待审核 3-待打款 4-待收款 5-回收完成 -->
                     <view>{{item.status==0?'待邮寄':item.status==1?'待收货':item.status==2?'待审核':item.status==3?'待打款':item.status==4?'待收款':'回收完成'}}</view>
                 </view>

@@ -28,6 +28,9 @@ Page({
         region: ['省', '市', '区'],
         regionCode: [],
         detailAddress:null,
+        saleSpecGroup:null,
+      
+        remark:null,
     },
 
     /**
@@ -78,8 +81,15 @@ Page({
                 this.data.myAddress=res.data
                 this.data.myAddress.addresseeName=res.data.receiverName
                 this.data.myAddress.addresseePhone=res.data.receiverPhone
+
+           
+       
+           
+
                 this.setData({
-                    myAddress:this.data.myAddress
+                    myAddress:this.data.myAddress,
+                    weight:res.data.saleSpecGroup.weight,
+                    remark:res.data.saleSpecGroup.recycleRemark
                 })
             }
             
