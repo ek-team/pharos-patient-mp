@@ -16,10 +16,12 @@
                         <view class="rightInfoBox">
                             <view class="infoItem">
                                 <view class="goodsName">
+                                  {{item.doctorTeam?item.doctorTeam.name:''}}
                                     {{item.servicePackageInfo?item.servicePackageInfo.name:''}}
                                     <view class="goodsNum">x{{item.totalCount}}</view>
                                 </view>
-                                <view>已使用{{item.useCount}}</view>
+                            
+                                <view>剩余可使用{{item.totalCount-item.useCount}}次</view>
                             </view>
                             <view class="rightIconBox">
                                 <image src="../../images/right.png" class="rightIcon"/>

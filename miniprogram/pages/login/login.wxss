@@ -57,6 +57,8 @@
   background-color: #fff;
   margin-top: 24rpx;
   border-radius: 16rpx;
+  
+  
 }
 .bottomMargin{
   margin-bottom: 214rpx;

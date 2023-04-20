@@ -8,7 +8,7 @@ Page({
    */
   data: {
     userInfo: {},//用户信息
-
+    agreeProtocol: false,//隐私协议
   },
 
   /**
@@ -30,9 +30,51 @@ Page({
    */
   onShow: function () {
 
+
+    this.setData({
+      agreeProtocol:wx.getStorageSync('privacyOk', false)
+    })
+   
   },
   // 登录
   getUserProfile(e) {
+
+
+
+    console.log(this.data.agreeProtocol)
+
+    if (!this.data.agreeProtocol) {
+
+
+      wx.showModal({
+        title: '隐私协议',
+        content: '查看并同意隐私协议',
+        showCancel: true,//是否显示取消按钮
+        cancelText:"否",//默认是“取消”
+        cancelColor:'skyblue',//取消文字的颜色
+        confirmText:"查看",//默认是“确定”
+        confirmColor: 'skyblue',//确定文字的颜色
+        success: function (res) {
+           if (res.cancel) {
+              //点击取消,默认隐藏弹框
+           } else {
+
+            wx.setStorageSync('privacyOk', true)
+            wx.navigateTo({
+              url: '../privacy/privacy',
+            })
+              that.setData({
+                agreeProtocol: true,
+              })
+           }
+        },
+        fail: function (res) { },//接口调用失败的回调函数
+        complete: function (res) { },//接口调用结束的回调函数（调用成功、失败都会执行）
+     })
+
+      return
+      
+    }
     var that = this;
     // 获取用户信息
     wx.getUserProfile({
@@ -58,6 +100,8 @@ Page({
               http('social/token', 'post', 'Basic dGVzdDp0ZXNO', {
                 social: 'MA@' + res.code
               }).then(res => {
+
+                wx.setStorageSync('privacyOk', false)
                 // console.log('登录后',res.data)
                 wx.setStorageSync('nickname', res.data.nickname)
                 wx.setStorageSync('token', res.data.access_token)
@@ -112,7 +156,25 @@ Page({
 
   //同意隐私协议
   checkAgreeProtocol(){
+    // let agree = e.currentTarget.dataset.agree;
+    // if ( !this.data.hasRead) {
 
+
+    if (this.data.agreeProtocol) {
+      this.setData({
+        agreeProtocol: false
+      })
+    }else{
+      this.setData({
+        agreeProtocol: true
+      })
+    }
+       
+    // } else {
+    //     this.setData({
+    //         agreeProtocol: agree
+    //     })
+    // }
   },
   /**
    * 生命周期函数--监听页面隐藏
