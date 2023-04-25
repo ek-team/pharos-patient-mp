@@ -12,7 +12,7 @@
         <view class="infoItem">
             <view class="infoTitle">姓名</view>
             <view class="inputView">
-                <input class="infoInput" type="text" placeholder="请输入姓名" data-type='name' value="{{info.patientName}}" bindinput="contentInput" />
+                <input class="infoInput" type="text" placeholder="请输入姓名" data-type='name' value="{{info.nickname}}" bindinput="contentInput" />
             </view>
         </view>
         <!-- 患者身份证号 -->

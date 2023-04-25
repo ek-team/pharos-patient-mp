@@ -16,9 +16,12 @@ Page({
         expressList: [ '京东','德邦','顺丰', '极兔','圆通','申通','中通','韵达','邮政','百世','安能','优速'],
         uploadExpressIndex:2,
         expressCodeList:['jd', 'debangkuaidi', 'shunfeng','jtexpress', 'yuantong','shentong', 'zhongtong','yunda','youzhengguonei','huitongkuaidi','annengwuliu','yousuwuliu'],
-        cargoIndex:5,
+      
         cargoList:['日用品','食品','文件','衣物','数码产品','其他'],
+        
+        cargoIndex:5,//物品名称
         weight:10.5,//物品重量
+      
         dateList:['今天','明天','后天'],
         dateIndex:null,
         pickupStartTime:'9:00',
@@ -82,14 +85,9 @@ Page({
                 this.data.myAddress.addresseeName=res.data.receiverName
                 this.data.myAddress.addresseePhone=res.data.receiverPhone
 
-           
-       
-           
-
+        
                 this.setData({
-                    myAddress:this.data.myAddress,
-                    weight:res.data.saleSpecGroup.weight,
-                    remark:res.data.saleSpecGroup.recycleRemark
+                    myAddress:this.data.myAddress,              
                 })
             }
             
@@ -266,20 +264,38 @@ Page({
         //       })
         //       return
         // }
-        if(!this.data.myAddress.receiverDetailAddress){
+
+        if(!this.data.myAddress.addresseeName){
+          wx.showToast({
+              title: '请编辑寄件人姓名',
+              icon:'none',
+            })
+            return
+      }
+
+      if(!this.data.myAddress.addresseeName||this.data.myAddress.addresseeName==''){
+        wx.showToast({
+          title: '请编辑寄件人姓名',
+          icon:'none',
+        })
+        return
+    }
+      
+      if(!this.data.myAddress.addresseePhone||this.data.myAddress.addresseePhone==''){
+        wx.showToast({
+            title: '请编辑寄件手机号',
+            icon:'none',
+          })
+          return
+    }
+        if(!this.data.myAddress.receiverDetailAddress||this.data.myAddress.receiverDetailAddress==''){
             wx.showToast({
                 title: '请编辑寄件地址',
                 icon:'none',
               })
               return
         }
-        if(!this.data.myAddress.addresseeName||this.data.myAddress.addresseeName==''){
-            wx.showToast({
-              title: '请选择寄件信息',
-              icon:'none',
-            })
-            return
-        }
+       
         if(!this.data.recoveryInfo.name){
             wx.showToast({
                 title: '请选择收货信息',

@@ -2,7 +2,7 @@
 
   <scroll-view scroll-y="{{modal?false:true}}" 	bindscroll="pageScroll" scroll-into-view="{{ toView }}"  style="height: {{scrollHeight+'rpx'}};" >
   <!-- 轮播图 -->
-  <view class="swiper medicineDetail">
+  <view class="swiper medicineDetail"> 
     <view class="page-body">
       <view class="page-section page-section-spacing swiper">
         <swiper indicator-dots="true" autoplay="true" interval="3000" duration="1000" indicator-active-color='#F25F5F'>
@@ -125,6 +125,6 @@
     </view>
   </van-popup>
 
-  <official-account></official-account>
+  <!-- <official-account></official-account> -->
 
 </view>

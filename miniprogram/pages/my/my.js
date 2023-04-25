@@ -153,6 +153,14 @@ Page({
       url: '../myOrder/myOrder?status=' + status,
     })
   },
+
+  toUpdateUser(e) {
+   
+    wx.navigateTo({
+      url: '../savePersonInfo/savePersonInfo',
+    })
+  },
+
   toMyRetrieveOrder(e) {
     let status = e.currentTarget.dataset.status
     wx.navigateTo({

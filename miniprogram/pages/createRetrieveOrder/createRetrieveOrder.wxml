@@ -107,7 +107,7 @@
                   <text style="color: red;">*</text>
                 寄件人</view>
                 <view class="infoRight">
-                    <input class="detailAddress" value="{{myAddress.addresseeName}}" placeholder="请输入寄件地址" data-type="sendName" bindinput="contentInput"  />
+                    <input class="detailAddress" value="{{myAddress.addresseeName}}" placeholder="请输入寄件人姓名" data-type="sendName" bindinput="contentInput"  />
                     <!-- <view class="info"> 
                         <text class="infoName"> {{myAddress.addresseeName}}</text>{{myAddress.addresseePhone}}
                     </view> -->

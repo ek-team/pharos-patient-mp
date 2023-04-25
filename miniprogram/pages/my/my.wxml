@@ -2,7 +2,7 @@
   <!-- 头部 -->
   <view class="topView">
     <image src='../../images/bg_mine@2x.png' class="mineBg"></image>
-    <view class="info">
+    <view class="info" bindtap="toUpdateUser">
       <image class="avatar" src="{{info.avatar}}"></image>
       <view class="name">{{info.nickname?info.nickname:'法罗适'}}</view>
     </view>
