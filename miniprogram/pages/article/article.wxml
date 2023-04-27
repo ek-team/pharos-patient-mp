@@ -1,0 +1,4 @@
+<!--pages/article/article.wxml-->
+<view  style="margin: 20rpx;">
+	<rich-text  space="emsp" nodes="{{content}}"></rich-text>
+</view>

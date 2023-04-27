@@ -71,6 +71,16 @@
                                 </view>
                                 <view class="formRight">{{item.str2==1?'查看':'填写'}}</view>                          
                             </view>
+
+                              <!-- 患教消息框 -->
+                              <view class="leftForm myPlayVoice formContent" bindtap="toarticle"  data-item="{{item}}" wx:if="{{item.msgType=='ARTICLE'}}" >
+                                <view class="formLeft">
+                                    <!-- <image src="../../images/icon_for@2x.png" class="voiceImg formImg"></image> -->
+                                    {{item.article.title}}   
+                                </view>
+                                <view class="formRight">{{'查看'}}</view>                          
+                            </view>
+                            
                             <!-- 图片消息 -->
                             <view class="dialogBox" wx:if="{{item.msgType=='MESSAGE_PIC'}}">
                                 <image mode="widthFix" data-index="{{index}}" wx:if="{{item.url}}" data-src="{{item.url}}" src="{{item.url}}" class="otherDialogImg" bindtap="showBigImg"
@@ -131,6 +141,9 @@
                                    
                         </view>
                     </view>
+
+
+
                     <!-- 自己对话框、头像 -->
                     <view style="width: 100%;display: flex;flex-direction: row;justify-content: flex-end;" wx:if="{{item.fromUid==myUserId}}">
                         <!-- 文字消息对话框 -->

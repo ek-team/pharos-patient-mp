@@ -37,7 +37,10 @@
     "pages/rentRuleOrder/rentRuleOrder",
     "pages/rentRuleConfirm/rentRuleConfirm",
     "pages/rentRuleList/rentRuleList",
-    "pages/mpWeiXing/mpWeiXing"
+    "pages/mpWeiXing/mpWeiXing",
+    "pages/article/article",
+    "pages/selectPatient/selectPatient"
+
 
   ],
   "window": {

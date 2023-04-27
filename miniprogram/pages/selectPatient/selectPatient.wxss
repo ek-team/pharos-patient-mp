@@ -1,0 +1,105 @@
+/* pages/choosePatient/choosePatient.wxss */
+/* 添加就诊人 */
+.addPatient{
+  width: 690rpx;
+  height: 244rpx;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  margin: 0 auto;
+  margin-top: 24rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.add{
+  width: 48rpx;
+  height: 48rpx;
+  margin-top: 70rpx;
+}
+.addText{
+  color: #333;
+  font-size: 32rpx;
+  margin-top: 20rpx;
+}
+/* 就诊人列表 */
+.patientList{
+
+}
+.patientItem{
+  width: 690rpx;
+  background: #FFF;
+  border-radius: 8rpx;
+  margin: 0 auto;
+  margin-top: 24rpx;
+  padding: 26rpx 30rpx 46rpx 28rpx;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.checkLeftContainer{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.radioCheck{
+  margin-right: 20rpx;
+}
+.patientItemLeft{
+
+}
+.patientTop{
+  display: flex;
+  align-items: center;
+}
+.surname{
+  width: 54rpx;
+  height: 54rpx;
+  background: linear-gradient(270deg, #3C9EE9 0%, #6FC3F6 100%);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 24rpx;
+  line-height: 54rpx;
+  text-align: center;
+}
+.name{
+  color: #333;
+  font-size: 30rpx;
+  margin-left: 18rpx;
+}
+.patientInfo{
+  color: #888;
+  font-size: 26rpx;
+  margin-top: 20rpx;
+}
+.patientInfo text{
+  margin-right: 36rpx;
+}
+.edit{
+  height: 50rpx;
+  line-height: 50rpx;
+  padding-left: 34rpx;
+  box-sizing: border-box;
+  border-left: 2rpx solid #F0F0F0;
+  font-size: 13px;
+  color: #999;
+}
+/* 确认部分 */
+.confirmView{
+  width: 100%;
+  height: 188rpx;
+  background: #fff;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+.confirm{
+  width: 690rpx !important;
+  height: 80rpx;
+  background: linear-gradient(270deg, #3C9EE9 0%, #6FC3F6 100%);
+  border-radius: 8rpx;
+  color: #fff;
+  font-size: 34rpx;
+  font-weight: 500;
+  margin-top: 16rpx;
+}

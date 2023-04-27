@@ -1,0 +1,37 @@
+
+<view class="container">
+
+  <!--  就诊人列表 -->
+  <view class="patientList">
+    <radio-group bindchange="patientChange">
+      <!-- 就诊人信息 -->
+      <label class="patientItem" wx:for="{{patientList}}" wx:key="index"  data-item='{{item}}' data-index="{{index}}">
+        <view class="checkLeftContainer">
+       
+          <view class="patientItemLeft">
+            <view class="patientTop">
+              <view class="surname">{{item.name[0]}}</view>
+              <view class="name">{{item.name}}</view>
+            </view>
+
+            
+            <view class="patientInfo">
+              <text>{{item.sex==0?'女':'男'}}</text>
+              <text>{{item.age}}</text>
+            </view>
+
+            <view class="patientInfo">
+            
+              <text>证件号：{{item.idCard}}</text>
+            </view>
+
+          </view>
+        </view>
+        <!-- wx:if="{{type=='edit'}}" -->
+        <view class="edit" catchtap="toLook" data-item="{{item}}" >查看训练数据</view>
+        
+      </label>
+    </radio-group>
+  </view>
+
+</view>

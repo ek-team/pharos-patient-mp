@@ -519,6 +519,25 @@ Page({
 
     
     },
+
+
+    toarticle(e){
+
+
+      let item=e.currentTarget.dataset.item
+
+
+      let chatMsgId=item.id
+      if(item.fromUid==wx.getStorageSync('id')){
+        chatMsgId=item.str3
+      }
+
+      let articleId=item.article.id
+      console.log(articleId)
+      wx.navigateTo({
+        url: '../article/article?articleId='+articleId+'&chatMsgId='+chatMsgId,
+    })
+    },
     // 查看表单
     toForm(e){
         let item=e.currentTarget.dataset.item

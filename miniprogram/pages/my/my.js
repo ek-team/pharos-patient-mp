@@ -168,22 +168,53 @@ Page({
     })
   },
   toMySportData() {
-    if (this.data.info.idCard) {
+    // if (this.data.info.idCard) {
 
-      wx.navigateTo({
-        url: '../exerciseData/exerciseData?idCard=' + this.data.trainCardId,
+    //   wx.navigateTo({
+    //     url: '../exerciseData/exerciseData?idCard=' + this.data.trainCardId,
 
-        // url: '../savePersonInfo/savePersonInfo'
+    //     // url: '../savePersonInfo/savePersonInfo'
 
-          // url: '../login/login'
-      })
-    } else {
-      wx.showToast({
-        title: '暂无数据！',
-        icon: 'none'
-      })
-      return
-    }
+    //       // url: '../login/login'
+    //   })
+    // } else {
+    //   wx.showToast({
+    //     title: '暂无数据！',
+    //     icon: 'none'
+    //   })
+    //   return
+    // }
+
+    
+    http('user/listPatientUser', 'get', '').then(res => {
+      let patientList = res.data;
+
+
+
+      console.log(patientList)
+      console.log(patientList.length)
+      if (patientList) {
+
+        if (patientList.length>0) {
+          
+          if (condition) {
+            
+          }
+        }else{
+
+        }
+        wx.navigateTo({
+          url: '../selectPatient/selectPatient',
+
+        })
+      }else{
+        
+      }
+    })
+  
+
+      
+
   },
   toPage(e) {
     let url = e.currentTarget.dataset.url
