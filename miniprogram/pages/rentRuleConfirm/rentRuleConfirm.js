@@ -157,9 +157,14 @@ Page({
               duration: 2000,
               mask: true
             })
-            wx.redirectTo({
-              url: '../myOrder/myOrder',
+
+            setTimeout(function () {            
+              wx.redirectTo({
+                url: '../myOrder/myOrder',
             })
+
+              }, 1000)
+           
 
           },
           fail(err) {
@@ -169,9 +174,12 @@ Page({
               duration: 2000,
               mask: true
             })
-            wx.redirectTo({
-              url: '../myOrder/myOrder',
+            setTimeout(function () {            
+              wx.redirectTo({
+                url: '../myOrder/myOrder',
             })
+
+              }, 1000)
           }
         })
       })
@@ -230,7 +238,7 @@ Page({
                     wx.navigateTo({
                       url: '../myOrder/myOrder',
                     })
-                  }, 500)
+                  }, 1000)
                 }
               })
               wx.hideLoading()

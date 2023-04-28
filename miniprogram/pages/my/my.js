@@ -81,7 +81,7 @@ Page({
     // mene
     menuList: [{
         id: 0,
-        name: '档案管理',
+        name: '就诊人管理',
         pic: '../../images/icon_mine_1.png',
         path: '../choosePatient/choosePatient'
       }, {
@@ -155,7 +155,7 @@ Page({
   },
 
   toUpdateUser(e) {
-   
+
     wx.navigateTo({
       url: '../savePersonInfo/savePersonInfo',
     })
@@ -185,35 +185,66 @@ Page({
     //   return
     // }
 
-    
+
     http('user/listPatientUser', 'get', '').then(res => {
       let patientList = res.data;
 
 
 
-      console.log(patientList)
+     
       console.log(patientList.length)
       if (patientList) {
 
-        if (patientList.length>0) {
-          
-          if (condition) {
-            
+        if (patientList.length == 0) {
+          console.log()
+
+          wx.showModal({
+            title: '暂无就诊人，请先添加就诊人',
+            cancelText: '暂不',
+            cancelColor: '#666666',
+            confirmText: '添加',
+            confirmColor: '#576B95',
+            success(res) {
+              if (res.confirm) {
+                 wx.navigateTo({
+              url: '../addPatient/addPatient',
+
+            })
+              } else if (res.cancel) {
+                console.log('用户点击取消')
+              }
+            }
+          })
+
+        } else {
+
+
+          if (patientList.length == 1) {
+
+
+
+            console.log(patientList[0].idCard)
+
+            wx.navigateTo({
+              url: '../exerciseData/exerciseData?idCard=' + patientList[0].idCard,
+
+            })
+
+          } else {
+            wx.navigateTo({
+              url: '../selectPatient/selectPatient',
+
+            })
           }
-        }else{
-
         }
-        wx.navigateTo({
-          url: '../selectPatient/selectPatient',
 
-        })
-      }else{
-        
+      } else {
+
       }
     })
-  
 
-      
+
+
 
   },
   toPage(e) {
@@ -228,7 +259,7 @@ Page({
         url = '../choosePatient/choosePatient?type=edit'
       }
       if (url == '../exerciseData/exerciseData') { //用户锻炼数据
-       
+
         if (this.data.info.idCard) {
           url = '../exerciseData/exerciseData?idCard=' + this.data.info.idCard
         } else {
@@ -240,13 +271,13 @@ Page({
         }
       }
 
-  
+
 
       if (url == '../help/help') {
 
         var that = this;
         wx.showModal({
-          title: '拨打客服电话'+'\n'+'400-900-1022',
+          title: '拨打客服电话' + '\n' + '400-900-1022',
           cancelText: '暂不',
           cancelColor: '#666666',
           confirmText: '立即拨打',
@@ -296,16 +327,16 @@ Page({
   },
   // 获取设备用户
   getByXtUserId() {
-    http('/palnUser/getByXtUserId', 'get').then(res => {
+    // http('/palnUser/getByXtUserId', 'get').then(res => {
 
-      console.log(res.data)
+    //   console.log(res.data)
 
-      this.setData({
+    //   this.setData({
 
-        trainCardId: res.data.idCard
+    //     trainCardId: res.data.idCard
 
-      })
-    })
+    //   })
+    // })
   },
   // 获取订单
   getOrderNum() {

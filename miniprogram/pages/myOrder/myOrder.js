@@ -77,6 +77,8 @@ Page({
     },
     
     getOrderList(){
+
+      console.log('刷新了------')
         // 1-待付款 2-待发货 3-待收货 4-使用中 5-已回收
         http('purchase/order/user/listMy','get','',{
             pageNum:this.data.page.pageNum,

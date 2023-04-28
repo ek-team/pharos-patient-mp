@@ -335,7 +335,7 @@ Page({
                         url: '../myOrder/myOrder',
                     })
                     wx.removeStorageSync('retrieveAddress')
-                },500)
+                },1000)
             }else{
                 wx.showToast({
                     title: '提交失败！',
@@ -345,31 +345,31 @@ Page({
             
         })
         return
-        http('retrieveOrder/user/saveRetrieveOrder','post','',{
-            orderId:this.data.orderId,
-            deliveryName:this.data.myAddress.addresseeName,
-            deliveryPhone:this.data.myAddress.addresseePhone,//发货人手机号
-            deliveryAddress:deliveryAddress,//发货人地址
-            deliveryCompanyCode:this.data.expressCodeList[this.data.uploadExpressIndex],//快递公司
-            deliverySn:this.data.deliverySn,//物流单号
-            //收货人姓名
-            receiverName:this.data.recoveryInfo.name,
-            //收货人电话
-            receiverPhone:this.data.recoveryInfo.phone,
-            //收货人省市区地址
-            receiverRegion:this.data.recoveryInfo.retrieveRegion+this.data.recoveryInfo.retrieveDetailAddress,
-            albumPics:albumPics
-        }).then(res=>{
-            wx.showToast({
-              title: '提交成功！',
-            })
-            setTimeout(()=>{
-                wx.redirectTo({
-                    url: '../myOrder/myOrder',
-                })
-                wx.removeStorageSync('retrieveAddress')
-            },1000)
-        })
+        // http('retrieveOrder/user/saveRetrieveOrder','post','',{
+        //     orderId:this.data.orderId,
+        //     deliveryName:this.data.myAddress.addresseeName,
+        //     deliveryPhone:this.data.myAddress.addresseePhone,//发货人手机号
+        //     deliveryAddress:deliveryAddress,//发货人地址
+        //     deliveryCompanyCode:this.data.expressCodeList[this.data.uploadExpressIndex],//快递公司
+        //     deliverySn:this.data.deliverySn,//物流单号
+        //     //收货人姓名
+        //     receiverName:this.data.recoveryInfo.name,
+        //     //收货人电话
+        //     receiverPhone:this.data.recoveryInfo.phone,
+        //     //收货人省市区地址
+        //     receiverRegion:this.data.recoveryInfo.retrieveRegion+this.data.recoveryInfo.retrieveDetailAddress,
+        //     albumPics:albumPics
+        // }).then(res=>{
+        //     wx.showToast({
+        //       title: '提交成功！',
+        //     })
+        //     setTimeout(()=>{
+        //         wx.redirectTo({
+        //             url: '../myOrder/myOrder',
+        //         })
+        //         wx.removeStorageSync('retrieveAddress')
+        //     },1000)
+        // })
     },
     // 上传设备图
     uploadPicture(){

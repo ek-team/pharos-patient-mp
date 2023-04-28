@@ -145,7 +145,7 @@ Page({
                 wx.navigateTo({
                   url: '../myOrder/myOrder',
                 })
-            },500)
+            },1000)
         })
     },
 

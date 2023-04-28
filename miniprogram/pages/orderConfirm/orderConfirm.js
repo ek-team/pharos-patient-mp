@@ -415,26 +415,36 @@ Page({
                     signType: payData.signType,
                     success(res) {
                         wx.showToast({
-                            title: '支付成功',
+                            title: '支付成功,两秒后跳转订单列表',
                             icon: 'none',
                             duration: 2000,
                             mask: true
                         })
-                        wx.redirectTo({
+
+                        setTimeout(function () {            
+                          wx.redirectTo({
                             url: '../myOrder/myOrder',
                         })
-    
+
+                          }, 1000)
+                
                     },
                     fail(err) {
                         wx.showToast({
-                            title: '支付失败',
+                            title: '支付失败,两秒后跳转订单列表',
                             icon: 'none',
                             duration: 2000,
                             mask: true
                         })
-                        wx.redirectTo({
+
+                        setTimeout(function () {            
+                          wx.redirectTo({
                             url: '../myOrder/myOrder',
                         })
+
+                          }, 1000)
+
+                      
                     }
                 })
             })
@@ -493,7 +503,7 @@ Page({
                                         wx.navigateTo({
                                             url: '../myOrder/myOrder',
                                           })
-                                    },500)
+                                    },1000)
                                 }
                             })
                             wx.hideLoading()

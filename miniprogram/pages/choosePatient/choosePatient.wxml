@@ -22,6 +22,10 @@
               <text>{{item.sex==0?'女':'男'}}</text>
               <text>{{item.age}}</text>
             </view>
+            <view class="patientInfo">
+
+              <text>证件号：{{item.idCard}}</text>
+            </view>
           </view>
         </view>
         <!-- wx:if="{{type=='edit'}}" -->
