@@ -28,7 +28,11 @@
             <view class="money"></view>
             <view class="servicenum">
             立即前往
-            <!-- x {{item.count}} -->
+
+            <!-- <view>x{{item.userServicePackageInfo?item.userServicePackageInfo.totalCount:serviceItem.count}}</view> -->
+            x {{orderDetail.userServicePackageInfo?orderDetail.userServicePackageInfo.totalCount:item.count}}
+
+             <!-- x {{item.count}} -->
             </view>
           </view>
         </view>

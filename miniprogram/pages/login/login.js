@@ -51,9 +51,9 @@ Page({
         content: '查看并同意隐私协议',
         showCancel: true,//是否显示取消按钮
         cancelText:"否",//默认是“取消”
-        cancelColor:'skyblue',//取消文字的颜色
+        // cancelColor:'skyblue',//取消文字的颜色
         confirmText:"查看",//默认是“确定”
-        confirmColor: 'skyblue',//确定文字的颜色
+        // confirmColor: 'skyblue',//确定文字的颜色
         success: function (res) {
            if (res.cancel) {
               //点击取消,默认隐藏弹框
@@ -117,6 +117,8 @@ Page({
         })
       },
       fail: (res) => {
+
+        console.log(res)
         wx.showToast({
           icon: 'none',
           title: '您拒绝了请求'

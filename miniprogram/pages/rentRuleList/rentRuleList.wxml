@@ -41,7 +41,10 @@
                   {{serviceItem.name}}
                   <!-- <view class="freeTitle">赠送</view> -->
                 </view>
-                <view>x{{serviceItem.count}}</view>
+                <view>
+                  x {{orderDetail.userServicePackageInfo?orderDetail.userServicePackageInfo.totalCount:serviceItem.count}}
+                
+                </view>
               </view>
               <view class="infoItem">
                 <view>{{orderDetail.productSpec}}</view>
@@ -90,6 +93,17 @@
               <view class="infoItem">
                 <view> 创建时间：{{item.createTime}}</view>
                 <view>￥{{item.amount}}</view>
+              </view>
+
+              <view class="infoItem">
+                <view> 图文咨询</view>
+                <view>x {{item.serviceCount}}</view>
+              </view>
+
+              
+              <view class="infoItem">
+                <view>续租订单状态</view>
+                <view> {{item.status==2?"已支付":"未支付"}}</view>
               </view>
             </view>
           </view>

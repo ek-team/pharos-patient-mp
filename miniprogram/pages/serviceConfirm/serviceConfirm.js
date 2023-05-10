@@ -34,6 +34,8 @@ Page({
    */
   onShow: function () {
     let orderDetail = wx.getStorageSync('orderDetail')
+
+    console.log(orderDetail)
     this.setData({
       orderDetail: orderDetail
     })

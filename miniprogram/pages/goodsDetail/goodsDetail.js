@@ -501,7 +501,7 @@ Page({
     this.setData({
       checkSpecListInfo:res.data
     })
-    // console.log('查询价格',res.data)
+     console.log('查询价格',res.data)
   })
 },
   // 点击确定
@@ -582,7 +582,7 @@ Page({
     confirmInfo.protocolId = this.data.protocolId;
     confirmInfo.protocolType = this.data.protocolType;
     confirmInfo.rentDay = this.data.rentDays[this.data.selectedRentIndex];
-
+    confirmInfo.serviceCount = this.data.checkSpecListInfo.serviceCount;
     wx.setStorageSync('orderDetail', confirmInfo)
     wx.navigateTo({
       url: '../serviceConfirm/serviceConfirm',

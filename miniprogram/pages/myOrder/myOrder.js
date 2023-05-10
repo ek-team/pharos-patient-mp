@@ -216,7 +216,7 @@ Page({
           if(resp.data==10){ 
   
             wx.showModal({    
-              content: '当前订单已经超期，无法申请开票',
+              content: '当前订单暂时无法申请开票',
               complete: (res) => {
                 if (res.cancel) {
                   
@@ -264,7 +264,7 @@ Page({
         http('purchase/order/shareOrder','get','',{
             orderNo:item.orderNo
         }).then(resp=>{
-            // console.log('代付信息',resp.data)
+             console.log('代付信息',resp.data)
             let that=this
                 // console.log('好友代付返回图片链接',resp)
             // wx.hideLoading()
@@ -314,6 +314,20 @@ Page({
         },true).then(res=>{
             console.log('支付',res.data)
             let payData=res.data
+
+
+            if (typeof(payData)=='undefined') {
+              
+              console.log(payData)
+
+            
+              wx.showToast({ title: '当前订单已经过期', icon: 'none' });
+             
+
+            return
+            }
+           
+          
             wx.requestPayment({
                 nonceStr: payData.nonceStr,
                 package: payData.packageValue,

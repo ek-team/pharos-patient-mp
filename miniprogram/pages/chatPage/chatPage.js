@@ -940,8 +940,7 @@ Page({
                         })
                     }
                 }
-                
-                
+                              
                 // console.log('开通了图文咨询')
             }else{
                 wx.showToast({

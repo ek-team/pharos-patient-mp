@@ -87,7 +87,9 @@ Page({
 
         
                 this.setData({
-                    myAddress:this.data.myAddress,              
+                    myAddress:this.data.myAddress,     
+                    weight:res.data.saleSpecGroup.weight,
+                    remark:res.data.saleSpecGroup.recycleRemark
                 })
             }
             

@@ -25,7 +25,7 @@
         </view>
         <view class="serviceRightBottom">
           <view class="money"></view>
-          <view class="servicenum">x {{item.count}}</view>
+          <view class="servicenum">x {{orderDetail.serviceCount?orderDetail.serviceCount:item.count}}</view>
         </view>
       </view>
     </view>

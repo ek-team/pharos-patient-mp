@@ -50,6 +50,35 @@ Page({
   },
   toApplyDetail(e){
     // let item=e.currentTarget.dataset.item
+
+
+
+
+    console.log(this.data.orderDetail)
+
+
+    if (this.data.orderDetail.status==1) {
+
+
+
+      wx.showModal({    
+        content: '当前订单还未支付，请先支付',
+        cancelText:'取消',
+        confirmText:'去付款',
+        complete: (res) => {
+          if (res.cancel) {
+            
+          }else if (res.confirm) {
+          
+            this.toPay()
+          }
+        }
+      })
+ 
+      
+      return
+    }
+
     wx.navigateTo({
       url: '../serviceDetail/serviceDetail?id='+this.data.orderDetail.userServicePackageInfoId,
     })

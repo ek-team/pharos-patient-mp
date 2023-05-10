@@ -9,7 +9,7 @@ Page({
    */
   data: {
     payMethods: 1,
-    agreeProtocol: false, //同意协议
+    agreeProtocol: true, //同意协议
     orderDetail: {}, //选择的订单详情
 
     protocoDetail: {}, //协议内容
@@ -127,8 +127,16 @@ Page({
   // 去支付
   toPay() {
 
-  
-      this.getOrder();
+
+    if (!this.data.agreeProtocol) {
+      wx.showToast({
+        title: '请先同意产品协议',
+        icon: 'none'
+      })
+      return
+    }
+    this.getOrder();
+     
     
 
 

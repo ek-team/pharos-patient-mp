@@ -82,18 +82,28 @@
                     <text class="payMethodsText">微信支付</text>
                     <image src="../../images/icon_tuijian@2x.png" class="payIcon"></image>
                 </view>
-                <image src="../../images/btn_sel@2x.png" class="checkImg" wx:if="{{payMethods==1}}"></image>
+                <image src="../../images/btn_sel@2x.png" class="checkImg" wx:if="{{payMethods=='self'}}"></image>
                 <view class="noCheck" wx:else></view>
 
             </view>
             <view class="methodsItem" bindtap="checkPayMethods" data-type="help">
                 <view class="payLeft">
                     <image src="../../images/icon_pay@2x.png" class="payIcon"></image>
-                    <text class="payMethodsText">找朋友帮忙</text>
+                    <text class="payMethodsText">微信朋友代付</text>
                 </view>
-                <view class="noCheck" wx:if="{{payMethods==1}}"></view>
-                <image src="../../images/btn_sel@2x.png" class="checkImg" wx:if="{{payMethods==0}}"></image>
+                <view class="noCheck" wx:if="{{payMethods=='alipay'||payMethods=='self'}}"></view>
+                <image src="../../images/btn_sel@2x.png" class="checkImg" wx:if="{{payMethods=='help'}}"></image>
             </view>
+<!-- 
+            <view class="methodsItem" bindtap="checkPayMethods" data-type="alipay">
+                <view class="payLeft">
+                    <image src="../../images/icon_alipay@2x.png" class="payIcon"></image>
+                    <text class="payMethodsText">支付宝支付</text>
+                </view>
+                <view class="noCheck" wx:if="{{payMethods=='help'||payMethods=='self'}}"></view>
+                <image src="../../images/btn_sel@2x.png" class="checkImg" wx:if="{{payMethods=='alipay'}}"></image>
+            </view> -->
+
         </view>
         <!-- 产品协议 -->
         <view class="receiptContainer bottomMargin">
@@ -107,11 +117,13 @@
     <view class="payOption">
         <view class="payOptionContainer">
             <view class="payAmount">￥{{allMoney.price}}</view>
-            <view class="payButton" bindtap="toPay" wx:if="{{payMethods==1}}">立即支付</view>
+            <view class="payButton" bindtap="toPay" wx:if="{{payMethods=='self'}}">立即支付</view>
             <!-- <button open-type="share" class="sharetap" > -->
-                <view class="{{disablePay?'disablePay':'payButton'}}" bindtap="toPay" wx:if="{{payMethods==0}}">
+                <view class="{{disablePay?'disablePay':'payButton'}}" bindtap="toPay" wx:if="{{payMethods=='help'}}">
                 好友代付
                 </view>
+            
+                <view class="payButton" bindtap="toPay" wx:if="{{payMethods=='alipay'}}">支付宝支付</view>
             <!-- </button> -->
         </view>
     </view>

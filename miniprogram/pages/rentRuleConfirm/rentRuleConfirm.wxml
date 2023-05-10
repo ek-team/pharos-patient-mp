@@ -48,13 +48,13 @@
             </view> -->
         </view>
         <!-- 产品协议 -->
-        <view class="receiptContainer bottomMargin">
+        <!-- <view class="receiptContainer bottomMargin" >
             <view class="methodsItem">
-                <view class="agreeText">同意<text class="agreementText" bindtap="watchProtocol">《产品协议》</text></view>
+                <view  class="agreeText">同意<text class="agreementText" bindtap="watchProtocol">《产品协议》</text></view>
                 <image src="../../images/btn_sel@2x.png" class="checkImg" wx:if="{{agreeProtocol}}" bindtap="checkAgreeProtocol" data-agree="{{false}}"></image>
                 <view class="noCheck" bindtap="checkAgreeProtocol" data-agree="{{true}}" wx:else></view>
             </view>
-        </view>
+        </view> -->
     </view>
     <view class="payOption">
         <view class="payOptionContainer">
