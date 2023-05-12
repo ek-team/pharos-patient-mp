@@ -379,7 +379,20 @@ Page({
         duration: 2000
       })
     } else {
+
+      if (this.data.disablePay) {
+        wx.showToast({
+          title: '请勿重复点击！',
+          icon: 'none'
+        })
+        return
+      }
+
       this.getOrder();
+
+      this.setData({
+        disablePay:true
+      })
     }
     // else if (!this.data.operateTime) {
     //     wx.showToast({
@@ -394,7 +407,7 @@ Page({
   // 生成订单
   getOrder() {
     if (this.data.payMethods == 'self') { //微信支付
-      http('/purchase/order/user/add', 'post', '', {
+      http('purchase/order/user/add', 'post', '', {
         patientUserId: this.data.patient.patientId,
         servicePackId: this.data.orderDetail.servicePackId,
         doctorTeamId: this.data.doctorTeam.doctorTeamId,
@@ -416,6 +429,9 @@ Page({
           timeStamp: payData.timeStamp,
           signType: payData.signType,
           success(res) {
+            that.setData({
+              disablePay:false
+          })
             wx.showToast({
               title: '支付成功,两秒后跳转订单列表',
               icon: 'none',
@@ -432,6 +448,9 @@ Page({
 
           },
           fail(err) {
+            that.setData({
+              disablePay:false
+          })
             wx.showToast({
               title: '支付失败,两秒后跳转订单列表',
               icon: 'none',
@@ -451,16 +470,8 @@ Page({
         })
       })
     } else if (this.data.payMethods == 'help') { //好友代付
-      if (this.data.disablePay) {
-        wx.showToast({
-          title: '请勿重复点击！',
-          icon: 'none'
-        })
-        return
-      }
-      this.setData({
-        disablePay: true
-      })
+ 
+
       wx.showLoading({
         title: '加载中',
       })
@@ -494,15 +505,19 @@ Page({
                     title: '成功！',
                     icon: 'none'
                   })
+
+                  that.setData({
+                    disablePay:false
+                })
                 },
                 fail: () => {
-
+                  that.setData({
+                    disablePay:false
+                })
                 },
                 complete: () => {
                   setTimeout(() => {
-                    // that.setData({
-                    //     disablePay:false
-                    // })
+                   
                     wx.navigateTo({
                       url: '../myOrder/myOrder',
                     })
@@ -514,23 +529,19 @@ Page({
             },
             fail: () => {
               wx.hideLoading()
+              that.setData({
+                disablePay:false
+            })
             },
           })
         }
 
       })
+      
     } else if (this.data.payMethods == 'alipay') { //支付宝支付
 
-      if (this.data.disablePay) {
-        wx.showToast({
-          title: '请勿重复点击！',
-          icon: 'none'
-        })
-        return
-      }
-      this.setData({
-        disablePay: true
-      })
+     
+  
       wx.showLoading({
         title: '加载中',
       })
@@ -548,44 +559,24 @@ Page({
         operationTime: this.data.operateTime + ' 00:00:00',
         payType:2,
       }).then(resp => {
-        wx.hideLoading()
-        let that = this
-        // console.log('好友代付返回图片链接',resp)
-        if (resp.data) {
-          wx.downloadFile({
-            // url:'https://ewj-pharos.oss-cn-hangzhou.aliyuncs.com/avatar/1673839083879_94a380d7.png',//分享的图片的链接
-            url: resp.data, //分享的图片的链接
-            success: (res) => {
-              // wx.hideLoading()
-              wx.showShareImageMenu({
-                path: res.tempFilePath,
-                success: () => {
-                  wx.showToast({
-                    title: '成功！',
-                    icon: 'none'
-                  })
-                },
-                fail: () => {
 
-                },
-                complete: () => {
-                  setTimeout(() => {
-                    // that.setData({
-                    //     disablePay:false
-                    // })
-                    wx.navigateTo({
-                      url: '../myOrder/myOrder',
-                    })
-                  }, 1000)
-                }
-              })
-              wx.hideLoading()
-              console.log('分享图片', res)
-            },
-            fail: () => {
-              wx.hideLoading()
-            },
+        
+        wx.hideLoading()
+        that.setData({
+          disablePay:false
+      })
+
+        if (resp.data) {
+   
+  
+          let orderNo=resp.data.orderNo
+          
+
+ 
+          wx.navigateTo({
+            url: '../aliPayWeb/aliPayWeb?orderNo=' + orderNo,
           })
+
         }
 
       })

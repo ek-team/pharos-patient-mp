@@ -1,4 +1,6 @@
 // pages/exerciseData/exerciseData.js
+
+const { baseUrl } = require("../../utils/http");
 Page({
 
     /**
@@ -7,6 +9,7 @@ Page({
     data: {
         idCard:null,
         url:null,
+        
     },
 
     /**
@@ -15,10 +18,7 @@ Page({
     onLoad: function (options) {
         this.setData({
             idCard:options.idCard,
-            url:'https://pharos3.ewj100.com/record.html#/ucenter/recovery/userPage/recoveryInfo?idCard='+options.idCard, 
-
-
-            // url:'https://pharos3.ewj100.com/record.html#/ucenter/recovery/comprehensiveRecovery?idCard='+options.idCard,
+            url:baseUrl+'record.html#/ucenter/recovery/userPage/recoveryInfo?idCard='+options.idCard, 
         })
     },
 

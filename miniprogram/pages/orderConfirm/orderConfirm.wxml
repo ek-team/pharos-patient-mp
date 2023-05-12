@@ -117,13 +117,13 @@
     <view class="payOption">
         <view class="payOptionContainer">
             <view class="payAmount">￥{{allMoney.price}}</view>
-            <view class="payButton" bindtap="toPay" wx:if="{{payMethods=='self'}}">立即支付</view>
+            <view class="{{disablePay?'disablePay':'payButton'}}" bindtap="toPay" wx:if="{{payMethods=='self'}}">立即支付</view>
             <!-- <button open-type="share" class="sharetap" > -->
                 <view class="{{disablePay?'disablePay':'payButton'}}" bindtap="toPay" wx:if="{{payMethods=='help'}}">
                 好友代付
                 </view>
             
-                <view class="payButton" bindtap="toPay" wx:if="{{payMethods=='alipay'}}">支付宝支付</view>
+                <view class="{{disablePay?'disablePay':'payButton'}}" bindtap="toPay" wx:if="{{payMethods=='alipay'}}">支付宝支付</view>
             <!-- </button> -->
         </view>
     </view>

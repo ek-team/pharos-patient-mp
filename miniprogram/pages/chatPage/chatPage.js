@@ -441,7 +441,8 @@ Page({
               wx.showLoading()
                 // console.log('上传图片',wx.getStorageSync('token'))
                 wx.uploadFile({
-                    url : 'https://pharos3.ewj100.com/file/upload',//oss上传地址
+                 
+                    url : baseUrl+'file/upload',//oss上传地址
                     filePath: tempFilePath,//filePath只能是String
                     methods: 'post',
                     name: 'file',

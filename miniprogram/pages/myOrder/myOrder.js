@@ -451,6 +451,12 @@ Page({
      */
     onHide: function () {
 
+
+      wx.navigateTo({
+        url: '../my/my',
+      })
+
+
     },
 
     /**

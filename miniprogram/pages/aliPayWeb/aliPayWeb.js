@@ -1,4 +1,6 @@
 // pages/exerciseData/exerciseData.js
+
+const { baseUrl } = require("../../utils/http");
 Page({
 
   /**
@@ -7,6 +9,7 @@ Page({
   data: {
     orderNo: null,
     url: null,
+
   },
 
   /**
@@ -15,9 +18,8 @@ Page({
   onLoad: function (options) {
     this.setData({
       orderNo: options.orderNo,
-      // url:'https://pharos3.ewj100.com/record.html#/ucenter/recovery/userPage/recoveryInfo?idCard='+options.idCard, 
-      // url:'https://api.jhxiao-school.com/record.html#/newPharosTest/aliPay?orderNo=1656550545244028928', 
-      url: 'https://api.jhxiao-school.com/record.html#/newPharosTest/aliPay?orderNo=' + options.orderNo,
+
+      url: baseUrl + 'record.html#/newPharosTest/aliPay?orderNo=' + options.orderNo,
     })
   },
 

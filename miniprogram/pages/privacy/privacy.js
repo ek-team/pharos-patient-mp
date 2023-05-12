@@ -1,4 +1,6 @@
 // pages/privacy/privacy.js
+
+const { baseUrl } = require("../../utils/http");
 Page({
 
     /**
@@ -6,6 +8,8 @@ Page({
      */
     data: {
 
+
+      url:baseUrl+'html/index.html',
     },
 
     /**
