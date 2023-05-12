@@ -1,8 +1,8 @@
 // app.js
 App({
   globalData: {
-    url: 'wss://pharos3.ewj100.com/ws',
-    // url: 'wss://api.jhxiao-school.com/ws',
+    // url: 'wss://pharos3.ewj100.com/ws',
+    url: 'wss://api.jhxiao-school.com/ws',
     socketTask: '',
     callback: function () { },
     idCard:null,

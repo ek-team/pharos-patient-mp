@@ -16,6 +16,8 @@ Page({
         this.setData({
             idCard:options.idCard,
             url:'https://pharos3.ewj100.com/record.html#/ucenter/recovery/userPage/recoveryInfo?idCard='+options.idCard, 
+
+
             // url:'https://pharos3.ewj100.com/record.html#/ucenter/recovery/comprehensiveRecovery?idCard='+options.idCard,
         })
     },

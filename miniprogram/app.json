@@ -39,8 +39,8 @@
     "pages/rentRuleList/rentRuleList",
     "pages/mpWeiXing/mpWeiXing",
     "pages/article/article",
-    "pages/selectPatient/selectPatient"
-
+    "pages/selectPatient/selectPatient",
+    "pages/aliPayWeb/aliPayWeb"
 
   ],
   "window": {

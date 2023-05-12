@@ -1,0 +1,2 @@
+<!--pages/aliPayWeb/apiPayWeb.wxml-->
+<web-view src="{{url}}"> </web-view>

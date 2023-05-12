@@ -546,7 +546,7 @@ Page({
         diseasesId: this.data.diseasesId,
         rentDay: this.data.orderDetail.rentDay,
         operationTime: this.data.operateTime + ' 00:00:00',
-        // payType:2,
+        payType:2,
       }).then(resp => {
         wx.hideLoading()
         let that = this

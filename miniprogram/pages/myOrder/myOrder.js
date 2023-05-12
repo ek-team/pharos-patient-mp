@@ -303,6 +303,28 @@ Page({
             wx.hideLoading()
         })
     },
+
+
+
+
+    //阿里支付
+    toAliPay(e){
+
+      let item=e.currentTarget.dataset.item
+
+
+     
+      let orderNo=item.orderNo
+      orderNo=orderNo.substr(orderNo.length-19,orderNo.length)
+      
+      console.log(orderNo)
+      wx.navigateTo({
+        url: '../aliPayWeb/aliPayWeb?orderNo=' + orderNo,
+      })
+
+
+    },
+
     // 支付
     toPay(e){
         let that=this

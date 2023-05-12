@@ -94,7 +94,7 @@
                 <view class="noCheck" wx:if="{{payMethods=='alipay'||payMethods=='self'}}"></view>
                 <image src="../../images/btn_sel@2x.png" class="checkImg" wx:if="{{payMethods=='help'}}"></image>
             </view>
-<!-- 
+
             <view class="methodsItem" bindtap="checkPayMethods" data-type="alipay">
                 <view class="payLeft">
                     <image src="../../images/icon_alipay@2x.png" class="payIcon"></image>
@@ -102,7 +102,7 @@
                 </view>
                 <view class="noCheck" wx:if="{{payMethods=='help'||payMethods=='self'}}"></view>
                 <image src="../../images/btn_sel@2x.png" class="checkImg" wx:if="{{payMethods=='alipay'}}"></image>
-            </view> -->
+            </view>
 
         </view>
         <!-- 产品协议 -->
