@@ -65,8 +65,6 @@
 
             <view class="buttonItem cancelBtn " wx:if="{{orderDetail.status==4&&orderDetail.orderType==1}}" bindtap="torentRuleOrder" >继续续租</view>
 
-
-
           </view>
 
         </view>
@@ -77,7 +75,7 @@
     </view>
 
     <view class="orderContainer">
-      <view class="orderItem" wx:for="{{rentRuleOrderList}}" data-index="{{index}}" >
+      <view class="orderItem" wx:for="{{rentRuleOrderList}}" data-index="{{index}}" wx:key="id" >
         <view class="orderInfoContainer" bindtap="watchOrderDetail" data-orderId="{{orderDetail.id}}">
           <view class="medecineItem">
             <view class="imgBox">

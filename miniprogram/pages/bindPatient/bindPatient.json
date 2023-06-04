@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "van-popup": "@vant/weapp/popup/index"
+  },  
+  "navigationBarBackgroundColor":"#ffffff",
+  "navigationBarTitleText":"复制订单"
+}

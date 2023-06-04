@@ -196,17 +196,36 @@ Page({
         title: '提交中',
       })
         let list=this.data.formSetList
+
+        console.log(list,"++++++++")
         let submitList=[]
+
+        
         for(let i=0,item;i<list.length;i++){
             item=list[i]
-     
-            if(item.isMust==1&&!item.answer){
+            console.log(item,'-----')
+
+            if(item.type==6||item.type==5){
+              if(item.isMust==1&&item.answer.length==0){
                 wx.showToast({
                   title: '请填写第'+(i+1)+'题',
                   icon:'none'
                 })
                 return
             }
+            }else{
+
+              if(item.isMust==1&&!item.answer){
+                wx.showToast({
+                  title: '请填写第'+(i+1)+'题',
+                  icon:'none'
+                })
+                return
+            }
+            }
+           
+
+
             submitList.push({
                 str:this.data.followPlanId,//随访计划id,
                 formId:this.data.formId,//表单id,

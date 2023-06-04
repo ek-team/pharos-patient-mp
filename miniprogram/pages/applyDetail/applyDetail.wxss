@@ -13,7 +13,17 @@
   font-size: 32rpx;
   font-weight: 550;
 }
-
+.pictureListContainer{
+  width: 140rpx;
+  height: 140rpx;
+  margin-right: 16rpx;
+  margin-bottom: 20rpx;
+  position: relative;
+}
+.pictureImg{
+  width: 140rpx;
+  height: 140rpx;
+}
 .myStateContent {
   font-size: 26rpx;
   font-weight: 400;

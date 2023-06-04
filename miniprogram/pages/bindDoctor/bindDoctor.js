@@ -10,20 +10,31 @@ Page({
    */
   data: {
     patientList: [], //就诊人列表
-    patientId: null, //选择的就诊人id
+    patientId: 0, //选择的就诊人id
     patientName: '', //选择的就诊人名字
     checkedPatient: [],
     type: null,
+    doctorId: null,
+    doctorTeamId: null,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      type: options.type,
-    })
 
+  //   if(!wx.getStorageSync('token')){
+  //     wx.setStorageSync('token', options.token)
+  // }
+
+
+
+    this.setData({
+      doctorId:options.doctorId,
+      doctorTeamId:options.doctorTeamId
+    })
+    console.log("---1---",this.data.doctorId)
+    console.log("---1---",this.data.doctorTeamId)
   },
 
   /**
@@ -47,7 +58,12 @@ Page({
     }
 
   },
-
+  // 添加就诊人
+  addPatient() {
+    wx.navigateTo({
+      url: '../addPatient/addPatient',
+    })
+  },
   // 查询就诊人列表
   getPatientList() {
     http('user/listPatientUser', 'get', '').then(res => {
@@ -97,14 +113,14 @@ Page({
     // console.log('选择就诊人',item)
   },
   // 点击编辑
-  toLook(e) {
+  editPatient(e) {
     let item = e.currentTarget.dataset.item
-
-
+    // console.log('id',id)
+    // return
     wx.navigateTo({
-      url: '../exerciseData/exerciseData?idCard=' + item.idCard,
+      url: '../addPatient/addPatient?type=edit' + '&id=' + item.id
+      // url: '../addPatient/addPatient?type=edit'+'&id='+item.id+'&name='+item.name+'&idCard='+item.idCard+'&age='+item.age,
     })
-
   },
   // 就诊人确认
   confirm() {
@@ -115,13 +131,55 @@ Page({
       })
       return
     }
-    wx.setStorageSync('patient', {
-      patientId: this.data.patientId,
-      patientName: this.data.patientName
+
+
+    let params = {
+      patientUserId:  this.data.patientId,
+    }
+    if (this.data.doctorTeamId === null||this.data.doctorTeamId===undefined) {
+      params = {
+        patientUserId:  this.data.patientId,
+        doctorId: this.data.doctorId,
+      }
+    }
+
+
+    if (this.data.doctorId === null||this.data.doctorId===undefined) {
+      params = {
+        patientUserId: this.data.patientId,
+        doctorTeamId: this.data.doctorTeamId,
+      }
+    }
+
+
+
+    http('patientUserBindDoctor/add', 'post','', params).then(res => {
+
+
+      wx.showToast({
+        title: '绑定成功,两秒后跳转消息界面',
+        icon: 'none'
+      })
+
+      setTimeout(()=>{
+        wx.switchTab({
+          url: '../news/news',
+        })
+    },2000)
+
+    
+   
+
+  
+
+
+    
+
+    console.log(res)
+
     })
-    wx.navigateBack({
-      delta: 1,
-    })
+
+
   },
   /**
    * 生命周期函数--监听页面隐藏

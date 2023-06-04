@@ -29,7 +29,7 @@
     <view class="backContainer userInfoContainer">
         <view class="infoTitle">请描述您的病情</view>
         <view class="inputContainer">
-            <textarea value="{{illnessDesc}}" bindinput="inputDesc"  class="inputContent" placeholder-class="remarkPlaceholder"  placeholder="请输入病情描述，如发病时间，主要病症，治疗经过，目前状况等" />
+            <textarea value="{{illnessDesc}}" bindinput="inputDesc"  class="inputContent" placeholder-class="remarkPlaceholder"  placeholder="请输入病情描述，如发病时间，主要病症，治疗经过，目前状况等（不支持特殊字符以及表情）" />
         </view>
         <!-- 上传图片 -->
         <view class="pictureContainer">
@@ -39,7 +39,7 @@
             </view>
             <view class="pictureListContainer" wx:if="{{pictureList.length>0}}" wx:for="{{pictureList}}" wx:key="id">
                 <image src="{{item}}" class="pictureImg" bindtap="previewBigImg" data-src="{{item}}"></image>
-                <image src="../../images/close.png" class="closeIcon" wx:if="{{index==pictureList.length-1}}" bindtap="deleteImg" mode="aspectFill"></image>
+                <image src="../../images/close.png" class="closeIcon"  bindtap="deleteImg" mode="aspectFill" data-src="{{item}}"></image>
             </view>
             <view class="rightContainer" wx:if="{{pictureList.length==0}}">
                 <text class="rightRemindText">上传检查单/患处照片（最多9张） 仅医生可见</text>
@@ -73,7 +73,7 @@
     </view>
     <view class="footerContainer">
         <view class="bottomContainer">
-            <view class="previousStep">上一步</view>
+            <!-- <view class="previousStep">上一步</view> -->
             <view class="commitBtn"
             bindtap="{{isClick?'commitOrder':''}}">提交<span wx:if="{{from!='free'}}">({{serviceInfo.price}}元/次)</span></view>
         </view>

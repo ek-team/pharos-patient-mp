@@ -41,11 +41,17 @@ Page({
      */
     onLoad: function (options) {
         this.setData({
-            deptId:options.deptId,
-            orderId:options.orderId
+
+          deptId:options.deptId,
+          orderId:options.orderId
+            // deptId:510,
+            // orderId:1594
         })
         this.getReceiptToUserInfo()
         this.getReceiptUserInfo()
+
+        console.log(deptId,'-------------')
+        console.log(orderId,'--------++++=-----')
     },
 
     /**
@@ -79,18 +85,33 @@ Page({
         http('purchase/order/getById','get','',{
             id:this.data.orderId
         }).then(res=>{
-            // console.log('寄件人信息',res.data)
+            console.log('寄件人信息',res.data)
             if(res.data){
                 this.data.myAddress=res.data
                 this.data.myAddress.addresseeName=res.data.receiverName
                 this.data.myAddress.addresseePhone=res.data.receiverPhone
 
         
-                this.setData({
+
+                
+      
+                if (typeof  res.data.saleSpecGroup!=='undefined') {
+                  
+                  this.setData({
                     myAddress:this.data.myAddress,     
                     weight:res.data.saleSpecGroup.weight,
                     remark:res.data.saleSpecGroup.recycleRemark
                 })
+                }else{
+                  this.setData({
+                    myAddress:this.data.myAddress,     
+                    weight:'10.5',
+                })
+                }
+                
+               
+      
+               
             }
             
             

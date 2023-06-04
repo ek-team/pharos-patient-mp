@@ -194,8 +194,9 @@ Page({
           let have = true;
           _this.data.messageList.map((item, index, arr) => {//当前聊天列表发来新消息
             let msg = JSON.parse(data.msg)
-            // console.log('未读新消息',msg)
-            if (item.targetUid == data.fromUid) {
+            console.log('未读新消息-----',data.msg)
+            console.log('未读新消息+++++',item)
+            if (item.targetUid == data.fromUid&&data.patientId==item.patientId) {
               _this.data.messageList.splice(index, 1)
               item.lastMsg = msg.msg
               item.hasNewMsg = item.hasNewMsg + 1;
@@ -233,18 +234,36 @@ Page({
   toChatPage(e){
     let chatUserId=e.currentTarget.dataset.chatuserid;
     let item=e.currentTarget.dataset.item;
+    console.log(chatUserId)
+    console.log(item)
     // console.log(item.groupType)
     // if(app.globalData.socketTask&&app.globalData.socketTask.OPEN){
     //   console.log('soket一打开')
     // }
     if(item.groupType==1){//群聊
-      wx.navigateTo({
-        url: '../chatPage/chatPage?chatUserId='+chatUserId+'&name='+item.nickname+'&teamId='+item.doctorTeamPeopleList[0].teamId,
-      })
+
+      if (item.patientId!=null) {
+        wx.navigateTo({
+          url: '../chatPage/chatPage?chatUserId='+chatUserId+'&name='+item.nickname+'&teamId='+item.doctorTeamPeopleList[0].teamId+'&patientId='+item.patientId,
+        })
+      }else{
+        wx.navigateTo({
+          url: '../chatPage/chatPage?chatUserId='+chatUserId+'&name='+item.nickname+'&teamId='+item.doctorTeamPeopleList[0].teamId,
+        })
+      }
+ 
     }else{//单聊
-      wx.navigateTo({
-        url: '../chatPage/chatPage?targetUid='+item.targetUid+'&name='+item.nickname+'&chatUserId='+chatUserId,
-      })
+
+      if (item.patientId!=null) {
+        wx.navigateTo({
+          url: '../chatPage/chatPage?targetUid='+item.targetUid+'&name='+item.nickname+'&chatUserId='+chatUserId+'&patientId='+item.patientId,
+        })
+      }else{
+        wx.navigateTo({
+          url: '../chatPage/chatPage?targetUid='+item.targetUid+'&name='+item.nickname+'&chatUserId='+chatUserId,
+        })
+      }
+
     }
     
   },

@@ -5,7 +5,7 @@
     <!-- 服务内容 -->
     <view class="confirmView">
       <view class="serviceItem"bindtap="toGoodsDetail">
-        <image class="servicePic" src="{{orderDetail.productPic}}" ></image>
+        <image class="servicePic" src="{{orderDetail.servicePack.servicePackProductPics[0].image}}" ></image>
         <view class="serviceRight">
           <view class="serviceName">{{orderDetail.servicePack.name}}</view>
           <view class="serviceInfo">
@@ -99,20 +99,16 @@
       <text bindtap="callToService" data-serviceinfo="{{orderDetail.servicePack}}">联系客服</text>
     </view>
 
-    <image wx:if="{{orderDetail.status!=1}}" style="margin-top: 50rpx;width: 400rpx;height: 400rpx;" src="{{ 'data:image/png;base64,'+ codeImg }}" mode="aspectFit"/>
 
   </view>
-  
 
+  <view class="fixBottom">
+        <button class="save" bindtap="copyOrder">复制订单就诊人信息</button>
+    </view>
+  
   <!-- 按钮 -->
   <!-- 1-待付款 2-待发货 3-待收货 4-使用中 5-已回收 wx:if="{{orderDetail.status!=2}}"-->
-  <view class="btnGroup" wx:if="{{orderDetail.status==1||orderDetail.status==3||orderDetail.status==4||orderDetail.billImage}}">
-    <view class="btnClass" wx:if="{{orderDetail.billImage}}" bindtap="viewBillImage" >查看发票</view>
-    <view class="btnClass" wx:if="{{orderDetail.status==3||orderDetail.status==4}}" bindtap="toLogisticInfo">查看物流</view>
-    <view class="btnClass yellowBtn" wx:if="{{orderDetail.status==3}}" bindtap="receipt">确认收货</view>
-    <view class="btnClass yellowBtn" wx:if="{{orderDetail.status==4&&orderDetail.orderType==1}}" bindtap="toRetrieveOrder" data-item="{{orderDetail}}">回收</view>
-    <view class="btnClass yellowBtn" wx:if="{{orderDetail.status==1}}" bindtap="toPay">付款</view>
-  </view>
+
   <!-- 协议 -->
   <van-popup show="{{showProtocol}}"  custom-style="width:80%;height: 750rpx;" bind:close="closeProrocol" >
     <view class="protocolName">{{protocolDetail.name}}</view>

@@ -36,7 +36,9 @@ Page({
    */
   onShow: function () {
       this.setData({
-          idCard:app.globalData.idCard,
+          // idCard:app.globalData.idCard,
+
+          idCard:'340123199403255796',
       })
     //   console.log('身份证',this.data.idCard)
     this.getwindowHeight()
@@ -56,7 +58,7 @@ Page({
       noLoading:false,
     })
     http('userServicePackageInfo/listByIdCard','get','',{
-      useStatus:this.data.activeIndex==1?1:this.data.activeIndex==2?2:'',
+      useStatus:this.data.activeIndex,
       idCard:this.data.idCard
     }).then(res=>{
         this.setData({

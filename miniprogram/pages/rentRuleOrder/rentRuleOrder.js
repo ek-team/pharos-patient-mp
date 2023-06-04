@@ -48,6 +48,11 @@ Page({
   },
   // 立即预定
   booking() {
+
+    if(rentRuleList.length==0){
+      return
+    }
+
     this.setData({
       modal: true
     })

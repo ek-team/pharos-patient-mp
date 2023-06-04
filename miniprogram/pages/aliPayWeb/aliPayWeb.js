@@ -1,6 +1,6 @@
 // pages/exerciseData/exerciseData.js
 
-const { baseUrl } = require("../../utils/http");
+const { baseUrl,http } = require("../../utils/http");
 Page({
 
   /**
@@ -21,6 +21,8 @@ Page({
 
       url: baseUrl + 'record.html#/newPharosTest/aliPay?orderNo=' + options.orderNo,
     })
+
+    console.log(this.data.url)
   },
 
   /**
@@ -35,6 +37,31 @@ Page({
    */
   onShow: function () {
 
+    
+    this.getAliPayStatus();
+
+  },
+
+
+  getAliPayStatus() {
+    http('purchase/order/user/orderDetailByOrderNo', 'get', '', {
+      orderNo: this.data.orderNo
+    }).then(res => {
+     
+
+      if(res.data.status!=1){
+        wx.showToast({
+          title: '当前订单已经支付了,2秒后跳转',
+          icon:'none'
+        })
+        setTimeout(()=>{
+            wx.navigateTo({
+              url: '../myOrder/myOrder',
+            })
+        },2000)
+      }
+    
+    })
   },
 
   /**

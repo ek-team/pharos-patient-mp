@@ -44,7 +44,7 @@
     "useCompilerPlugins": false,
     "ignoreUploadUnusedFiles": true
   },
-  "appid": "wxad59cd874b45bb96",
+  "appid": "wx347d83ad4078ede4",
   "projectname": "fls-admin",
   "libVersion": "2.14.1",
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
@@ -80,5 +80,6 @@
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
-  }
+  },
+  "simulatorPluginLibVersion": {}
 }

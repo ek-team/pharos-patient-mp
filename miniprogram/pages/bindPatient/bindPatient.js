@@ -17,9 +17,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options.orderId)
+    console.log(options.id)
     this.setData({
-      orderId: options.orderId
+      orderId: options.id
     })
   },
 
@@ -37,6 +37,58 @@ Page({
     this.getOrderDetailById();
 
     this.getOrderQr();
+
+  },
+
+  copyOrder(){
+    http('user/copyUser', 'get', '', {
+      id: this.data.orderId
+    }).then(res => {
+
+
+      if (res.code==0) {
+        wx.showToast({
+          title: '复制成功,等待跳转',
+          icon: 'none',
+
+        })
+        setTimeout(function () {
+
+          wx.navigateTo({
+            url: '../selectPatient/selectPatient',
+          })
+
+      
+
+        }, 2000)
+
+      }else{
+        wx.showToast({
+          title: '复制订单失败,等待跳转',
+          icon: 'none',
+
+        })
+        setTimeout(function () {
+
+          wx.navigateTo({
+            url: '../selectPatient/selectPatient',
+          })
+
+      
+
+        }, 2000)
+
+
+      }
+      this.setData({
+        orderDetail: res.data
+      })
+     
+      
+    })
+
+
+   
 
   },
   // 订单详情

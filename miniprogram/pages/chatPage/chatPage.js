@@ -26,6 +26,7 @@ Page({
         dialogInfo:{},
         userServiceId:null,
         chatUserId:null,
+        patientId:null,
         page:{
             pageNum:1,
             pageSize:10,
@@ -59,6 +60,8 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+      
+      
         this.setData({
             userServiceId:options.userServiceId,
             chatUserId:options.chatUserId,//群聊id
@@ -67,7 +70,8 @@ Page({
             chatName:options.name,//会话标题名称
             from:options.from,
             typeFrom:options.typeFrom,
-            list:[]
+            list:[],
+            patientId:options.patientId,//就诊人id
         })
         if(options.teamId){
             this.setData({
@@ -95,7 +99,10 @@ Page({
                 msgType: "PIC_CONSULTATION",
                 str1:options.str1,//订单id
                 chatUserId:options.chatUserId,
+                patientId:options.patientId,
               }
+
+            console.log('------------ddddd----'+payMsg)
             app.sendMessage(payMsg)  
             wx.showToast({
               title: '图文咨询申请发送成功，等候医生接受',
@@ -106,10 +113,14 @@ Page({
         }
         if(options.from=='typeFrom'){
             this.data.resquestDetail.patientOtherOrderStatus=1
+
+     
             this.setData({
                 resquestDetail:this.data.resquestDetail
             })
         }
+
+        console.log('-------------',this.data.resquestDetail)
     },
 
     /**
@@ -258,6 +269,8 @@ Page({
     // 处理聊天时间
     showTime(arr) {
         let changeArr = arr
+
+        console.log("处理数据",arr)
         //给每条消息时间转换为时间戳
         changeArr.forEach((item, index, arr) => {
           item.timeStemp = new Date(item.createTime).getTime()
@@ -310,17 +323,29 @@ Page({
         let params={
             pageNum:this.data.page.pageNum,
             pageSize:this.data.page.pageSize,
+            
         }
+
+        if (this.data.patientId!=null||this.data.patientId==undefined) {
+          params.patientId=this.data.patientId
+        }
+
         if(this.data.targetUid==undefined){
             params.chatUserId=this.data.chatUserId
         }else{
             params.targetUid=this.data.targetUid
         }
+     
         http('chatMsg/queryChatMsgHistory','post','',params).then(res=>{
-            // console.log('聊天记录',res.data)
+            console.log('聊天记录',res.data)
+             
+
             let list=res.data.total
             list=this.data.list.concat(res.data.records)
+          
             this.data.page.total=res.data.total
+
+            console.log('聊天记录-1',list)
             res.data.records.map(item=>{
                 if(item.fromUid==this.data.myUserId){
                     this.data.myAvatar=item.user.avatar
@@ -399,13 +424,20 @@ Page({
                             tempFilePaths=[]
                             let picMessage = {
                                     msgType: "MESSAGE_PIC",
-                                    url:resImg
+                                    url:resImg,
+                                    
+                                  
+                            }
+
+                            if (_this.data.patientId!=null) {
+                              picMessage.patientId=_this.data.patientId
                             }
                             if(_this.data.targetUid==undefined){
                                 picMessage.chatUserId=_this.data.chatUserId
                             }else{
                                 picMessage.targetUid=_this.data.targetUid
                             }
+                            console.log('发送图片消息',picMessage)
                             wx.removeStorageSync('noClose')
                             app.sendMessage(picMessage)
                             _this.detailQueryChat()
@@ -460,14 +492,19 @@ Page({
                             let videoMessage = {
                                     msgType: "VIDEO_URL",
                                     mag:'视频',
-                                    url:videoUrl
+                                    url:videoUrl,
+                                    
+                            }
+
+                            if (_this.data.patientId!=null) {
+                              videoMessage.patientId=_this.data.patientId
                             }
                             if(_this.data.targetUid==undefined){
                                 videoMessage.chatUserId=_this.data.chatUserId
                             }else{
                                 videoMessage.targetUid=_this.data.targetUid
                             }
-                            console.log('发送消息的参数',videoMessage)
+                            console.log('发送视频消息',videoMessage)
                             wx.removeStorageSync('noClose')
                             app.sendMessage(videoMessage)
                             _this.detailQueryChat()
@@ -685,13 +722,19 @@ Page({
                     url:vedio,
                     msg:'语音',
                     videoDuration:that.data.videoLength,//语音时长
+               
                 }
+
+                if (that.data.patientId!=null) {
+                  vedioMessage.patientId=that.data.patientId
+                }
+
                 if(that.data.targetUid==undefined){
                     vedioMessage.chatUserId=that.data.chatUserId
                 }else{
                     vedioMessage.targetUid=that.data.targetUid
                 }
-                // console.log('发送的语音消息',vedioMessage)
+                console.log('发送的语音消息',vedioMessage)
                 if(that.data.videoLength<1){
                     wx.showToast({
                         title: '说话时间太短',
@@ -797,6 +840,13 @@ Page({
         let sendMsg={
              msgType: "MESSAGE_TEXT",
              msg:this.data.inputMsg,
+            //  patientId:this.data.patientId,
+        }
+
+      
+
+        if (this.data.patientId!=null) {
+          sendMsg.patientId=this.data.patientId
         }
         if(this.data.targetUid==undefined){
             sendMsg.chatUserId=this.data.chatUserId
@@ -806,7 +856,7 @@ Page({
          if(this.data.remark!='null'){
             //  sendMsg.remark=this.data.remark
          }
-        //  console.log('发送消息',sendMsg)
+         console.log('发送消息',sendMsg)
          // 发送消息
          app.sendMessage(sendMsg)
          this.detailQueryChat()
@@ -824,10 +874,18 @@ Page({
         let that=this
         app.globalData.callback =function(res) {
             let data= JSON.parse(res.data)
-            // console.log(data)
+            console.log("---接受消息",res)
             if(data.msgType=='RESPONSE_MESSAGE'){//自己的消息
               console.log("ssssssss"+data.data.id)
               
+
+              if (data.data.msgType=='PIC_CONSULTATION') {
+
+                that.getChatList()
+
+                return
+                
+              }
                 let list=that.data.list
                 console.log(list)
                 for(let i=0;i<list.length;i++){
@@ -844,13 +902,34 @@ Page({
                     
                 
             }else if(data.msgType == 'TIP_NEWMESSAGE'){
+                // let list=that.data.list
+                //  console.log('dddddddd',data.data)
+                // list.unshift(data.data)
+                // that.showTime(list)
+                // that.setData({
+                //     list:list
+                // })
+                
+
                 let list=that.data.list
-                 console.log('dddddddd',data.data)
-                list.unshift(data.data)
+                let msg= JSON.parse(data.msg);
+                console.log("ffffff"+msg)
+                for(let i=0;i<list.length;i++){
+                  if(msg.id==list[0].id){
+                    return;
+                  }
+               }
+                // console.log('群组消息',JSON.parse(data.msg))
+                list.unshift(msg)
                 that.showTime(list)
                 that.setData({
                     list:list
                 })
+                // console.log("---接受消息",'----')
+                
+                // that.getChatList()
+
+               
             }else if(data.msgType == 'TIP_GROUP_NEWMESSAGE'){
               
                 let list=that.data.list
@@ -888,7 +967,12 @@ Page({
         let msg={
             msgType: "MESSAGE_TEXT",
             msg:this.data.paitentSuit,
+            // patientId:this.data.patientId,
         }    
+
+        if (this.data.patientId!=null) {
+          msg.patientId=this.data.patientId
+        }
         if(this.data.targetUid==undefined){
             msg.chatUserId=this.data.chatUserId
         }else{
@@ -926,19 +1010,34 @@ Page({
             if(res.data){
                 let id=this.data.targetUid==undefined?res.data.teamId:this.data.targetUid
                 if(this.data.chatType!=1){//单聊
-                    //跳转图文咨询页付费
+
+                  if (this.data.patientId!=null) {
                     wx.navigateTo({
-                        url: '../requestConsultation/requestConsultation?id='+id+'&type='+nickName+'&chatUserId='+this.data.chatUserId,
-                    })
+                      url: '../requestConsultation/requestConsultation?id='+id+'&type='+nickName+'&chatUserId='+this.data.chatUserId+'&patientId='+this.data.patientId,
+                  })
+                  }else{
+                    wx.navigateTo({
+                      url: '../requestConsultation/requestConsultation?id='+id+'&type='+nickName+'&chatUserId='+this.data.chatUserId,
+                  })
+                  }
+                    //跳转图文咨询页付费
+                    
                 }else{//群聊
                     if(this.data.freeRequestInfo&&this.data.freeRequestInfo.length>0){
                         wx.navigateTo({
                           url: '../serviceDetail/serviceDetail?id='+this.data.freeRequestInfo[0].id,
                         })
                     }else{
+                      if (this.data.patientId!=null) {
                         wx.navigateTo({
-                            url: '../requestConsultation/requestConsultation?id='+id+'&type='+nickName+'&chatUserId='+this.data.chatUserId,
-                        })
+                          url: '../requestConsultation/requestConsultation?id='+id+'&type='+nickName+'&chatUserId='+this.data.chatUserId+'&patientId='+this.data.patientId,
+                      })
+                      }else{
+                        wx.navigateTo({
+                          url: '../requestConsultation/requestConsultation?id='+id+'&type='+nickName+'&chatUserId='+this.data.chatUserId,
+                      })
+                      }
+                      
                     }
                 }
                               

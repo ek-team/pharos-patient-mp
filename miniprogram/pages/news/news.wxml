@@ -8,7 +8,7 @@
   </view>
   <!-- 消息 -->
   <scroll-view scroll-y="true" class="news" style='height:{{boxHeight}}px;' refresher-enabled="true" bindrefresherrefresh="pullRefresher" refresher-triggered="{{isTrigger}}" bindscrolltolower="scrollList">
-    <van-swipe-cell right-width="{{ 65 }}" style="width: 100%;" wx:for="{{messageList}}" wx:key="index">
+    <van-swipe-cell right-width="{{ 0 }}" style="width: 100%;" wx:for="{{messageList}}" wx:key="index">
       <van-cell-group>
         <view class="cell" bindtap="toChatPage" data-chatUserId="{{item.chatUserId}}" data-item="{{item}}">
           <view class='ticBox'>
@@ -31,6 +31,7 @@
             <view class="messageBox">
               <view class="messageBoxTop">
                 <text class="messageTitle">{{item.nickname}}</text>
+                <text class="messageTime">({{item.patientName}})</text>
                 <text class="messageTime">{{item.lastChatTime}}</text>
               </view>
               <view class="messageBoxBottom">
@@ -40,7 +41,7 @@
             </view>
           </view>
       </van-cell-group>
-      <view slot="right">删除</view>
+      <!-- <view slot="right">删除</view> -->
     </van-swipe-cell>
   </scroll-view>
 </view>

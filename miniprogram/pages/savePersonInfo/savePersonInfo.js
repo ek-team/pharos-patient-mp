@@ -19,6 +19,9 @@ Page({
             phone:null,
         },
         showButton:true,
+
+        doctorId:null,
+        doctorTeamId:null
     },
 
     /**
@@ -29,7 +32,14 @@ Page({
       if(!wx.getStorageSync('token')){
           wx.setStorageSync('token', options.token)
       }
-      
+
+      this.setData({
+
+        doctorId:options.doctorId,
+        doctorTeamId:options.doctorTeamId
+
+      })
+
         this.getUserIngo()
     },
 
@@ -66,6 +76,12 @@ Page({
                     phone:res.data.phone,
                 },
                 })
+            }else{
+
+              wx.showToast({
+                title: '获取用户信息失败',
+                icon:'none'
+              })
             }
         })
     },
@@ -189,6 +205,11 @@ Page({
                       url: '../index/index',
                     })
                 },500)
+            }else {
+              wx.showToast({
+                title: res.msg,
+                icon:'none'
+              })
             }
         })
     },

@@ -42,7 +42,7 @@
                 <view style="display: flex;flex-direction: row;justify-content: flex-end;">
                     <!-- 对方头像、对话 -->
                     <!-- 对方对话框 -->
-                    <view style="width: 100%;display: flex;flex-direction: row;justify-content: flex-start;margin:20rpx 0" wx:if="{{item.fromUid!=myUserId}}">
+                    <view style="width: 100%;display: flex;flex-direction: row;justify-content: flex-start;margin:20rpx 0" wx:if="{{item.user.roleType==20}}">
                         <!-- 头像 -->
                         <view class="otherAvatar" bindtap="watchDoctorIndex">
                             <image src="{{item.user&&item.user.avatar?item.user.avatar:'../../images/defaultAvatar.png'}}" class="avatarImg" mode="aspectFill"></image>
@@ -91,6 +91,57 @@
                                 <span class="picRemindText">{{item.msg}}</span>
                             </view>
                             
+                        <!-- 图文咨询消息 -->
+                        <view class="inquiriesDialog" wx:if="{{item.msgType=='PIC_CONSULTATION'}}">
+                            <view class="inquiriesBox">
+                                <view class="inquiriesTitle">图文咨询</view>
+                                <view class="splitBox">
+                                    <view class="inquiriesSplite"></view>
+                                </view>
+                                <view class="patientInfoBox">
+                                    <view class="patientInfoItem">
+                                        <view class="infoTitleBox">
+                                            <image src="../../images/message.png" class="messageeIcon" />
+                                            <span class="infoTitle">病情描述</span>
+                                        </view>
+                                        <view class="infoContent">{{item.patientOtherOrder.illnessDesc}}</view>
+                                    </view>
+                                    <view class="patientInfoItem">
+                                        <view class="infoTitleBox">
+                                            <image src="../../images/message.png" class="messageeIcon" />
+                                            <span class="infoTitle">其他病史</span>
+                                        </view>
+                                        <view class="infoContent illHistory">
+                                            <view class="historyItem">
+                                                <view class="itemTitle">过敏史：</view>
+                                                <text>{{item.patientOtherOrder.allergy==2?'无':'有'}}</text>
+                                            </view>
+                                            <view class="historyItem">
+                                                <view class="itemTitle">过往病史：</view>
+                                                <text>{{item.patientOtherOrder.pastMedicalHistory==2?'无':'有'}}</text>
+                                            </view>
+                                            <view class="historyItem">
+                                                <view class="itemTitle">肝功能:</view>
+                                                <text>{{item.patientOtherOrder.liverFunction==2?'正常':'异常'}}</text>
+                                            </view>
+                                            <view class="historyItem">
+                                                <view class="itemTitle">肾功能:</view>
+                                                <text>{{item.patientOtherOrder.kidneyFunction==2?'正常':'异常'}}</text>
+                                            </view>
+                                            <!-- <view class="historyItem">
+                                                <view class="itemTitle">备孕情况:</view>
+                                                <text>{{item.patientOtherOrder.pregnancy==2?'无':'备孕中'}}</text>
+                                            </view> -->
+                                        </view>
+                                        <view class="prescriptionOption">
+                                            <view class="consultStatus">{{item.str2==0?'待接收':item.str2==1?'已接收':'已拒绝'}}</view>
+                                            <view class="prescriptionButton" data-item="{{item}}" bindtap="toApplyDetail">查看详情</view>
+                                        </view>
+                                    </view>
+                                </view>
+                            </view>
+
+                        </view>
                             
                             <!-- 随访计划 -->
                             <view class="patientInformation" wx:if="{{item.msgType=='FOLLOW_UP_PLAN'}}">
@@ -145,7 +196,7 @@
 
 
                     <!-- 自己对话框、头像 -->
-                    <view style="width: 100%;display: flex;flex-direction: row;justify-content: flex-end;" wx:if="{{item.fromUid==myUserId}}">
+                    <view style="width: 100%;display: flex;flex-direction: row;justify-content: flex-end;" wx:if="{{item.user.roleType!=20}}">
                         <!-- 文字消息对话框 -->
                         <view class="myDialog" wx:if="{{item.msgType=='MESSAGE_TEXT'}}" bindlongpress="showWithdrawMsg" data-index="{{index}}" data-id="{{item.id}}" bindtap="toCall" data-info="{{item.msg}}">
                           <text user-select="true">{{item.msg}} </text>
@@ -285,8 +336,8 @@
                         <!-- </image> -->
                         <!-- 自己的头像 -->
                         <view class="myAvatarBox" wx:if='{{item.msgType!="REQUEST_TOGGLE_PATIENT"}}'>
-                            <image src="{{myAvatar}}" class="avatarImg" mode="aspectFill"> </image>
-                            <!-- <image src="{{item.user?item.user.avatar:''}}" class="avatarImg" mode="aspectFill"> </image> -->
+                            <!-- <image src="{{myAvatar}}" class="avatarImg" mode="aspectFill"> </image> -->
+                            <image src="{{item.user?item.user.avatar:''}}" class="avatarImg" mode="aspectFill"> </image>
                         </view>
                     </view>
                     
@@ -313,8 +364,10 @@
             </view>
             <!-- 输入框 -->
             <view style="position: relative;" wx:if="{{showInput}}">
-                <textarea auto-height="true" value="{{inputMsg}}" class="input" type="text" v-model="chatInfo" bindtap="closeExtend" bindinput="getInputValue" cursor-spacing='20'></textarea>
+                <textarea auto-height="true"   value="{{inputMsg}}" class="input" type="text" v-model="chatInfo" bindtap="closeExtend" bindinput="getInputValue" cursor-spacing='20' ></textarea>
             </view>
+            <!-- <textarea v-if="showInput" v-model="innerValue" auto-height="true"  cursor-spacing="30"
+				:show-confirm-bar="false" type="text"   class="innerPuters"></textarea> -->
             <!-- 按住说话 -->
             <view style="position: relative;" wx:if="{{!showInput}}" bindlongtap="startVoice" bindtouchend="stopVoice" data-id="targetId">
                 <view class="input viocIng voiceRemind" type="text" v-model="chatInfo" bindtap="closeExtend">

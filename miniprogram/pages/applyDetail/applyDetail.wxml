@@ -5,7 +5,7 @@
     <view class="mystateTitle">我的病情</view>
     <view class="myStateContent">{{applyInfo.illnessDesc}}</view>
     <view class="statePic">
-      <image class="stateImg" wx:for="{{applyInfo.imageUrlList}}" src="{{item}}" wx:key="id"></image>
+      <image class="stateImg" wx:for="{{applyInfo.imageUrlList}}" src="{{item}}" bindtap="previewBigImg" data-src="{{item}}" wx:key="id"></image>
     </view>
   </view>
   <!-- 其他 -->

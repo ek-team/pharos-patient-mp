@@ -592,25 +592,44 @@ page {
 }
 
 .input {
+  
     box-sizing: border-box;
     margin-top: 28rpx;
     display: flex;
     flex-direction: row;
-    /* align-items: center; */
-    /* width: 456rpx; */
-    /* padding: 5rpx 10rpx; */
     width: 402rpx;
     width: 500rpx;
     min-height: 72rpx;
-    max-height: 72rpx;
+    max-height: 1000rpx;
     background: #FFFFFF;
     border-radius: 10rpx;
     padding-left: 30rpx;
+    padding-right: 30rpx;
     line-height: 72rpx;
-    /* font-size: 24rpx; */
+    height: 72rpx;
     font-family: PingFangSC-Regular, PingFang SC;
     font-weight: 400;
     color: #333333;
+   
+
+
+    
+    /* margin-top: 28rpx;
+    display: flex;
+			flex-direction: row;
+			font-size: 15px;
+			color: #222;
+			background: #fff;
+			width: 500rpx;
+	
+			max-height: 1000rpx;
+			min-height: 72rpx;
+			line-height: 72rpx;
+			padding:  0  10rpx;
+
+			overflow-y: scroll; */
+
+
 }
 /* 按住说话 */
 .voiceRemind{
@@ -636,13 +655,13 @@ page {
 .sendBtn {
     border-radius: 8rpx;
     width: 80rpx;
-    height: 72rpx;
+    
     background-color: #2097F3;
     margin-top: 28rpx;
     margin-left: 24rpx;
     color: #FFF;
     display: flex;
-    justify-content: center;
+       justify-content: center;
     align-items: center;
     font-size: 28rpx;
 }

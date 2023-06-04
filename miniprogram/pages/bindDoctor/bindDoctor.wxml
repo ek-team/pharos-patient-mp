@@ -1,0 +1,41 @@
+<!--pages/choosePatient/choosePatient.wxml-->
+<view class="container">
+  <!-- 添加就诊人 -->
+  <view class="addPatient" bindtap="addPatient">
+    <image src="../../images/btn_add.png" class="add">
+    </image>
+    <view class="addText">添加就诊人</view>
+  </view>
+  <!--  就诊人列表 -->
+  <view class="patientList">
+    <radio-group bindchange="patientChange">
+      <!-- 就诊人信息 -->
+      <label class="patientItem" wx:for="{{patientList}}" wx:key="index"  data-item='{{item}}' data-index="{{index}}">
+        <view class="checkLeftContainer">
+          <radio class="radioCheck" value="{{item.id}}+{{item.name}}" checked="{{item.checked}}" wx:if="{{type!='edit'}}"/>
+          <view class="patientItemLeft">
+            <view class="patientTop">
+              <view class="surname">{{item.name[0]}}</view>
+              <view class="name">{{item.name}}</view>
+            </view>
+            <view class="patientInfo">
+              <text>{{item.sex==0?'女':'男'}}</text>
+              <text>{{item.age}}</text>
+            </view>
+            <view class="patientInfo">
+
+              <text>证件号：{{item.idCard}}</text>
+            </view>
+          </view>
+        </view>
+        <!-- wx:if="{{type=='edit'}}" -->
+        <view class="edit" catchtap="editPatient" data-item="{{item}}" >查看</view>
+        
+      </label>
+    </radio-group>
+  </view>
+  <!-- 确认部分 -->
+  <view class="confirmView" wx:if="{{type!='edit'}}">
+    <button class="confirm" bindtap="confirm">确定</button>
+  </view>
+</view>

@@ -65,6 +65,10 @@
             </view>
         </view>
   </view>
+
+  <image  wx:if="{{hasUserInfo}}" style="margin-top: 50rpx;width: 400rpx;height: 400rpx;" src="{{ 'data:image/png;base64,'+ codeImg }}" mode="aspectFit"/>
+
+
   <view wx:if="{{!hasUserInfo}}" class="finish" bindtap='savePatientInfo'>
     完成
   </view>

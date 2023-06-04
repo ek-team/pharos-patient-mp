@@ -86,7 +86,7 @@ App({
         msgType: "REQUEST_AUTH",  //
         userInfo: JSON.stringify(userInfoData)			//发送的内容
       }
-      // console.log('认证参数',author)
+      console.log('认证参数',author)
       this.sendMessage(author)
 
     })
@@ -105,6 +105,8 @@ App({
   },
   // 发送消息
   sendMessage(data) {
+
+    console.log(data)
     let that = this
     if(!that.globalData.socketTask.send){
       that.linkInit()

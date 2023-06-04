@@ -19,6 +19,7 @@ Page({
     array: ['身份证', '其他证件'],
     index: 0,
     cardType:1,
+    codeImg:'',
 
   },
 
@@ -99,6 +100,29 @@ Page({
         })
       }
     })
+
+
+
+ 
+
+    // http('wxMa/getMaQrCOdeByCopyUser', 'get', '', {
+    //   // http('patient/getPatientByID', 'get','',{
+    //     patientId: this.data.id
+    // }).then(res => {
+    //   console.log(res.data)
+     
+
+    //   // let url = 'data:image/png;base64,' + wx.arrayBufferToBase64(res.data)
+    //          this.setData({
+    //               codeImg:res.data
+    //          })
+
+
+
+    
+    // })
+
+
   },
   // 患者姓名
   patientNameInput(e) {

@@ -78,11 +78,27 @@
   font-size: 32rpx;
   color: #333;
   font-weight: 600;
+    /* 定义为自适应布局   */
+    display: -webkit-box;       
+    /* 超出部分隐藏 */
+    overflow: hidden;
+    /* 竖直方向的超出隐藏 */
+    -webkit-box-orient: vertical;  
+    /* 限制最多1行 */
+    -webkit-line-clamp: 1;
 }
 
 .messageTime {
   color: #C9C9C9;
   font-size: 22rpx;
+    /* 定义为自适应布局   */
+    display: -webkit-box;       
+    /* 超出部分隐藏 */
+    overflow: hidden;
+    /* 竖直方向的超出隐藏 */
+    -webkit-box-orient: vertical;  
+    /* 限制最多1行 */
+    -webkit-line-clamp: 1;
 
 }
 
@@ -100,6 +116,19 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+ 
+ 
+  /* 定义为自适应布局   */
+  display: -webkit-box;       
+  /* 超出部分隐藏 */
+  overflow: hidden;
+  /* 竖直方向的超出隐藏 */
+  -webkit-box-orient: vertical;  
+  /* 限制最多1行 */
+  -webkit-line-clamp: 1;
+
+
+  
 }
 .num{
   height: 28rpx;

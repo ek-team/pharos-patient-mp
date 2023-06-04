@@ -28,7 +28,7 @@
             <view class="fillContainer " wx:if="{{item.type==5}}" data-index="{{index}}" bindtap="clickItem">
                  <!-- 上传图片 -->
                 <view class="pictureContainer">
-                    <view class="cameraContainer" bindtap="uploadPicture">
+                    <view  wx:if="{{formContent.formUserDataList.length==0}}"  class="cameraContainer" bindtap="uploadPicture">
                         <image src="../../images/icon_photo@2x.png" class="cameraIcon"></image>
                         <text class="remindText">上传照片</text>
                     </view>

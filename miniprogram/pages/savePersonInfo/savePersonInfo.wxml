@@ -38,6 +38,9 @@
         </view>
     </view>
     <view class="finish" bindtap='savePatientInfo'>
-        完成
+
+    {{ doctorId==null&&doctorTeamId==null?'完成':'开始选择就诊人'
+        }}
+       
     </view>
 </view>

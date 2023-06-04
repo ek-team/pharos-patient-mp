@@ -34,7 +34,7 @@
             <view class="receiptUserInfo remarkContent">
                 <view class="infoLeft">备注：</view>
                 <view class="infoRight">
-                   <textarea class="remarkDetail" type="textarea" disabled value="{{remark}}" data-type="remark" bindinput="contentInput"   placeholder="">
+                   <textarea class="remarkDetail" type="textarea"  value="{{remark}}" data-type="remark" bindinput="contentInput"   placeholder="">
                    </textarea>
                 </view>
             </view>

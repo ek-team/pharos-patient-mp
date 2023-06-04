@@ -62,6 +62,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+
+
+
     this.setData({
       orderDetail: wx.getStorageSync('orderDetail'),
       doctorTeam: wx.getStorageSync('doctorTeam'),
@@ -429,9 +432,11 @@ Page({
           timeStamp: payData.timeStamp,
           signType: payData.signType,
           success(res) {
-            that.setData({
-              disablePay:false
-          })
+
+            console.log('成功')
+          //   this.setData({
+          //     disablePay:false
+          // })
             wx.showToast({
               title: '支付成功,两秒后跳转订单列表',
               icon: 'none',
@@ -448,9 +453,10 @@ Page({
 
           },
           fail(err) {
-            that.setData({
-              disablePay:false
-          })
+            console.log('失败')
+          //   this.setData({
+          //     disablePay:false
+          // })
             wx.showToast({
               title: '支付失败,两秒后跳转订单列表',
               icon: 'none',
@@ -562,7 +568,7 @@ Page({
 
         
         wx.hideLoading()
-        that.setData({
+        this.setData({
           disablePay:false
       })
 
@@ -572,6 +578,8 @@ Page({
           let orderNo=resp.data.orderNo
           
 
+
+          console.log('dsds',orderNo)
  
           wx.navigateTo({
             url: '../aliPayWeb/aliPayWeb?orderNo=' + orderNo,
@@ -579,7 +587,7 @@ Page({
 
         }
 
-      })
+      })  
 
 
     }

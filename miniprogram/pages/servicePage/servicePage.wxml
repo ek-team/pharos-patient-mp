@@ -35,5 +35,5 @@
             <image src="../../images/img1@2x.png" class="noneOrder"></image>
         </view>
     </scroll-view>
-    <view class="backContianer" bindtap="backFaros">返回<text class="backName">"法罗适医康"</text>小程序</view>
+    <view class="backContianer" bindtap="backFaros">返回<text class="backName">"下肢智能训练"</text>小程序</view>
 </view>

@@ -1,0 +1,283 @@
+/* pages/orderDetail/orderDetail.wxss */
+.detailBox {
+  width: 688rpx;
+  border-radius: 16rpx;
+  background-color: #fff;
+  margin-top: 24rpx;
+
+
+}
+
+.confirmView {
+  width: 100%;
+  /* border-radius: 16rpx; */
+
+}
+
+.serviceItem {
+  width: 100%;
+  /* background-color: #fff; */
+  padding: 32rpx 30rpx 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.servicePic {
+  width: 156rpx;
+  height: 156rpx;
+  object-fit: cover;
+  border-radius: 8rpx;
+  background-color: #ccc;
+}
+
+.serviceRight {
+  height: 156rpx;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 14rpx 0;
+  padding-left: 24rpx;
+  box-sizing: border-box;
+}
+
+.serviceName {
+  color: #333;
+  font-size: 32rpx;
+  font-weight: 550;
+
+}
+
+.serviceInfo {
+  width: 100%;
+  color: #888;
+  font-size: 26rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 医生指导 */
+.doctorGuidance {
+  width: 100%;
+  background-color: #fff;
+  padding: 32rpx 30rpx 38rpx;
+  box-sizing: border-box;
+  margin-top: 24rpx;
+}
+
+.doctorView {
+  width: 100%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.serviceRightTop {
+  display: flex;
+}
+
+.gift {
+  width: 88rpx;
+  height: 48rpx;
+  background: #F5FBFF;
+  border-radius: 8rpx;
+  border: 2rpx solid #A5D8FF;
+  color: #65BCFF;
+  font-size: 26rpx;
+  box-sizing: border-box;
+  line-height: 48rpx;
+  text-align: center;
+  margin-left: 16rpx;
+}
+
+.serviceRightBottom {
+  color: #888;
+  font-size: 26rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+/* 服务介绍 */
+.serviceIntroduceBox{
+  /* margin-top: 30rpx; */
+  display: flex;
+  flex-direction: column;
+  padding: 0rpx 32rpx 30rpx 38rpx;
+}
+.serviceDetailExplain{
+  margin-top: 16rpx;
+  color: #888;
+  font-size: 26rpx;
+  /* border: 1px solid rgb(209, 208, 208); */
+
+}
+/* 收货信息 */
+.addressInfo {
+  width: 688rpx;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 24rpx 20rpx 36rpx;
+  box-sizing: border-box;
+  margin-top: 24rpx;
+}
+.serviceContainer{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: #888;
+  font-size: 14px;
+}
+
+.addressTitle {
+  color: #333333;
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.receiverCell {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 32rpx;
+  text-align: right;
+}
+
+.otherCell {
+  margin-top: 22rpx;
+
+}
+
+.receiveTitle {
+  color: #333333;
+  font-size: 28rpx;
+}
+
+.receiveValue {
+  width: 60%;
+  color: #888;
+  font-size: 26rpx;
+}
+
+/* 查看协议 */
+.backContainer{
+  /* background-color: #fff; */
+  /* margin: 24rpx 30rpx 24rpx 32rpx; */
+  margin-top: 22rpx;
+  border-radius: 16rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.blackText{
+  font-size: 14px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #333333;
+  line-height: 40rpx;
+}
+.blueText{
+  color:#2097F3;
+}
+
+/* 按钮 */
+.btnGroup {
+  width: 100%;
+  height: 188rpx;
+  background-color: #fff;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-top: 24rpx;
+  display: flex;
+  /* align-items: center; */
+  justify-content: flex-end;
+}
+.customerServiceIcon{
+  width: 38rpx;
+  height: 38rpx;
+  margin-right: 16rpx;
+}
+.btnClass {
+  width: 200rpx;
+  height: 72rpx;
+  border-radius: 36rpx;
+  border: 2rpx solid #DBDBDB;
+  color: #585858;
+  font-size: 30rpx;
+  text-align: center;
+  line-height: 72rpx;
+  margin-right: 30rpx;
+
+}
+.yellowBtn{
+  color: #F79600;
+  border: 2rpx solid #F79600;
+}
+
+/* 协议弹框 */
+/* 协议 */
+.protocolName{
+  height: 98rpx;
+  width: 100%;
+  text-align: center;
+  padding: 20rpx 10rpx;
+  box-sizing: border-box;
+  font-weight: 600;
+  font-size: 32rpx;
+  line-height: 70rpx;
+}
+.scroll{
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  height: 600rpx;
+}
+/* 阅读的按钮 */
+.readProtocol{
+  width: 540rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  /* height: 64rpx; */
+  /* line-height: 68rpx; */
+  background-color: #F3F3F3;
+  font-size: 26rpx;
+  margin: 0 auto;
+  border-radius: 68rpx;
+  text-align: center;
+  margin-top: 10rpx;
+  color: #888888;
+}
+.hasReadProtocol{
+  background: linear-gradient(270deg, #3C9EE9 0%, #6FC3F6 100%);
+  color: #fff;
+}
+
+/* 添加收货地址按钮 */
+.fixBottom{
+  width: 100%;
+  height: 168rpx;
+  background-color: #fff;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  padding: 16rpx 32rpx 0;
+  box-sizing: border-box;
+}
+.save{
+  width: 100% !important;
+  /* height: 68rpx; */
+  height: 88rpx;
+  line-height: 88rpx;
+  background: linear-gradient(270deg, #3C9EE9 0%, #6FC3F6 100%);
+  /* border-radius: 34rpx; */
+  border-radius: 40rpx;
+  padding: 0!important;
+  color: #fff !important;
+  font-size: 28rpx;
+}

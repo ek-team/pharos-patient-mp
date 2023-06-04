@@ -1,13 +1,16 @@
 // pages/applyDetail/applyDetail.js
-const { http,baseUrl } = require("../../utils/http");
+const {
+  http,
+  baseUrl
+} = require("../../utils/http");
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    id:null,
-    applyInfo:{},
+    id: null,
+    applyInfo: {},
   },
 
   /**
@@ -15,7 +18,7 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      id:options.id
+      id: options.id
     })
     this.getApplyDetail()
   },
@@ -33,13 +36,19 @@ Page({
   onShow: function () {
 
   },
+  // 点击预览大图
+  previewBigImg(e) {
+    wx.previewImage({
+      urls: [e.currentTarget.dataset.src],
+    })
+  },
 
-  getApplyDetail(){
-    http('doctorPoint/getByPatientOtherOrderId','get','',{
-      id:this.data.id
-    }).then(res=>{
+  getApplyDetail() {
+    http('doctorPoint/getByPatientOtherOrderId', 'get', '', {
+      id: this.data.id
+    }).then(res => {
       this.setData({
-        applyInfo:res.data
+        applyInfo: res.data
       })
       // console.log('图文咨询详情',res.data)
     })

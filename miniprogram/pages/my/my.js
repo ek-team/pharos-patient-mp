@@ -152,6 +152,18 @@ Page({
     wx.navigateTo({
       url: '../myOrder/myOrder?status=' + status,
     })
+
+    // wx.navigateTo({
+    //   url: '../servicePage/servicePage',
+    // })
+
+//  wx.navigateTo({
+//       url: '../bindDoctor/bindDoctor?doctorTeamId=1000',
+//     })
+    // wx.navigateTo({
+    //   url: '../bindDoctor/bindDoctor?doctorId=2000',
+    // })
+  
   },
 
   toUpdateUser(e) {
@@ -168,7 +180,15 @@ Page({
     })
   },
   toMySportData() {
-    // if (this.data.info.idCard) {
+
+    // wx.navigateTo({
+    //   url: '../bindDoctor/bindDoctor',
+    // })
+    // wx.navigateTo({
+    //   url: '../bindPatient/bindPatient?id=1688',
+    // })
+
+    if (this.data.info.idCard) {
 
     //   wx.navigateTo({
     //     url: '../exerciseData/exerciseData?idCard=' + this.data.trainCardId,
@@ -188,15 +208,12 @@ Page({
 
     http('user/listPatientUser', 'get', '').then(res => {
       let patientList = res.data;
-
-
-
      
       console.log(patientList.length)
       if (patientList) {
 
         if (patientList.length == 0) {
-          console.log()
+  
 
           wx.showModal({
             title: '暂无就诊人，请先添加就诊人',
@@ -220,9 +237,6 @@ Page({
 
 
           if (patientList.length == 1) {
-
-
-
             console.log(patientList[0].idCard)
 
             wx.navigateTo({
@@ -245,7 +259,7 @@ Page({
 
 
 
-
+  }
   },
   toPage(e) {
     let url = e.currentTarget.dataset.url

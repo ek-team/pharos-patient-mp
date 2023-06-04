@@ -15,6 +15,7 @@ Page({
         doctorInfo:{},
         teamInfo:{},
         doctorTeamPeopleList:[],
+        patientId:null,
         illnessDesc:null,//病情描述
         medicalHistoryList:[
             {name:'过敏史',status:2,},
@@ -39,6 +40,7 @@ Page({
             chatUserId:options.chatUserId,
             from:options.from,
             userServiceId:options.userServiceId,
+            patientId:options.patientId,
         })
         if(options.type=='团队'){
             this.getTeamDetail()
@@ -181,11 +183,25 @@ Page({
             urls: [e.currentTarget.dataset.src],
         })
     },
-    deleteImg(){
+    deleteImg(e){
         if(this.data.pictureList.length>0){
-            this.data.pictureList.pop()
+
+          
+
+          let list=this.data.pictureList
+
+          console.log(e.currentTarget.dataset.src,'------')
+          list.map((item, index) => {
+
+            console.log(item,'+++++++++')
+            if (item == e.currentTarget.dataset.src) {
+              list.splice(index, 1);
+            }
+          });
+          
+
             this.setData({
-                pictureList:this.data.pictureList
+                pictureList:list
             })
         }
 
@@ -234,7 +250,13 @@ Page({
             pastMedicalHistory:this.data.medicalHistoryList[1].status,//过往病史1-有 2-无
             liverFunction:this.data.medicalHistoryList[2].status,//肝功能1-有 2-无
             kidneyFunction:this.data.medicalHistoryList[3].status,//肾功能1-有 2-无
+
+
             // pregnancy:this.data.medicalHistoryList[4].status,//备孕1-有 2-无
+        }
+
+        if (this.data.patientId!=null) {
+          form.patientId=this.data.patientId
         }
         if(this.data.type=='团队'){
             form.doctorTeamId=this.data.id
@@ -246,7 +268,7 @@ Page({
         if(this.data.from=='free'){
             // console.log('去聊天页',wx.getStorageSync('chatParams'))
             let params=wx.getStorageSync('chatParams')
-            console.log()
+            
             form.userServiceId=this.data.userServiceId
             http('doctorPoint/addPatientOtherOrder1','post','',form,true).then(res=>{
                 let payData=res.data
@@ -258,18 +280,46 @@ Page({
                 // app.sendMessage(payMsg)  
                 // console.log('图文咨询申请',payMsg)
                 // return
-                wx.navigateTo({
+
+  
+
+
+                if(res.code==1){
+
+                  wx.showToast({
+                    title: '提交失败',
+                    icon:'none',
+                  })
+                  return
+                }
+
+             
+                if (this.data.patientId!=null) {
+                  wx.navigateTo({
+                    url: '../chatPage/chatPage?userServiceId='+this.data.userServiceId+params+'&from=free'+'&str1='+payData.orderId+'&chatUserId='+this.data.chatUserId+'&typeFrom=request'+'&patientId='+this.data.patientId,
+                }) 
+                }else{
+                  wx.navigateTo({
                     url: '../chatPage/chatPage?userServiceId='+this.data.userServiceId+params+'&from=free'+'&str1='+payData.orderId+'&chatUserId='+this.data.chatUserId+'&typeFrom=request',
                 }) 
+                }
+               
             })
             
             return
         }
         wx.setStorageSync('commitForm', form)
-        wx.navigateTo({
-          url: '../applyPay/applyPay?money='+this.data.serviceInfo.price+'&type='+this.data.type+'&id='+id+'&chatUserId='+this.data.chatUserId+'&userServiceId='+
-          this.data.userServiceId,
-        })
+
+        if (this.data.patientId!=null) {
+          wx.navigateTo({
+            url: '../applyPay/applyPay?money='+this.data.serviceInfo.price+'&type='+this.data.type+'&id='+id+'&chatUserId='+this.data.chatUserId+'&userServiceId='+this.data.userServiceId+'&patientId='+this.data.patientId,
+          })
+        }else{
+          wx.navigateTo({
+            url: '../applyPay/applyPay?money='+this.data.serviceInfo.price+'&type='+this.data.type+'&id='+id+'&chatUserId='+this.data.chatUserId+'&userServiceId='+this.data.userServiceId,
+          })
+        }
+
     
      
        

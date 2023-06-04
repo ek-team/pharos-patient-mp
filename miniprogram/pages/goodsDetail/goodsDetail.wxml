@@ -109,11 +109,11 @@
         <!-- saleSpec 规格选择 -->
         <view wx:for="{{saleSpec}}" wx:key='index'>
           <!-- {{item.name=='服务周期'?'服务周期（天）':item.name}} -->
-          <view class="modalSubtitle">{{item.name}}</view>   
+          <view class="modalSubtitle"  wx:if="{{item.name!='模式'||item.saleSpecDescs.length!=1}}">{{item.name}}</view>   
           <view class="modalChoose">
-            <view wx:for="{{item.saleSpecDescs}}" wx:for-index="id" wx:for-item="items" wx:key="id" class="{{items.checked?'chooseViewCheck':items.disabled?'disabledCheck':'chooseView'}} chooseView" bindtap="chooseSale" data-saleSpecId="{{items.saleSpecId}}" data-id="{{items.id}}" data-desc="{{items.remark}}">
-            <span wx:if="{{item.name=='服务周期'}}">{{items.name}}</span>
-            <span wx:else="">{{items.name}}</span>  
+            <view wx:for="{{item.saleSpecDescs}}" wx:for-index="id" wx:for-item="items" wx:key="id" class="{{items.checked?'chooseViewCheck':items.disabled?'disabledCheck':'chooseView'}} chooseView" bindtap="chooseSale" data-saleSpecId="{{items.saleSpecId}}" data-id="{{items.id}}" data-desc="{{items.remark}}"   wx:if="{{item.name!='模式'||item.saleSpecDescs.length!=1}}" >
+        
+            <span>{{items.name}}</span>  
             </view>
           </view>
         </view>

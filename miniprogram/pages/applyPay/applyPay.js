@@ -1,5 +1,8 @@
 // pages/applyPay/applyPay.js
-const { http,baseUrl } = require("../../utils/http");
+const {
+  http,
+  baseUrl
+} = require("../../utils/http");
 const app = getApp();
 Page({
 
@@ -7,14 +10,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-    orderMoney: 0,//订单金额
-    totalMoney: 0,//合计
-    payMethods: 1,//1--微信支付，2--找朋友帮忙付
-    payInfo:{},
-    type:null,//团队或医生
-    id:null,//医生id或chstUserId
-    chatUserId:null,
-    userServiceId:null,
+    orderMoney: 0, //订单金额
+    totalMoney: 0, //合计
+    payMethods: 1, //1--微信支付，2--找朋友帮忙付
+    payInfo: {},
+    type: null, //团队或医生
+    id: null, //医生id或chstUserId
+    chatUserId: null,
+    userServiceId: null,
+    patientId: null,
   },
 
   /**
@@ -22,12 +26,13 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      orderMoney:options.money,
-      totalMoney:options.money,
-      type:options.type,
-      id:options.id,
-      chatUserId:options.chatUserId,
-      userServiceId:options.userServiceId,
+      orderMoney: options.money,
+      totalMoney: options.money,
+      type: options.type,
+      id: options.id,
+      chatUserId: options.chatUserId,
+      userServiceId: options.userServiceId,
+      patientId: options.patientId,
     })
   },
 
@@ -51,18 +56,32 @@ Page({
     })
   },
   // 立即支付
-  toPay(){
-    let that=this
-    if(that.data.payMethods==1){
+  toPay() {
+    let that = this
+    if (that.data.payMethods == 1) {
       // 微信支付
-    }else{
+    } else {
       // 找朋友帮忙付
     }
-    let form=wx.getStorageSync('commitForm')
-    http('doctorPoint/addPatientOtherOrder','post','',form,true).then(res=>{
+    let form = wx.getStorageSync('commitForm')
+    http('doctorPoint/addPatientOtherOrder', 'post', '', form, true).then(res => {
       // console.log('提交咨询',res.data)
       wx.setStorageSync('noClose', true)
-      let payData=res.data
+      let payData = res.data
+
+     
+
+      if (res.code != 0) {
+
+        wx.showToast({
+          title: res.msg,
+          icon: 'none',
+        })
+        return
+
+      }
+
+
       wx.requestPayment({
         nonceStr: payData.nonceStr,
         package: payData.packageValue,
@@ -74,33 +93,64 @@ Page({
             title: '支付成功',
             icon: 'none',
             duration: 2000,
-             mask: true
+            mask: true
           })
           wx.removeStorageSync('commitForm')
-          let payMsg={
+
+          let payMsg = {
             msgType: "PIC_CONSULTATION",
-            str1:payData.orderId,//订单id
+            str1: payData.orderId, //订单id
             // chatUserId:that.data.chatUserId
+
+
           }
-          if(that.data.type=='团队'){
-            payMsg.chatUserId=that.data.chatUserId
+
+
+          if (that.data.patientId != null) {
+            payMsg.patientId = that.data.patientId
+          }
+
+          if (that.data.type == '团队') {
+            payMsg.chatUserId = that.data.chatUserId
             // console.log('团队')
-          }else{
-            payMsg.targetUid=that.data.id
+          } else {
+            payMsg.targetUid = that.data.id
             // console.log('个人')
           }
+
+
+
           app.sendMessage(payMsg)
           // console.log('发送的消息参数',payMsg)
-          if(that.data.type=='团队'){
-            wx.navigateTo({
-              url: '../chatPage/chatPage?userServiceId='+that.data.userServiceId+'&str1='+payData.orderId+'&chatUserId='+that.data.chatUserId+'&typeFrom=request', //+'&from=free'
-            })
-          }else{
-            wx.navigateTo({
-              url: '../chatPage/chatPage?userServiceId='+that.data.userServiceId+'&str1='+payData.orderId+'&targetUid='+that.data.id+'&typeFrom=request'+'&chatUserId='+that.data.chatUserId, //+'&from=free'
-            })
+          if (that.data.type == '团队') {
+
+            if (that.data.patientId != null) {
+              wx.navigateTo({
+                url: '../chatPage/chatPage?userServiceId=' + that.data.userServiceId + '&str1=' + payData.orderId + '&chatUserId=' + that.data.chatUserId + '&typeFrom=request' + '&patientId=' + that.data.patientId, //+'&from=free'
+              })
+            } else {
+              wx.navigateTo({
+                url: '../chatPage/chatPage?userServiceId=' + that.data.userServiceId + '&str1=' + payData.orderId + '&chatUserId=' + that.data.chatUserId + '&typeFrom=request', //+'&from=free'
+              })
+            }
+
+
+
+          } else {
+
+            if (that.data.patientId != null) {
+              wx.navigateTo({
+                url: '../chatPage/chatPage?userServiceId=' + that.data.userServiceId + '&str1=' + payData.orderId + '&targetUid=' + that.data.id + '&typeFrom=request' + '&chatUserId=' + that.data.chatUserId + '&patientId=' + that.data.patientId, //+'&from=free'
+              })
+            } else {
+              wx.navigateTo({
+                url: '../chatPage/chatPage?userServiceId=' + that.data.userServiceId + '&str1=' + payData.orderId + '&targetUid=' + that.data.id + '&typeFrom=request' + '&chatUserId=' + that.data.chatUserId, //+'&from=free'
+              })
+            }
+
+
           }
-          
+
           wx.setStorageSync('chatBack', true)
           // console.log('发送图文咨询消息',payMsg)
           // wx.switchTab({
