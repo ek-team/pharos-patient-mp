@@ -1,5 +1,7 @@
 // pages/addAddress/addAddress.js
-const { http } = require("../../utils/http");
+const {
+  http
+} = require("../../utils/http");
 Page({
 
   /**
@@ -9,17 +11,17 @@ Page({
     region: ['省', '市', '区'],
     regionCode: [],
     defaultAddress: false,
-    name: '',//收货人姓名
-    phone: '',//联系电话
-    address: '',//详细地址
-    saveDisabled: false,//保存按钮的diasbled
+    name: '', //收货人姓名
+    phone: '', //联系电话
+    address: '', //详细地址
+    saveDisabled: false, //保存按钮的diasbled
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-   
+
   },
 
   /**
@@ -80,8 +82,7 @@ Page({
         title: '请填写收货人手机号',
         icon: 'none'
       })
-    }
-    else if (this.data.regionCode.length == 0) {
+    } else if (this.data.regionCode.length == 0) {
       wx.showToast({
         title: '请选择省市区',
         icon: 'none'
@@ -92,7 +93,7 @@ Page({
         icon: 'none'
       })
     } else {
-        this.addAddress();
+      this.addAddress();
     }
   },
   // 保存收货地址
@@ -100,7 +101,7 @@ Page({
     this.setData({
       saveDisabled: true
     })
-    http('address/saveAddress', 'post','',{
+    http('address/saveAddress', 'post', '', {
       addresseeName: this.data.name,
       addresseePhone: this.data.phone,
       province: this.data.region[0],
@@ -109,17 +110,40 @@ Page({
       address: this.data.address,
       isDefault: this.data.defaultAddress ? 1 : 0
     }).then(res => {
-      // console.log(res.data)
-      this.setData({
-        saveDisabled: false
-      })
-      wx.showToast({
-        title: '添加成功',
-        icon: 'none'
-      })
-      wx.navigateBack({
-        delta: 1,
-      })
+      if (res.code == 0) {
+        this.setData({
+          saveDisabled: false
+        })
+        wx.showToast({
+          title: '添加地址成功',
+          icon: 'none'
+        })
+        wx.navigateBack({
+          delta: 1,
+        })
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '添加地址失败',
+          icon: 'none'
+        })
+      }
+
+
     }).catch(err => {
       this.setData({
         saveDisabled: false

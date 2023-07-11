@@ -1,6 +1,6 @@
 // pages/myRetrieveOrder/myRetrieveOrder.js
 const { http } = require("../../utils/http");
-const {noticeLogin}=require("../../utils/noticeLogin");
+
 Page({
 
     /**
@@ -73,7 +73,11 @@ Page({
         }).then(res=>{
             // noticeLogin()
             // console.log('回收订单',res.data.records)
-            let list=[]
+          
+
+
+            if (res.code == 0) {
+              let list=[]
             list=this.data.orderList.concat(res.data.records)
             this.data.page.total=res.data.total
             this.setData({
@@ -81,6 +85,30 @@ Page({
                 page:this.data.page,
                 isTrigger:false,
             })
+            } else if (res.code == 1) {
+              wx.showToast({
+                title: res.msg,
+                icon: 'none'
+              })
+            } else if (res.code == 401) {
+              wx.showToast({
+                title: '账号过期',
+                icon: 'none'
+              })
+            } else if (res.code == 500) {
+              wx.showToast({
+                title: '服务器出现异常',
+                icon: 'none'
+              })
+            } else {
+              wx.showToast({
+                title: '查询回收订单失败',
+                icon: 'none'
+              })
+            }
+
+
+
             // wx.stopPullDownRefresh()
             // if(res.code=='401'){
             //     noticeLogin()

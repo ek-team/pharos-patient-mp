@@ -136,8 +136,8 @@ Page({
       return
     }
     this.getOrder();
-     
-    
+
+
 
 
 
@@ -150,46 +150,82 @@ Page({
         rentRuleId: this.data.orderDetail.rentRuleId,
         userOrderNo: this.data.orderDetail.orderNo
       }).then(res => {
-        console.log(res.data)
-        let payData = res.data;
-        wx.requestPayment({
-          nonceStr: payData.nonceStr,
-          package: payData.packageValue,
-          paySign: payData.paySign,
-          timeStamp: payData.timeStamp,
-          signType: payData.signType,
-          success(res) {
-            wx.showToast({
-              title: '支付成功',
-              icon: 'none',
-              duration: 2000,
-              mask: true
-            })
 
-            setTimeout(function () {            
-              wx.redirectTo({
-                url: '../myOrder/myOrder',
-            })
+        if (res.code == 0) {
 
-              }, 1000)
-           
+          console.log(res.data)
+          let payData = res.data;
+          wx.requestPayment({
+            nonceStr: payData.nonceStr,
+            package: payData.packageValue,
+            paySign: payData.paySign,
+            timeStamp: payData.timeStamp,
+            signType: payData.signType,
+            success(res) {
+              wx.showToast({
+                title: '支付成功',
+                icon: 'none',
+                duration: 2000,
+                mask: true
+              })
 
-          },
-          fail(err) {
-            wx.showToast({
-              title: '支付失败',
-              icon: 'none',
-              duration: 2000,
-              mask: true
-            })
-            setTimeout(function () {            
-              wx.redirectTo({
-                url: '../myOrder/myOrder',
-            })
+              setTimeout(function () {
+                wx.redirectTo({
+                  url: '../myOrder/myOrder',
+                })
 
               }, 1000)
-          }
-        })
+
+
+            },
+            fail(err) {
+              wx.showToast({
+                title: '支付失败',
+                icon: 'none',
+                duration: 2000,
+                mask: true
+              })
+              setTimeout(function () {
+                wx.redirectTo({
+                  url: '../myOrder/myOrder',
+                })
+
+              }, 1000)
+            }
+          })
+
+        } else if (res.code == 1) {
+          wx.showToast({
+            title: res.msg,
+            icon: 'none'
+          })
+        } else if (res.code == 401) {
+          wx.showToast({
+            title: '账号过期',
+            icon: 'none'
+          })
+        } else if (res.code == 500) {
+          wx.showToast({
+            title: '服务器出现异常',
+            icon: 'none'
+          })
+        } else {
+          wx.showToast({
+            title: '生成订单失败',
+            icon: 'none'
+          })
+        }
+
+
+
+
+
+
+
+
+
+
+
       })
     } else { //好友代付
       if (this.data.disablePay) {
@@ -219,44 +255,82 @@ Page({
         operationTime: this.data.operateTime + ' 00:00:00',
       }).then(resp => {
         wx.hideLoading()
-        let that = this
-        // console.log('好友代付返回图片链接',resp)
-        if (resp.data) {
-          wx.downloadFile({
-            // url:'https://ewj-pharos.oss-cn-hangzhou.aliyuncs.com/avatar/1673839083879_94a380d7.png',//分享的图片的链接
-            url: resp.data, //分享的图片的链接
-            success: (res) => {
-              // wx.hideLoading()
-              wx.showShareImageMenu({
-                path: res.tempFilePath,
-                success: () => {
-                  wx.showToast({
-                    title: '成功！',
-                    icon: 'none'
-                  })
-                },
-                fail: () => {
 
-                },
-                complete: () => {
-                  setTimeout(() => {
-                    // that.setData({
-                    //     disablePay:false
-                    // })
-                    wx.navigateTo({
-                      url: '../myOrder/myOrder',
+
+
+
+
+        if (resp.code == 0) {
+
+
+          let that = this
+          // console.log('好友代付返回图片链接',resp)
+          if (resp.data) {
+            wx.downloadFile({
+              // url:'https://ewj-pharos.oss-cn-hangzhou.aliyuncs.com/avatar/1673839083879_94a380d7.png',//分享的图片的链接
+              url: resp.data, //分享的图片的链接
+              success: (res) => {
+                // wx.hideLoading()
+                wx.showShareImageMenu({
+                  path: res.tempFilePath,
+                  success: () => {
+                    wx.showToast({
+                      title: '成功！',
+                      icon: 'none'
                     })
-                  }, 1000)
-                }
-              })
-              wx.hideLoading()
-              console.log('分享图片', res)
-            },
-            fail: () => {
-              wx.hideLoading()
-            },
+                  },
+                  fail: () => {
+
+                  },
+                  complete: () => {
+                    setTimeout(() => {
+                      // that.setData({
+                      //     disablePay:false
+                      // })
+                      wx.navigateTo({
+                        url: '../myOrder/myOrder',
+                      })
+                    }, 1000)
+                  }
+                })
+                wx.hideLoading()
+                console.log('分享图片', res)
+              },
+              fail: () => {
+                wx.hideLoading()
+              },
+            })
+          }
+
+        } else if (resp.code == 1) {
+          wx.showToast({
+            title: res.msg,
+            icon: 'none'
+          })
+        } else if (resp.code == 401) {
+          wx.showToast({
+            title: '账号过期',
+            icon: 'none'
+          })
+        } else if (resp.code == 500) {
+          wx.showToast({
+            title: '服务器出现异常',
+            icon: 'none'
+          })
+        } else {
+          wx.showToast({
+            title: '创建订单失败',
+            icon: 'none'
           })
         }
+
+
+
+
+
+
+
+
 
       })
     }

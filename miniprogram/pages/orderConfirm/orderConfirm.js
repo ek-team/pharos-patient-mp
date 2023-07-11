@@ -97,21 +97,54 @@ Page({
   //获取地址
   getAddress() {
     http('address/getAddressList', 'get', '').then(res => {
-      console.log(res.data)
-      res.data.map(item => {
-        if (item.id == this.data.addressId) {
-          item.checked = true
-        } else {
-          item.checked = false
-        }
 
-        if (item.isDefault == 1) {
 
-          this.setData({
-            address: item
-          })
-        }
-      })
+      if (res.code == 0) {
+
+
+        console.log(res.data)
+        res.data.map(item => {
+          if (item.id == this.data.addressId) {
+            item.checked = true
+          } else {
+            item.checked = false
+          }
+
+          if (item.isDefault == 1) {
+
+            this.setData({
+              address: item
+            })
+          }
+        })
+
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '获取地址数据失败',
+          icon: 'none'
+        })
+      }
+
+
+
+
+
+
 
 
 
@@ -120,7 +153,8 @@ Page({
   // 选择支付方式
   checkPayMethods(e) {
     this.setData({
-      payMethods: e.currentTarget.dataset.type
+      payMethods: e.currentTarget.dataset.type,
+      disablePay: false
     })
     // console.log(this.data.payMethods)
   },
@@ -179,9 +213,37 @@ Page({
   // 查询协议
   getAgreement() {
     http('protocols/getById/' + this.data.orderDetail.protocolId, 'get', '').then(res => {
-      this.setData({
-        protocoDetail: res.data
-      })
+
+
+      if (res.code == 0) {
+
+        this.setData({
+          protocoDetail: res.data
+        })
+
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '获取协议失败',
+          icon: 'none'
+        })
+      }
+
+
     })
   },
   // 查询节假日是否发货
@@ -189,90 +251,147 @@ Page({
     http('deliveryTime/getByDeptId', 'get', '', {
       deptId: wx.getStorageSync('deptId')
     }).then(res => {
-      //holidays:0节假日不发货,1节假日发货
-      if (res.data) {
-        this.setData({
-          holidays: res.data.holidays,
-        })
-        this.setData({
-          formatter(day) {
-            let year = day.date.getFullYear()
-            let week = day.date.getDay()
-            let month = day.date.getMonth() + 1
-            let date = day.date.getDate()
-            // console.log('日期',date)
-            if (res.data.holidays == 0) {
-              // console.log('不发货')
-              if (week % 7 == 6 || week == 0) {
-                day.type = 'disabled'
-                day.bottomInfo = '周末'
-              }
-              if (year == 2023) {
-                if (month == 4) { //清明节
-                  if (date == 5 || date == 29 || date == 30) { //五一
-                    console.log(month)
-                    day.type = 'disabled'
-                    day.topInfo = '休'
-                    day.bottomInfo = ''
-                  }
-                  if (month == 4 && date == 5) {
-                    day.bottomInfo = '清明'
-                  }
-                }
-                if (month == 5) {
-                  if (date < 4) {
-                    day.type = 'disabled'
-                    day.topInfo = '休'
-                    if (date == 1) {
-                      day.bottomInfo = '劳动节'
-                    }
-                  }
-                }
-                if (month == 6) { //端午
-                  if (date >= 22 && date <= 24) {
-                    day.type = 'disabled'
-                    day.topInfo = '休'
-                    day.bottomInfo = ''
-                    if (date == 22) {
-                      day.bottomInfo = '端午节'
-                    }
-                  }
-                  if (date == 25) {
-                    day.type = ''
-                    day.topInfo = '班'
-                    day.bottomInfo = ''
-                  }
-                }
-                if (month == 9 && (date == 29 || date == 30)) { //中秋
 
+
+
+
+
+
+      if (res.code == 0) {
+
+
+
+
+
+
+        //holidays:0节假日不发货,1节假日发货
+        if (res.data) {
+          this.setData({
+            holidays: res.data.holidays,
+          })
+          this.setData({
+            formatter(day) {
+              let year = day.date.getFullYear()
+              let week = day.date.getDay()
+              let month = day.date.getMonth() + 1
+              let date = day.date.getDate()
+              // console.log('日期',date)
+              if (res.data.holidays == 0) {
+                // console.log('不发货')
+                if (week % 7 == 6 || week == 0) {
                   day.type = 'disabled'
-                  day.topInfo = '休'
-                  day.bottomInfo = ''
-                  if (date == 29) {
-                    day.bottomInfo = '中秋'
-                  }
+                  day.bottomInfo = '周末'
                 }
-                if (month == 10) { //中秋
-                  if (date < 7) {
+                if (year == 2023) {
+                  if (month == 4) { //清明节
+                    if (date == 5 || date == 29 || date == 30) { //五一
+                      console.log(month)
+                      day.type = 'disabled'
+                      day.topInfo = '休'
+                      day.bottomInfo = ''
+                    }
+                    if (month == 4 && date == 5) {
+                      day.bottomInfo = '清明'
+                    }
+                  }
+                  if (month == 5) {
+                    if (date < 4) {
+                      day.type = 'disabled'
+                      day.topInfo = '休'
+                      if (date == 1) {
+                        day.bottomInfo = '劳动节'
+                      }
+                    }
+                  }
+                  if (month == 6) { //端午
+                    if (date >= 22 && date <= 24) {
+                      day.type = 'disabled'
+                      day.topInfo = '休'
+                      day.bottomInfo = ''
+                      if (date == 22) {
+                        day.bottomInfo = '端午节'
+                      }
+                    }
+                    if (date == 25) {
+                      day.type = ''
+                      day.topInfo = '班'
+                      day.bottomInfo = ''
+                    }
+                  }
+                  if (month == 9 && (date == 29 || date == 30)) { //中秋
+
                     day.type = 'disabled'
                     day.topInfo = '休'
                     day.bottomInfo = ''
+                    if (date == 29) {
+                      day.bottomInfo = '中秋'
+                    }
                   }
-                  if (date == 1) {
-                    day.bottomInfo = '国庆节'
-                  }
-                  if (date == 7 || date == 8) {
-                    day.type = ''
-                    day.topInfo = '班'
-                    day.bottomInfo = ''
+                  if (month == 10) { //中秋
+                    if (date < 7) {
+                      day.type = 'disabled'
+                      day.topInfo = '休'
+                      day.bottomInfo = ''
+                    }
+                    if (date == 1) {
+                      day.bottomInfo = '国庆节'
+                    }
+                    if (date == 7 || date == 8) {
+                      day.type = ''
+                      day.topInfo = '班'
+                      day.bottomInfo = ''
+                    }
                   }
                 }
               }
+              return day
             }
-            return day
-          }
+          })
+        }
+
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '获取节假日发货情况失败',
+          icon: 'none'
         })
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     })
   },
 
@@ -342,9 +461,42 @@ Page({
       orderType: this.data.orderDetail.orderType,
       rentDay: this.data.orderDetail.rentDay
     }).then(res => {
-      this.setData({
-        allMoney: res.data
-      })
+
+
+
+      if (res.code == 0) {
+
+
+
+        this.setData({
+          allMoney: res.data
+        })
+
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      } else if (res.code == 401) {
+
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '获取总价格失败',
+          icon: 'none'
+        })
+      }
+
+
+
     })
   },
   // 选择地址
@@ -394,7 +546,7 @@ Page({
       this.getOrder();
 
       this.setData({
-        disablePay:true
+        disablePay: true
       })
     }
     // else if (!this.data.operateTime) {
@@ -410,6 +562,11 @@ Page({
   // 生成订单
   getOrder() {
     if (this.data.payMethods == 'self') { //微信支付
+
+      wx.showLoading({
+        title: '加载中',
+      })
+
       http('purchase/order/user/add', 'post', '', {
         patientUserId: this.data.patient.patientId,
         servicePackId: this.data.orderDetail.servicePackId,
@@ -423,60 +580,111 @@ Page({
         rentDay: this.data.orderDetail.rentDay,
         operationTime: this.data.operateTime + ' 00:00:00',
       }, true).then(res => {
-        console.log(res.data)
-        let payData = res.data;
-        wx.requestPayment({
-          nonceStr: payData.nonceStr,
-          package: payData.packageValue,
-          paySign: payData.paySign,
-          timeStamp: payData.timeStamp,
-          signType: payData.signType,
-          success(res) {
 
-            console.log('成功')
-          //   this.setData({
-          //     disablePay:false
-          // })
-            wx.showToast({
-              title: '支付成功,两秒后跳转订单列表',
-              icon: 'none',
-              duration: 2000,
-              mask: true
-            })
+        wx.hideLoading()
 
-            setTimeout(function () {
-              wx.redirectTo({
-                url: '../myOrder/myOrder',
+        if (res.code == 0) {
+
+
+          let that = this
+
+          console.log(res.data)
+          let payData = res.data;
+          wx.requestPayment({
+            nonceStr: payData.nonceStr,
+            package: payData.packageValue,
+            paySign: payData.paySign,
+            timeStamp: payData.timeStamp,
+            signType: payData.signType,
+            success(res) {
+
+              console.log('成功')
+              that.setData({
+                disablePay: false
               })
 
-            }, 1000)
-
-          },
-          fail(err) {
-            console.log('失败')
-          //   this.setData({
-          //     disablePay:false
-          // })
-            wx.showToast({
-              title: '支付失败,两秒后跳转订单列表',
-              icon: 'none',
-              duration: 2000,
-              mask: true
-            })
-
-            setTimeout(function () {
-              wx.redirectTo({
-                url: '../myOrder/myOrder',
+              wx.showToast({
+                title: '支付成功,两秒后跳转订单列表',
+                icon: 'none',
+                duration: 2000,
+                mask: true
               })
 
-            }, 1000)
+              setTimeout(function () {
+                wx.redirectTo({
+                  url: '../myOrder/myOrder',
+                })
+
+              }, 1000)
+
+            },
+            fail(err) {
+              console.log('失败')
+              that.setData({
+                disablePay: false
+              })
+              wx.showToast({
+                title: '支付失败,两秒后跳转订单列表',
+                icon: 'none',
+                duration: 2000,
+                mask: true
+              })
+
+              setTimeout(function () {
+                wx.redirectTo({
+                  url: '../myOrder/myOrder',
+                })
+
+              }, 1000)
 
 
-          }
-        })
+            }
+          })
+
+
+        } else if (res.code == 1) {
+          wx.showToast({
+            title: res.msg,
+            icon: 'none'
+          })
+        } else if (res.code == 401) {
+          wx.showToast({
+            title: '账号过期',
+            icon: 'none'
+          })
+        } else if (res.code == 500) {
+          wx.showToast({
+            title: '服务器出现异常',
+            icon: 'none'
+          })
+        } else {
+          wx.showToast({
+            title: '生成订单失败',
+            icon: 'none'
+          })
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       })
     } else if (this.data.payMethods == 'help') { //好友代付
- 
+
 
       wx.showLoading({
         title: '加载中',
@@ -493,61 +701,105 @@ Page({
         diseasesId: this.data.diseasesId,
         rentDay: this.data.orderDetail.rentDay,
         operationTime: this.data.operateTime + ' 00:00:00',
-        payType:1,
+        payType: 1,
       }).then(resp => {
-        wx.hideLoading()
-        let that = this
-        // console.log('好友代付返回图片链接',resp)
-        if (resp.data) {
-          wx.downloadFile({
-            // url:'https://ewj-pharos.oss-cn-hangzhou.aliyuncs.com/avatar/1673839083879_94a380d7.png',//分享的图片的链接
-            url: resp.data, //分享的图片的链接
-            success: (res) => {
-              // wx.hideLoading()
-              wx.showShareImageMenu({
-                path: res.tempFilePath,
-                success: () => {
-                  wx.showToast({
-                    title: '成功！',
-                    icon: 'none'
-                  })
 
-                  that.setData({
-                    disablePay:false
-                })
-                },
-                fail: () => {
-                  that.setData({
-                    disablePay:false
-                })
-                },
-                complete: () => {
-                  setTimeout(() => {
-                   
-                    wx.navigateTo({
-                      url: '../myOrder/myOrder',
+        wx.hideLoading()
+
+
+
+
+
+
+        if (resp.code == 0) {
+
+          let that = this
+          // console.log('好友代付返回图片链接',resp)
+          if (resp.data) {
+            wx.downloadFile({
+              // url:'https://ewj-pharos.oss-cn-hangzhou.aliyuncs.com/avatar/1673839083879_94a380d7.png',//分享的图片的链接
+              url: resp.data, //分享的图片的链接
+              success: (res) => {
+                // wx.hideLoading()
+                wx.showShareImageMenu({
+                  path: res.tempFilePath,
+                  success: () => {
+                    wx.showToast({
+                      title: '成功！',
+                      icon: 'none'
                     })
-                  }, 1000)
-                }
-              })
-              wx.hideLoading()
-              console.log('分享图片', res)
-            },
-            fail: () => {
-              wx.hideLoading()
-              that.setData({
-                disablePay:false
+
+                    that.setData({
+                      disablePay: false
+                    })
+                  },
+                  fail: () => {
+                    that.setData({
+                      disablePay: false
+                    })
+                  },
+                  complete: () => {
+                    setTimeout(() => {
+
+                      wx.navigateTo({
+                        url: '../myOrder/myOrder',
+                      })
+                    }, 1000)
+                  }
+                })
+                wx.hideLoading()
+                console.log('分享图片', res)
+              },
+              fail: () => {
+                wx.hideLoading()
+                that.setData({
+                  disablePay: false
+                })
+              },
             })
-            },
+          }
+
+        } else if (resp.code == 1) {
+          wx.showToast({
+            title: res.msg,
+            icon: 'none'
+          })
+        } else if (resp.code == 401) {
+          wx.showToast({
+            title: '账号过期',
+            icon: 'none'
+          })
+        } else if (resp.code == 500) {
+          wx.showToast({
+            title: '服务器出现异常',
+            icon: 'none'
+          })
+        } else {
+          wx.showToast({
+            title: '生成订单失败',
+            icon: 'none'
           })
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
       })
-      
+
     } else if (this.data.payMethods == 'alipay') { //支付宝支付
 
-     
-  
+
+
       wx.showLoading({
         title: '加载中',
       })
@@ -563,31 +815,66 @@ Page({
         diseasesId: this.data.diseasesId,
         rentDay: this.data.orderDetail.rentDay,
         operationTime: this.data.operateTime + ' 00:00:00',
-        payType:2,
+        payType: 2,
       }).then(resp => {
 
-        
+
+
+
+
+
         wx.hideLoading()
-        this.setData({
-          disablePay:false
-      })
+        if (resp.code == 0) {
 
-        if (resp.data) {
-   
-  
-          let orderNo=resp.data.orderNo
+          let that = this
+
+
           
-
-
-          console.log('dsds',orderNo)
- 
-          wx.navigateTo({
-            url: '../aliPayWeb/aliPayWeb?orderNo=' + orderNo,
+          that.setData({
+            disablePay: false
           })
 
+          if (resp.data) {
+            let orderNo = resp.data.orderNo
+            console.log('dsds', orderNo)
+            wx.navigateTo({
+              url: '../aliPayWeb/aliPayWeb?orderNo=' + orderNo,
+            })
+
+          }
+        } else if (res.code == 1) {
+          wx.showToast({
+            title: res.msg,
+            icon: 'none'
+          })
+        } else if (res.code == 401) {
+          wx.showToast({
+            title: '账号过期',
+            icon: 'none'
+          })
+        } else if (res.code == 500) {
+          wx.showToast({
+            title: '服务器出现异常',
+            icon: 'none'
+          })
+        } else {
+          wx.showToast({
+            title: '创建订单失败',
+            icon: 'none'
+          })
         }
 
-      })  
+
+
+
+
+
+
+
+
+
+
+      })
 
 
     }

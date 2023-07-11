@@ -1,6 +1,9 @@
 // pages/exerciseData/exerciseData.js
 
-const { baseUrl,http } = require("../../utils/http");
+const {
+  baseUrl,
+  http
+} = require("../../utils/http");
 Page({
 
   /**
@@ -37,7 +40,7 @@ Page({
    */
   onShow: function () {
 
-    
+
     this.getAliPayStatus();
 
   },
@@ -47,20 +50,47 @@ Page({
     http('purchase/order/user/orderDetailByOrderNo', 'get', '', {
       orderNo: this.data.orderNo
     }).then(res => {
-     
 
-      if(res.data.status!=1){
-        wx.showToast({
-          title: '当前订单已经支付了,2秒后跳转',
-          icon:'none'
-        })
-        setTimeout(()=>{
+
+
+      if (res.code == 0) {
+        if (res.data.status != 1) {
+          wx.showToast({
+            title: '当前订单已经支付了,2秒后跳转',
+            icon: 'none'
+          })
+          setTimeout(() => {
             wx.navigateTo({
               url: '../myOrder/myOrder',
             })
-        },2000)
+          }, 2000)
+        }
+
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '获取订单状态失败',
+          icon: 'none'
+        })
       }
-    
+
+
+
+
     })
   },
 

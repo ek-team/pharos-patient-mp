@@ -4,7 +4,7 @@
     <image src='../../images/bg_mine@2x.png' class="mineBg"></image>
     <view class="info" bindtap="toUpdateUser">
       <image class="avatar" src="{{info.avatar}}"></image>
-      <view class="name">{{info.nickname?info.nickname:'法罗适'}}</view>
+      <view class="name">{{info.nickname?info.nickname:'未命名'}}</view>
     </view>
   </view>
   <!-- 我的订单 -->

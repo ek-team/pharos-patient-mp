@@ -6,7 +6,7 @@
     <view class="serviceItem">
       <image class="servicePic" src="{{orderDetail.img}}"></image>
       <view class="serviceRight">
-        <view class="serviceName">{{orderDetail.name}}</view>
+        <view class="serviceName">{{orderDetail.showName}}</view>
         <view class="serviceInfo">
           <view>{{orderDetail.text}}</view>
           <!-- <van-stepper value="{{ 1 }}" bind:change="onChange" /> -->

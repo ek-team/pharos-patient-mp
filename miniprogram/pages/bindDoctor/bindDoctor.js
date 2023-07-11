@@ -23,18 +23,18 @@ Page({
    */
   onLoad: function (options) {
 
-  //   if(!wx.getStorageSync('token')){
-  //     wx.setStorageSync('token', options.token)
-  // }
+    //   if(!wx.getStorageSync('token')){
+    //     wx.setStorageSync('token', options.token)
+    // }
 
 
 
     this.setData({
-      doctorId:options.doctorId,
-      doctorTeamId:options.doctorTeamId
+      doctorId: options.doctorId,
+      doctorTeamId: options.doctorTeamId
     })
-    console.log("---1---",this.data.doctorId)
-    console.log("---1---",this.data.doctorTeamId)
+    console.log("---1---", this.data.doctorId)
+    console.log("---1---", this.data.doctorTeamId)
   },
 
   /**
@@ -67,19 +67,72 @@ Page({
   // 查询就诊人列表
   getPatientList() {
     http('user/listPatientUser', 'get', '').then(res => {
-      let patientList = res.data;
-      patientList.map((item, index) => {
-        if (item.id == this.data.patientId) {
-          item.checked = true;
-          this.data.checkedPatient = [item.id]
-        } else {
-          item.checked = false;
-        }
-      })
-      this.setData({
-        patientList: patientList,
-        checkedPatient: this.data.checkedPatient,
-      })
+
+
+      if (res.code == 0) {
+
+        let patientList = res.data;
+        patientList.map((item, index) => {
+          if (item.id == this.data.patientId) {
+            item.checked = true;
+            this.data.checkedPatient = [item.id]
+          } else {
+            item.checked = false;
+          }
+        })
+        this.setData({
+          patientList: patientList,
+          checkedPatient: this.data.checkedPatient,
+        })
+
+
+
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '获取就诊人列表失败',
+          icon: 'none'
+        })
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     })
   },
   // 选择就诊人
@@ -134,17 +187,17 @@ Page({
 
 
     let params = {
-      patientUserId:  this.data.patientId,
+      patientUserId: this.data.patientId,
     }
-    if (this.data.doctorTeamId === null||this.data.doctorTeamId===undefined) {
+    if (this.data.doctorTeamId === null || this.data.doctorTeamId === undefined) {
       params = {
-        patientUserId:  this.data.patientId,
+        patientUserId: this.data.patientId,
         doctorId: this.data.doctorId,
       }
     }
 
 
-    if (this.data.doctorId === null||this.data.doctorId===undefined) {
+    if (this.data.doctorId === null || this.data.doctorId === undefined) {
       params = {
         patientUserId: this.data.patientId,
         doctorTeamId: this.data.doctorTeamId,
@@ -153,29 +206,61 @@ Page({
 
 
 
-    http('patientUserBindDoctor/add', 'post','', params).then(res => {
+    http('patientUserBindDoctor/add', 'post', '', params).then(res => {
 
 
-      wx.showToast({
-        title: '绑定成功,两秒后跳转消息界面',
-        icon: 'none'
-      })
 
-      setTimeout(()=>{
-        wx.switchTab({
-          url: '../news/news',
+
+
+      if (res.code == 0) {
+
+
+        wx.showToast({
+          title: '绑定成功,两秒后跳转消息界面',
+          icon: 'none'
         })
-    },2000)
 
-    
-   
+        setTimeout(() => {
+          wx.switchTab({
+            url: '../news/news',
+          })
+        }, 2000)
 
-  
 
 
-    
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '绑定医生失败',
+          icon: 'none'
+        })
+      }
 
-    console.log(res)
+
+
+
+
+
+
+
+
+
+
+      console.log(res)
 
     })
 

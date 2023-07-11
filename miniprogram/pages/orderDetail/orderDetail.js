@@ -1,16 +1,18 @@
 // pages/orderDetail/orderDetail.js
-const { http } = require("../../utils/http");
+const {
+  http
+} = require("../../utils/http");
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    orderId: 0,//订单id
-    orderDetail: {},//订单详情
-    showProtocol:false,
-    protocoDetail:{},
-    codeImg:null,
+    orderId: 0, //订单id
+    orderDetail: {}, //订单详情
+    showProtocol: false,
+    protocoDetail: {},
+    codeImg: null,
   },
 
   /**
@@ -45,32 +47,79 @@ Page({
       orderId: this.data.orderId
     }).then(res => {
 
-      this.setData({
-        orderDetail: res.data
-      })
-      this.getProtocolDetail()
+
+
+      if (res.code == 0) {
+        this.setData({
+          orderDetail: res.data
+        })
+        this.getProtocolDetail()
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '获取数据失败',
+          icon: 'none'
+        })
+      }
+
+
       // console.log('协议id',res.data.servicePack.protocolId)
     })
 
 
   },
 
-  getOrderQr(){
-  
+  getOrderQr() {
+
     http('wxMa/getMaQrCOdeByCopyUser', 'get', '', {
-        id: this.data.orderId
+      id: this.data.orderId
     }).then(res => {
-      console.log(res.data)
-     
+
+
+      if (res.code == 0) {
+
+        this.setData({
+          codeImg: res.data
+        })
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '获取二维码失败',
+          icon: 'none'
+        })
+      }
+
+
 
       // let url = 'data:image/png;base64,' + wx.arrayBufferToBase64(res.data)
-             this.setData({
-                  codeImg:res.data
-             })
+
     })
   },
 
-  toApplyDetail(e){
+  toApplyDetail(e) {
     // let item=e.currentTarget.dataset.item
 
 
@@ -79,111 +128,177 @@ Page({
     console.log(this.data.orderDetail)
 
 
-    if (this.data.orderDetail.status==1) {
+    if (this.data.orderDetail.status == 1) {
 
 
 
-      wx.showModal({    
+      wx.showModal({
         content: '当前订单还未支付，请先支付',
-        cancelText:'取消',
-        confirmText:'去付款',
+        cancelText: '取消',
+        confirmText: '去付款',
         complete: (res) => {
           if (res.cancel) {
-            
-          }else if (res.confirm) {
-          
+
+          } else if (res.confirm) {
+
             this.toPay()
           }
         }
       })
- 
-      
+
+
       return
     }
 
     wx.navigateTo({
-      url: '../serviceDetail/serviceDetail?id='+this.data.orderDetail.userServicePackageInfoId,
+      url: '../serviceDetail/serviceDetail?id=' + this.data.orderDetail.userServicePackageInfoId,
     })
   },
   // 协议详情
-  getProtocolDetail(){
-    let protocolId=this.data.orderDetail.servicePack.protocolId
+  getProtocolDetail() {
+    let protocolId = this.data.orderDetail.servicePack.protocolId
     // let url=
-    http('protocols/getById/'+protocolId,'get').then(res=>{
-      if(res.data){
-        this.setData({
-          protocolDetail:res.data
+    http('protocols/getById/' + protocolId, 'get').then(res => {
+
+
+
+      if (res.code == 0) {
+        if (res.data) {
+          this.setData({
+            protocolDetail: res.data
+          })
+        }
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '获取数据失败',
+          icon: 'none'
         })
       }
+
+
       // console.log('协议内容',this.data.showProtocol)
     })
   },
   // 产品详情购买页
-  toGoodsDetail(){
-    console.log('订单详情',this.data.orderDetail)
+  toGoodsDetail() {
+    console.log('订单详情', this.data.orderDetail)
     // return
     wx.navigateTo({
-      url: '../goodsDetail/goodsDetail?id='+this.data.orderDetail.servicePackId,
+      url: '../goodsDetail/goodsDetail?id=' + this.data.orderDetail.servicePackId,
     })
   },
   // 去支付
   toPay() {
     // console.log(this.data.orderDetail.orderNo);
-    var that=this;
+    var that = this;
     http('wxpay/unifiedOrder', 'get', '', {
       orderNo: that.data.orderDetail.orderNo,
     }, true).then(res => {
-      console.log('支付', res.data)
-      let payData = res.data
-      wx.requestPayment({
-        nonceStr: payData.nonceStr,
-        package: payData.packageValue,
-        paySign: payData.paySign,
-        timeStamp: payData.timeStamp,
-        signType: payData.signType,
-        success(res) {
-          wx.showToast({
-            title: '支付成功',
-            icon: 'none',
-            duration: 2000,
-            mask: true
-          })
-          that.getOrderDetailById();
-        },
-        fail(err) {
-          wx.showToast({
-            title: '支付失败',
-            icon: 'none',
-            duration: 2000,
-            mask: true
-          })
-        }
-      })
+
+
+
+
+      if (res.code == 0) {
+
+
+
+        console.log('支付', res.data)
+        let payData = res.data
+        wx.requestPayment({
+          nonceStr: payData.nonceStr,
+          package: payData.packageValue,
+          paySign: payData.paySign,
+          timeStamp: payData.timeStamp,
+          signType: payData.signType,
+          success(res) {
+            wx.showToast({
+              title: '支付成功',
+              icon: 'none',
+              duration: 2000,
+              mask: true
+            })
+            that.getOrderDetailById();
+          },
+          fail(err) {
+            wx.showToast({
+              title: '支付失败',
+              icon: 'none',
+              duration: 2000,
+              mask: true
+            })
+          }
+        })
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '获取数据失败',
+          icon: 'none'
+        })
+      }
+
+
+
+
+
+
+
+
+
     })
 
   },
   // 查看协议
-  viewProtocol(){
-   
+  viewProtocol() {
+
     this.setData({
-      showProtocol:true
+      showProtocol: true
     })
   },
   closeProrocol() {
     this.setData({
-        showProtocol: false
+      showProtocol: false
     })
   },
   // 拨打客服电话
-  callToService(e){
-    let serviceinfo=e.currentTarget.dataset.serviceinfo
-    if(!serviceinfo){   
-        return
+  callToService(e) {
+    let serviceinfo = e.currentTarget.dataset.serviceinfo
+    if (!serviceinfo) {
+      return
     }
     // console.log('服务信息',serviceinfo.afterSaleMobile)
     var that = this;
     wx.showModal({
-      title: serviceinfo.afterSaleText+'\n'+serviceinfo.afterSaleMobile,
+      title: serviceinfo.afterSaleText + '\n' + serviceinfo.afterSaleMobile,
       cancelText: '暂不',
       cancelColor: '#666666',
       confirmText: '立即拨打',
@@ -204,9 +319,9 @@ Page({
         }
       }
     })
-},
-//  查看发票
-  viewBillImage(){
+  },
+  //  查看发票
+  viewBillImage() {
     wx.previewImage({
       urls: [this.data.orderDetail.billImage],
     })
@@ -225,7 +340,7 @@ Page({
   },
   // 确认收货
   receipt() {
-    let that=this
+    let that = this
     wx.showModal({
       content: '确保实际收到货后再确认收货',
       success(res) {
@@ -233,11 +348,39 @@ Page({
           console.log('用户点击确定')
           http('purchase/order/confirmReceieve', 'get', '', {
             id: that.data.orderId
-          },true).then(res => {
+          }, true).then(res => {
+
+
             if (res.code == 0) {
+
               that.getOrderDetailById();
               wx.setStorageSync('listRefresh', true)
+            } else if (res.code == 1) {
+              wx.showToast({
+                title: res.msg,
+                icon: 'none'
+              })
+            } else if (res.code == 401) {
+              wx.showToast({
+                title: '账号过期',
+                icon: 'none'
+              })
+            } else if (res.code == 500) {
+              wx.showToast({
+                title: '服务器出现异常',
+                icon: 'none'
+              })
+            } else {
+              wx.showToast({
+                title: '确认收货失败',
+                icon: 'none'
+              })
             }
+
+
+
+
+
           })
         } else if (res.cancel) {
           console.log('用户点击取消')

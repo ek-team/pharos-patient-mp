@@ -1,5 +1,7 @@
 // pages/serviceConfirm/serviceConfirm.js
-const { http } = require("../../utils/http");
+const {
+  http
+} = require("../../utils/http");
 
 Page({
 
@@ -7,12 +9,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    orderDetail: {},//订单详情
-    doctorTeam: {},//选择的医生信息
-    patient: {},//选择的就诊人信息
-    teamDiseases: [],//病种
-    diseasesPopup:false,//病种弹框
-    checkedDiseases:{},//选择的病种
+    orderDetail: {}, //订单详情
+    doctorTeam: {}, //选择的医生信息
+    patient: {}, //选择的就诊人信息
+    teamDiseases: [], //病种
+    diseasesPopup: false, //病种弹框
+    checkedDiseases: {}, //选择的病种
   },
 
   /**
@@ -72,31 +74,65 @@ Page({
     //     duration: 2000
     //   })
     // } else {
-      this.setData({
-        diseasesPopup:true
-      })
-      http('servicePack/queryDiseasesByServicePackId', 'get', '', {
-        servicePackId: this.data.orderDetail.servicePackId
-      }).then(res => {
-        console.log(res.data)
+    this.setData({
+      diseasesPopup: true
+    })
+    http('servicePack/queryDiseasesByServicePackId', 'get', '', {
+      servicePackId: this.data.orderDetail.servicePackId
+    }).then(res => {
+
+
+
+
+
+
+      if (res.code == 0) {
+
+
+
+
         this.setData({
           teamDiseases: res.data
         })
-      })
+
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '获取数据失败',
+          icon: 'none'
+        })
+      }
+
+
+    })
     // }
   },
   //关闭病种弹框
-  closeDiseasesPopup(){
+  closeDiseasesPopup() {
     this.setData({
-      diseasesPopup:false
+      diseasesPopup: false
     })
   },
   // 确认选择病种
-  confirmDiseases(e){
+  confirmDiseases(e) {
     console.log(e.detail.value)
     this.setData({
-      checkedDiseases:e.detail.value,
-      diseasesPopup:false
+      checkedDiseases: e.detail.value,
+      diseasesPopup: false
     })
     wx.setStorageSync('diseasesId', e.detail.value.id)
 
@@ -122,8 +158,8 @@ Page({
     }
   },
   /**
- * 生命周期函数--监听页面隐藏
- */
+   * 生命周期函数--监听页面隐藏
+   */
   onHide: function () {
 
   },

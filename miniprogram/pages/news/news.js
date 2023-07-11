@@ -92,13 +92,45 @@ Page({
       searchName: this.data.searchName
     }, true).then(res => {
       // console.log(res.data)
-      var messageList = [];
-      messageList = this.data.messageList.concat(this.lastTime(res.data.records))
-      this.setData({
-        messageList: messageList,
-        total: res.data.total,
-        isTrigger: false
-      })
+    
+
+
+
+
+      if (res.code == 0) {
+        var messageList = [];
+        messageList = this.data.messageList.concat(this.lastTime(res.data.records))
+        this.setData({
+          messageList: messageList,
+          total: res.data.total,
+          isTrigger: false
+        })
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '查询聊天列表失败',
+          icon: 'none'
+        })
+      }
+
+
+
+
+
     })
   },
   // 最后一条消息的时间处理
@@ -111,10 +143,13 @@ Page({
       const curPhone = wx.getSystemInfo({
         success: function (res) {
           if (res.platform!='android') {
-            // console.log('苹果手机')
-            let date=new Date(element.lastChatTime).getTime()
-            element.lastChatTime = new Date(parseInt(date)).toLocaleString()
+            console.log('苹果手机')
+            // let date=new Date(element.lastChatTime).getTime()
+            // console.log(date)
+            // element.lastChatTime = new Date(parseInt(date)).toLocaleString()
             // console.log(element.lastChatTime,element.lastChatTime,'手机信息',res)
+
+            // element.lastChatTime=date
           }else{
             if(element.serviceEndTime!=''&&new Date()< new Date(element.serviceEndTime)){
               element.canService=true;

@@ -81,7 +81,7 @@
             <view class="buttonItem confirmBtn payButton" wx:if="{{item.status==1}}" bindtap="toAliPay" data-item="{{item}}">支付宝付款</view>
             <view class="buttonItem confirmBtn payButton" wx:if="{{item.status==1}}" bindtap="toPay" data-item="{{item}}">微信付款</view>
 
-            <view class="buttonItem cancelBtn " wx:if="{{item.status==4&&item.orderType==1}}" bindtap="torentRuleOrder" data-item="{{item}}">服务续租</view>
+            <view class="buttonItem cancelBtn " wx:if="{{item.status==4&&item.saleSpecServiceEndTime}}" bindtap="torentRuleOrder" data-item="{{item}}">服务续租</view>
             <view class="buttonItem confirmBtn" wx:if="{{item.status==4&&item.orderType==1}}" bindtap="toRetrieveOrder" data-item="{{item}}">回收</view>
 
 

@@ -158,7 +158,7 @@ Page({
     // })
 
 //  wx.navigateTo({
-//       url: '../bindDoctor/bindDoctor?doctorTeamId=1000',
+//       url: '../servicePage/servicePage?idCard=340123199403255796',
 //     })
     // wx.navigateTo({
     //   url: '../bindDoctor/bindDoctor?doctorId=2000',
@@ -209,29 +209,48 @@ Page({
     http('user/listPatientUser', 'get', '').then(res => {
       let patientList = res.data;
      
-      console.log(patientList.length)
+      if (res.code == 0) {
+
+
+        
       if (patientList) {
 
         if (patientList.length == 0) {
-  
 
-          wx.showModal({
-            title: '暂无就诊人，请先添加就诊人',
-            cancelText: '暂不',
-            cancelColor: '#666666',
-            confirmText: '添加',
-            confirmColor: '#576B95',
-            success(res) {
-              if (res.confirm) {
-                 wx.navigateTo({
-              url: '../addPatient/addPatient',
+
+
+          if(this.data.trainCardId!=null){
+
+
+            wx.navigateTo({
+              url: '../exerciseData/exerciseData?idCard=' + this.data.trainCardId
 
             })
-              } else if (res.cancel) {
-                console.log('用户点击取消')
+      
+
+          }else{
+
+            wx.showModal({
+              title: '暂无就诊人，请先添加就诊人',
+              cancelText: '暂不',
+              cancelColor: '#666666',
+              confirmText: '添加',
+              confirmColor: '#576B95',
+              success(res) {
+                if (res.confirm) {
+                   wx.navigateTo({
+                url: '../addPatient/addPatient',
+  
+              })
+                } else if (res.cancel) {
+                  console.log('用户点击取消')
+                }
               }
-            }
-          })
+            })
+          }
+  
+
+
 
         } else {
 
@@ -240,9 +259,11 @@ Page({
             console.log(patientList[0].idCard)
 
             wx.navigateTo({
-              url: '../exerciseData/exerciseData?idCard=' + patientList[0].idCard,
+              url: '../exerciseData/exerciseData?idCard=' + patientList[0].idCard+'&phone=' + patientList[0].phone,
 
             })
+
+          
 
           } else {
             wx.navigateTo({
@@ -252,13 +273,46 @@ Page({
           }
         }
 
-      } else {
+      } else{
 
+        wx.showToast({
+          title: '暂无就诊人无法查看锻炼数据',
+          icon: 'none'
+        })
       }
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '获取就诊人失败',
+          icon: 'none'
+        })
+      }
+
+     
     })
 
 
 
+  }else{
+
+    wx.showToast({
+      title: '暂无就诊人无法查看锻炼数据',
+      icon: 'none'
+    })
   }
   },
   toPage(e) {
@@ -328,66 +382,153 @@ Page({
     http('user/info', 'get').then(res => {
 
 
-      console.log(res.data)
-      this.setData({
-        info: res.data
-      })
 
+      if (res.code == 0) {
+        
+        console.log(res.data)
+        this.setData({
+          info: res.data
+        })
+  
+  
+        this.getOrderNum();
+        this.getRetrieveOrder();
+        this.getByXtUserId();
 
-      this.getOrderNum();
-      this.getRetrieveOrder();
-      this.getByXtUserId();
+        
+        } else if (res.code == 1) {
+          wx.showToast({
+            title: res.msg,
+            icon: 'none'
+          })
+        } else if (res.code == 401) {
+          wx.showToast({
+            title: '账号过期',
+            icon: 'none'
+          })
+        } else if (res.code == 500) {
+          wx.showToast({
+            title: '服务器出现异常',
+            icon: 'none'
+          })
+        } else {
+          wx.showToast({
+            title: '获取用户信息失败',
+            icon: 'none'
+          })
+        }
+
     })
   },
   // 获取设备用户
   getByXtUserId() {
-    // http('/palnUser/getByXtUserId', 'get').then(res => {
+    http('/palnUser/getByXtUserId', 'get').then(res => {
 
-    //   console.log(res.data)
+      console.log(res.data)
 
-    //   this.setData({
+      this.setData({
 
-    //     trainCardId: res.data.idCard
+        trainCardId: res.data.idCard
 
-    //   })
-    // })
+      })
+    })
   },
   // 获取订单
   getOrderNum() {
     http('/purchase/order/user/listMyStateCount', 'get').then(res => {
+
+
+
+
+      if (res.code == 0) {
+        
+        let orderStatus = this.data.orderStatus;
+        orderStatus[0].num = res.data.pendingPayment;
+        orderStatus[1].num = res.data.pendingDelivery;
+        orderStatus[2].num = res.data.pendingReward;
+        orderStatus[3].num = res.data.usedCount;
+        this.setData({
+          orderStatus: orderStatus
+        })
+        } else if (res.code == 1) {
+          wx.showToast({
+            title: res.msg,
+            icon: 'none'
+          })
+        } else if (res.code == 401) {
+          wx.showToast({
+            title: '账号过期',
+            icon: 'none'
+          })
+        } else if (res.code == 500) {
+          wx.showToast({
+            title: '服务器出现异常',
+            icon: 'none'
+          })
+        } else {
+          wx.showToast({
+            title: '获取数据失败',
+            icon: 'none'
+          })
+        }
+
+
+
       // console.log(res.data)
       //   private int pendingPayment;//待付款
       // private int pendingDelivery;//待发货
       // private int pendingReward;//待收货
       // private int usedCount;//使用种
       // private int pendingRecycle;//待回收
-      let orderStatus = this.data.orderStatus;
-      orderStatus[0].num = res.data.pendingPayment;
-      orderStatus[1].num = res.data.pendingDelivery;
-      orderStatus[2].num = res.data.pendingReward;
-      orderStatus[3].num = res.data.usedCount;
-      this.setData({
-        orderStatus: orderStatus
-      })
+
     })
   },
   // 回收单
   getRetrieveOrder() {
     http('retrieveOrder/listRetrieveOrderMyStateCount', 'get').then(res => {
+
+
+
+      
+
+      if (res.code == 0) {
+        let retrieveOrderStatus = this.data.retrieveOrderStatus;
+        retrieveOrderStatus[0].num = res.data.pendingPayment;
+        retrieveOrderStatus[1].num = res.data.pendingDelivery;
+        retrieveOrderStatus[2].num = res.data.pendingReward;
+        retrieveOrderStatus[3].num = res.data.usedCount;
+        this.setData({
+          retrieveOrderStatus: retrieveOrderStatus
+        })
+        } else if (res.code == 1) {
+          wx.showToast({
+            title: res.msg,
+            icon: 'none'
+          })
+        } else if (res.code == 401) {
+          wx.showToast({
+            title: '账号过期',
+            icon: 'none'
+          })
+        } else if (res.code == 500) {
+          wx.showToast({
+            title: '服务器出现异常',
+            icon: 'none'
+          })
+        } else {
+          wx.showToast({
+            title: '获取数据失败',
+            icon: 'none'
+          })
+        }
+
       // console.log(res.data)
       // private int pendingPayment;//待收货
       // private int pendingDelivery;///待审核
       // private int pendingReward;//待大款
       // private int usedCount;//待收款
       // private int pendingRecycle//回收完成
-      let retrieveOrderStatus = this.data.retrieveOrderStatus;
-      retrieveOrderStatus[0].num = res.data.pendingPayment;
-      retrieveOrderStatus[1].num = res.data.pendingDelivery;
-      retrieveOrderStatus[2].num = res.data.pendingReward;
-      retrieveOrderStatus[3].num = res.data.usedCount;
-      this.setData({
-        retrieveOrderStatus: retrieveOrderStatus
-      })
+
     })
   },
   /**

@@ -11,7 +11,7 @@
                     <view class="rightInfoBox">
                         <view class="infoItem">
                             <view class="goodsName">
-                                {{orderDetail.name}}
+                                {{orderDetail.showName}}
                                 <!-- <view class="goodsNum">x1</view> -->
                             </view>
                             <view>{{orderDetail.text}}</view>

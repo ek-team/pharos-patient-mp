@@ -317,6 +317,12 @@ Page({
     http('servicePack/getById', 'get', '', {
       id: this.data.id
     }).then(res => {
+
+
+
+      if (res.code == 0) {
+
+
       // console.log(res.data)
       let productSpec = res.data.productSpec;
       let saleSpec = res.data.saleSpec;
@@ -394,6 +400,57 @@ Page({
 
       console.log('规格组', this.data.saleSpec)
       // 销售数据处理
+
+
+           
+        
+        } else if (res.code == 1) {
+          wx.showToast({
+            title: res.msg,
+            icon: 'none'
+          })
+          this.setData({
+            disableClick:false,
+          })
+        } else if (res.code == 401) {
+          wx.showToast({
+            title: '账号过期',
+            icon: 'none'
+          })
+        } else if (res.code == 500) {
+          wx.showToast({
+            title: '服务器出现异常',
+            icon: 'none'
+          })
+        } else {
+          wx.showToast({
+            title: '获取订单详情失败',
+            icon: 'none'
+          })
+        }
+
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     })
     let res = wx.getSystemInfoSync();
@@ -612,10 +669,44 @@ Page({
       servicePackId: this.data.id,
       // orderType: this.data.orderDetail.orderType,
     }).then(res => {
+
+
+      
+      if (res.code == 0) {
+
+
+        this.setData({
+          checkSpecListInfo: res.data
+        })
+           
+        
+        } else if (res.code == 1) {
+          wx.showToast({
+            title: res.msg,
+            icon: 'none'
+          })
+        } else if (res.code == 401) {
+          wx.showToast({
+            title: '账号过期',
+            icon: 'none'
+          })
+        } else if (res.code == 500) {
+          wx.showToast({
+            title: '服务器出现异常',
+            icon: 'none'
+          })
+        } else {
+          wx.showToast({
+            title: '获取价格失败',
+            icon: 'none'
+          })
+        }
+
+
+
+
       // status为1此规格禁用，0为启用
-      this.setData({
-        checkSpecListInfo: res.data
-      })
+   
       console.log('查询价格', res.data)
     })
   },
@@ -686,6 +777,8 @@ Page({
     //     }
     //   })
     // })
+
+
     confirmInfo.servicePackId = this.data.id;
     confirmInfo.saleSpecId = saleSpecId; //选择的规格id
     confirmInfo.sale = sale;
@@ -699,7 +792,7 @@ Page({
     confirmInfo.protocolType = this.data.protocolType;
     confirmInfo.rentDay = this.data.rentDays[this.data.selectedRentIndex];
     confirmInfo.serviceCount = this.data.checkSpecListInfo.serviceCount;
-
+    confirmInfo.showName=this.data.showName;
 
     wx.setStorageSync('orderDetail', confirmInfo)
     wx.navigateTo({

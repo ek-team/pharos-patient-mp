@@ -11,8 +11,8 @@ Page({
   data: {
     orderId: null,
     orderDetail: {}, //订单详情
-    rentRuleOrderList:[],
-    isTrigger:true,
+    rentRuleOrderList: [],
+    isTrigger: true,
 
   },
   /**
@@ -48,13 +48,42 @@ Page({
     }).then(res => {
 
 
+      if (res.code == 0) {
 
-      console.log(res.data)
-      this.setData({
-        orderDetail: res.data,
-        rentRuleOrderList:res.data.rentRuleOrderList.reverse(),
-        isTrigger:false
-      })
+
+        console.log(res.data)
+        this.setData({
+          orderDetail: res.data,
+          rentRuleOrderList: res.data.rentRuleOrderList.reverse(),
+          isTrigger: false
+        })
+
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '获取订单详情失败',
+          icon: 'none'
+        })
+      }
+
+
+
+
+
 
 
     })
@@ -92,8 +121,8 @@ Page({
     this.setData({
       boxHeight: boxHeight
     });
-    
-},
+
+  },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */

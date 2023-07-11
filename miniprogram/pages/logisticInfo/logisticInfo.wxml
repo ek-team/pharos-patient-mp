@@ -9,7 +9,7 @@
                 <view class="courierName">{{logisticsCom?logisticsCom:'未发货'}}</view>
                 <view class="courierNo" wx:if="{{logisticsNo!=-1}}">
                     <view class="">运单号：{{userOrder.deliverySn}}</view>
-                    <image class="copy" src="../../images/btn_copy.png" bindtap="copy"></image>
+                    <image wx:if="{{logisticsCom}}" class="copy" src="../../images/btn_copy.png" bindtap="copy"></image>
                 </view>
             </view>
         </view>

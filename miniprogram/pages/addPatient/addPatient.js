@@ -13,13 +13,13 @@ Page({
     patientSex: 1, //患者性别 1-男 0-女
     patientDate: '', //患者出生年月
     hasUserInfo: true, //是否有用户信息
-    phone:'',//手机号
+    phone: '', //手机号
     userId: null,
     id: null,
     array: ['身份证', '其他证件'],
     index: 0,
-    cardType:1,
-    codeImg:'',
+    cardType: 1,
+    codeImg: '',
 
   },
 
@@ -55,17 +55,17 @@ Page({
 
   bindPickerChange(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
-   
 
-    if (e.detail.value==0) {
+
+    if (e.detail.value == 0) {
       this.setData({
         index: 0,
-        cardType:1
+        cardType: 1
       })
-    }else{
+    } else {
       this.setData({
         index: 1,
-        cardType:2
+        cardType: 2
       })
     }
   },
@@ -75,42 +75,68 @@ Page({
       // http('patient/getPatientByID', 'get','',{
       id: this.data.id
     }).then(res => {
-      console.log(res.data)
-      if (res.data) {
-        let patientInfo = res.data;
 
-        
-        this.setData({
-          patientName: patientInfo.name,
-          patientID: patientInfo.idCard,
 
-          patientSex: patientInfo.sex,
-          phone: res.data.phone,
-          patientDate: patientInfo.age,
-          userId: patientInfo.userId,
-          id: patientInfo.id,
-          hasUserInfo: true,
-          cardType:patientInfo.cardType,
+      if (res.code == 0) {
+        if (res.data) {
+          let patientInfo = res.data;
+          this.setData({
+            patientName: patientInfo.name,
+            patientID: patientInfo.idCard,
+            patientSex: patientInfo.sex,
+            phone: res.data.phone,
+            patientDate: patientInfo.age,
+            userId: patientInfo.userId,
+            id: patientInfo.id,
+            hasUserInfo: true,
+            cardType: patientInfo.cardType,
+          })
+
+
+        } else {
+          this.setData({
+            hasUserInfo: false
+          })
+        }
+
+
+
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
         })
-  
-        
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
       } else {
-        this.setData({
-          hasUserInfo: false
+        wx.showToast({
+          title: '获取数据失败',
+          icon: 'none'
         })
       }
+
+
+
     })
 
 
 
- 
+
 
     // http('wxMa/getMaQrCOdeByCopyUser', 'get', '', {
     //   // http('patient/getPatientByID', 'get','',{
     //     patientId: this.data.id
     // }).then(res => {
     //   console.log(res.data)
-     
+
 
     //   // let url = 'data:image/png;base64,' + wx.arrayBufferToBase64(res.data)
     //          this.setData({
@@ -119,7 +145,7 @@ Page({
 
 
 
-    
+
     // })
 
 
@@ -134,13 +160,25 @@ Page({
   patientIDInput(e) {
 
 
+    let inputMessage = e.detail.value
+  
+  
+
+   this.checkId(inputMessage.replace(/[^\w\/]/ig,''))
+   
+  },
+
+
+  checkId(inputMessage){
+    
+
     if (this.data.index == 0) {
       this.setData({
-        patientID: e.detail.value
+        patientID: inputMessage
       })
-      if (e.detail.value.length == 18) {
+      if (inputMessage.length == 18) {
         let reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
-        if (reg.test(e.detail.value) === false) {
+        if (reg.test(inputMessage) === false) {
           wx.showToast({
             title: '身份证输入不合法！',
             icon: 'none'
@@ -148,25 +186,55 @@ Page({
           return;
         }
         http('user/calculate', 'get', '', {
-          idCard: e.detail.value
+          idCard: inputMessage
         }).then(res => {
-          if (res.data) {
-            this.setData({
-              patientDate: res.data.birthday,
-              patientSex: res.data.sexCode,
+
+
+          if (res.code == 0) {
+            if (res.data) {
+              this.setData({
+                patientDate: res.data.birthday,
+                patientSex: res.data.sexCode,
+              })
+            }
+
+          } else if (res.code == 1) {
+            wx.showToast({
+              title: res.msg,
+              icon: 'none'
+            })
+          } else if (res.code == 401) {
+            wx.showToast({
+              title: '账号过期',
+              icon: 'none'
+            })
+          } else if (res.code == 500) {
+            wx.showToast({
+              title: '服务器出现异常',
+              icon: 'none'
+            })
+          } else {
+            wx.showToast({
+              title: '获取生日和性别失败',
+              icon: 'none'
             })
           }
+
+
+
         })
       }
     } else {
       this.setData({
-        patientID: e.detail.value
+        patientID: inputMessage
       })
     }
   },
   phoneInput(e) {
+
+    let inputMessage = e.detail.value
     this.setData({
-      phone: e.detail.value
+      phone: inputMessage
     })
   },
   // 患者性别
@@ -178,7 +246,7 @@ Page({
         patientSex: e.currentTarget.dataset.sex
       })
     }
-   
+
   },
   // 患者出生年月
   bindDateChange: function (e) {
@@ -230,7 +298,7 @@ Page({
     // if(!(/^1[2|3|4|5|6|7|8|9]\d{9}$/.test(this.data.phone))){
 
 
-    if(this.data.patientDate.length==0){
+    if (this.data.patientDate.length == 0) {
       wx.showToast({
         title: '请填写出生年月',
         icon: 'none'
@@ -238,7 +306,7 @@ Page({
       return
     }
 
-    
+
     if (this.data.hasUserInfo) {
       this.updateInfo()
     } else {
@@ -255,9 +323,9 @@ Page({
       sex: this.data.patientSex,
       age: this.data.patientDate,
       phone: this.data.phone,
-      cardType:this.data.cardType
+      cardType: this.data.cardType
     }).then(res => {
-      console.log(res.data)
+
       if (res.code == 0) {
         wx.navigateBack({
           delta: 1
@@ -269,7 +337,26 @@ Page({
           icon: 'none',
           duration: 1500,
         });
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '保存就诊人失败',
+          icon: 'none'
+        })
       }
+
+
+
+
     })
   },
   // 修改用户病史
@@ -277,14 +364,14 @@ Page({
     http('user/updatePatientUser', 'post', '', {
       name: this.data.patientName,
       idCard: this.data.patientID,
-     
+
       phone: this.data.phone,
       // sex: this.data.patientSex,
       // age: this.data.patientDate,
       // userId: this.data.userId,
       id: this.data.id
     }).then(res => {
-      console.log(res.data)
+
       if (res.code == 0) {
         wx.showToast({
           title: '修改成功',
@@ -299,6 +386,21 @@ Page({
           icon: 'none',
           duration: 1500,
         });
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '修改就诊人失败',
+          icon: 'none'
+        })
       }
     })
   },

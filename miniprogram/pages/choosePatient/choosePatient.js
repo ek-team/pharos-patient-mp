@@ -1,5 +1,7 @@
 // pages/choosePatient/choosePatient.js
-const { http } = require("../../utils/http");
+const {
+  http
+} = require("../../utils/http");
 
 Page({
 
@@ -7,11 +9,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    patientList: [],//就诊人列表
-    patientId: 0,//选择的就诊人id
-    patientName: '',//选择的就诊人名字
-    checkedPatient:[],
-    type:null,
+    patientList: [], //就诊人列表
+    patientId: 0, //选择的就诊人id
+    patientName: '', //选择的就诊人名字
+    checkedPatient: [],
+    type: null,
   },
 
   /**
@@ -19,9 +21,9 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      type:options.type,
+      type: options.type,
     })
-    
+
   },
 
   /**
@@ -54,67 +56,105 @@ Page({
   // 查询就诊人列表
   getPatientList() {
     http('user/listPatientUser', 'get', '').then(res => {
-      let patientList = res.data;
-      patientList.map((item, index) => {
-        if (item.id == this.data.patientId) {
-          item.checked = true;
-          this.data.checkedPatient=[item.id]
-        } else {
-          item.checked = false;
-        }
-      })
-      this.setData({
-        patientList: patientList,
-        checkedPatient:this.data.checkedPatient,
-      })
+
+
+
+
+      if (res.code == 0) {
+
+
+
+        let patientList = res.data;
+        patientList.map((item, index) => {
+
+          if (item.id == this.data.patientId) {
+            item.checked = true;
+            this.data.checkedPatient = [item.id]
+          } else {
+            item.checked = false;
+          }
+        })
+        this.setData({
+          patientList: patientList,
+          checkedPatient: this.data.checkedPatient,
+        })
+
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '获取就诊人列表失败',
+          icon: 'none'
+        })
+      }
+
+
+
+
+
+
+
     })
   },
   // 选择就诊人
   patientChange(e) {
     for (let i = 0, len = this.data.patientList.length; i < len; ++i) {
       this.data.patientList[i].checked = this.data.patientList[i].id == e.detail.value.split('+')[0]
-      if(this.data.patientList[i].checked){
-        this.data.checkedPatient=[this.data.patientList[i].id]
-      } 
+      if (this.data.patientList[i].checked) {
+        this.data.checkedPatient = [this.data.patientList[i].id]
+      }
     }
     let patientId = e.detail.value.split('+')[0];
     let patientName = e.detail.value.split('+')[1];
     this.setData({
       patientId: patientId,
       patientName: patientName,
-      patientList:this.data.patientList,
-      checkedPatient:this.data.checkedPatient,
+      patientList: this.data.patientList,
+      checkedPatient: this.data.checkedPatient,
     })
-    console.log(patientId,patientName,this.data.patientList)
+    console.log(patientId, patientName, this.data.patientList)
 
   },
-  patientCheck(e){
-    let item=e.currentTarget.dataset.item
-    let index=e.currentTarget.dataset.index
-    this.data.patientList[index].checked=true
+  patientCheck(e) {
+    let item = e.currentTarget.dataset.item
+    let index = e.currentTarget.dataset.index
+    this.data.patientList[index].checked = true
     this.setData({
       patientId: item.id,
       patientName: item.name,
-      patientList:this.data.patientList,
+      patientList: this.data.patientList,
     })
     // console.log('选择就诊人',item)
   },
   // 点击编辑
-  editPatient(e){
-    let item=e.currentTarget.dataset.item
+  editPatient(e) {
+    let item = e.currentTarget.dataset.item
     // console.log('id',id)
     // return
     wx.navigateTo({
-      url: '../addPatient/addPatient?type=edit'+'&id='+item.id
+      url: '../addPatient/addPatient?type=edit' + '&id=' + item.id
       // url: '../addPatient/addPatient?type=edit'+'&id='+item.id+'&name='+item.name+'&idCard='+item.idCard+'&age='+item.age,
     })
   },
   // 就诊人确认
   confirm() {
-    if(this.data.checkedPatient.length==0){
+    if (this.data.checkedPatient.length == 0) {
       wx.showToast({
         title: '请选择就诊人',
-        icon:'none'
+        icon: 'none'
       })
       return
     }

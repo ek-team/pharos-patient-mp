@@ -37,7 +37,7 @@
     <view class="infoItem">
       <view class="infoTitle">手机号</view>
       <view class="inputView">
-        <input disabled="{{hasUserInfo}}" class="infoInput" type="text" value="{{phone}}" bindinput="phoneInput" maxlength="11" />
+        <input  disabled="{{hasUserInfo}}" class="infoInput" type="number" value="{{phone}}" bindinput="phoneInput" maxlength="11" />
       </view>
     </view>
     <!-- 性别 -->

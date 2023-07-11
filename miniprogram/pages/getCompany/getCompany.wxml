@@ -1,0 +1,41 @@
+<!--pages/chooseServiceTeam/chooseServiceTeam.wxml-->
+<view class="container">
+
+
+
+  <view class="searchInput">
+    <!-- <van-search value="{{ value }}" placeholder="请输入" show-action bind:search="onSearch" bind:cancel="onCancel" bind:change='onChange' /> -->
+
+
+    <van-search value="{{ value }}"  placeholder="请输入公司名称获取公司抬头和发票" use-action-slot bind:change="onChange" bind:search="onSearch">
+      <view style="margin-right: 20rpx;margin-left: 20rpx;" slot="action" bind:tap="onSearch">搜索</view>
+    </van-search>
+
+
+
+
+  </view>
+  <!-- 医生团队 -->
+  <view class="doctorTeam">
+    <radio-group bindchange="teamChange">
+      <!-- 每一个团队 -->
+      <label class="teamView" wx:for="{{companyList}}" wx:key="id" data-item="{{item}}" data-index="{{index}}">
+        <view class="teamLeft">
+          <view class="teamName">{{item.name}}</view>
+          <view class="teamFocus">{{item.creditCode}}</view>
+          <!-- <view class="teamPic">
+            <view class="userContainer" wx:key="id" wx:for="{{item.doctorTeamPeopleList}}">
+                <image src="{{item.avatar?item.avatar:'../../images/defaultAvatar.png'}}" class="headImg" ></image>
+                <text>{{item.userName}}</text>
+            </view>
+          </view> -->
+        </view>
+        <radio value="{{item.creditCode}}+{{item.name}}" checked="{{item.checked}}" />
+      </label>
+    </radio-group>
+  </view>
+  <!-- 确认部分 -->
+  <view class="confirmView" wx:if="{{companyList.length>=1}}">
+    <button class="confirm" bindtap="confirm">确定</button>
+  </view>
+</view>

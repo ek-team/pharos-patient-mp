@@ -593,11 +593,13 @@ page {
 
 .input {
   
+
+  
     box-sizing: border-box;
     margin-top: 28rpx;
     display: flex;
     flex-direction: row;
-    width: 402rpx;
+
     width: 500rpx;
     min-height: 72rpx;
     max-height: 1000rpx;

@@ -18,12 +18,12 @@ Page({
     topSwiperIndex: 0,
     topSwiper: [], //轮播图
     rentRuleImage: null, //缩列图
-    abbreviatedRentRuleImage:null,//显示图
+    abbreviatedRentRuleImage: null, //显示图
     rentRuleList: [], //续租方案
     rentRuleId: -1, //选择的续租id
     rentRuleAmount: 0, //续租价格
     rentRuleDay: 0, //续租天数
-    status:0,//默认启用
+    status: 0, //默认启用
   },
 
 
@@ -49,7 +49,7 @@ Page({
   // 立即预定
   booking() {
 
-    if(this.data.rentRuleList.length==0){
+    if (this.data.rentRuleList.length == 0) {
       return
     }
 
@@ -85,100 +85,148 @@ Page({
     http('servicePack/getById', 'get', '', {
       id: this.data.servicePackId
     }).then(res => {
-      console.log(res.data)
-      let productSpec = res.data.productSpec;
-      let saleSpec = res.data.saleSpec;
-      let chooseBuy = res.data.buy == 3 ? '1' : res.data.buy;
-      let rentDays = []
-      let rentList = res.data.saleSpec
-      let buyDays = []
-      let buyList = res.data.buySaleSpec
-      let noticeText = '';
-      let price = 0
-      // 产品数据处理
-      // productSpec.map((item, index) => {
-      //   item.productSpecDesc.map((items, indexs) => {
-      //     if (indexs == 0) {
-      //       items.checked = true;
-      //     } else {
-      //       items.checked = false
-      //     }
-      //   })
-      // })
-      // 服务周期处理
-      // res.data.buySaleSpec.map((item,index)=>{
-      //   buyDays.push(item.day)
-      //   if(index == 0){
-      //     noticeText=item.remark
-      //     price=item.rent
-      //   }
-      // })
-      // 租期数据处理
-      res.data.saleSpec.map((item, index) => {
-        rentDays.push(item.day)
-        if (index == 0) {
-          noticeText = item.remark
-          price = item.rent
-        }
 
-      })
-      // 销售数据处理
-      saleSpec.map((item, index) => {
-        // console.log('规格组',item)
-        // item.saleSpecDescs.map((items, indexs) => {
-        //   if (indexs == 0) {
-        //     items.checked = true
-        //     noticeText = items.remark;
 
-        //   } else {
-        //     items.checked = false
+
+      if (res.code == 0) {
+
+
+
+        console.log(res.data)
+        let productSpec = res.data.productSpec;
+        let saleSpec = res.data.saleSpec;
+        let chooseBuy = res.data.buy == 3 ? '1' : res.data.buy;
+        let rentDays = []
+        let rentList = res.data.saleSpec
+        let buyDays = []
+        let buyList = res.data.buySaleSpec
+        let noticeText = '';
+        let price = 0
+        // 产品数据处理
+        // productSpec.map((item, index) => {
+        //   item.productSpecDesc.map((items, indexs) => {
+        //     if (indexs == 0) {
+        //       items.checked = true;
+        //     } else {
+        //       items.checked = false
+        //     }
+        //   })
+        // })
+        // 服务周期处理
+        // res.data.buySaleSpec.map((item,index)=>{
+        //   buyDays.push(item.day)
+        //   if(index == 0){
+        //     noticeText=item.remark
+        //     price=item.rent
         //   }
         // })
-      })
-      if (res.data.servicePackDetails) {
-        res.data.servicePackDetails.map((item, index, arr) => {
-          item.content = item.content.replace(/\<img/g, '<img style="max-width:100%;height:auto;margin:10px 0;"')
+        // 租期数据处理
+        res.data.saleSpec.map((item, index) => {
+          rentDays.push(item.day)
+          if (index == 0) {
+            noticeText = item.remark
+            price = item.rent
+          }
+
+        })
+        // 销售数据处理
+        saleSpec.map((item, index) => {
+          // console.log('规格组',item)
+          // item.saleSpecDescs.map((items, indexs) => {
+          //   if (indexs == 0) {
+          //     items.checked = true
+          //     noticeText = items.remark;
+
+          //   } else {
+          //     items.checked = false
+          //   }
+          // })
+        })
+        if (res.data.servicePackDetails) {
+          res.data.servicePackDetails.map((item, index, arr) => {
+            item.content = item.content.replace(/\<img/g, '<img style="max-width:100%;height:auto;margin:10px 0;"')
+          })
+        }
+
+        this.setData({
+
+          rentRuleList: res.data.rentRuleList, //续租规则
+          rentRuleImage: res.data.rentRuleImage, //缩列图
+          abbreviatedRentRuleImage: res.data.abbreviatedRentRuleImage, //显示图
+          status: res.data.status,
+
+
+
+
+
+          showIntroduction: res.data.showIntroduction == 1 ? true : false, //服务装修简介是否显示
+          preSaleMobile: res.data.preSaleMobile,
+          preSaleText: res.data.preSaleText,
+          name: res.data.name,
+          showName: res.data.showName,
+          topSwiper: chooseBuy == 1 ? res.data.servicePackProductPicsBuy : res.data.servicePackProductPicsBuy, //1租用，2购买
+          servicePackDetails: res.data.servicePackDetails,
+          productSpec: productSpec,
+          saleSpec: saleSpec,
+          specDetailList: res.data.saleSpecGroupList, //规格组合详情项
+          buy: res.data.buy,
+          chooseBuy: chooseBuy,
+          rentDays: rentDays,
+          buyDays: buyDays,
+          servicePackageInfos: res.data.servicePackageInfos,
+          protocolId: res.data.protocolId,
+          protocolType: res.data.protocolType,
+          introductionsImage: res.data.introductionsImage,
+          introductionsContent: res.data.introductionsContent,
+          noticeText: noticeText,
+          price: price, //显示价格
+          rentList: rentList, //周期列表规格
+          buyList: buyList,
+          buyPicList: res.data.servicePackProductPicsBuy, //购买的图片列表
+          renPicList: res.data.servicePackProductPics, //租用图片列表
+        })
+        wx.setStorageSync('deptId', res.data.deptId)
+
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '查询产品详情失败',
+          icon: 'none'
         })
       }
 
-      this.setData({
-
-        rentRuleList: res.data.rentRuleList, //续租规则
-        rentRuleImage: res.data.rentRuleImage, //缩列图
-        abbreviatedRentRuleImage:res.data.abbreviatedRentRuleImage,//显示图
-        status:res.data.status,
-
-        
 
 
 
-        showIntroduction: res.data.showIntroduction == 1 ? true : false, //服务装修简介是否显示
-        preSaleMobile: res.data.preSaleMobile,
-        preSaleText: res.data.preSaleText,
-        name: res.data.name,
-        showName: res.data.showName,
-        topSwiper: chooseBuy == 1 ? res.data.servicePackProductPicsBuy : res.data.servicePackProductPicsBuy, //1租用，2购买
-        servicePackDetails: res.data.servicePackDetails,
-        productSpec: productSpec,
-        saleSpec: saleSpec,
-        specDetailList: res.data.saleSpecGroupList, //规格组合详情项
-        buy: res.data.buy,
-        chooseBuy: chooseBuy,
-        rentDays: rentDays,
-        buyDays: buyDays,
-        servicePackageInfos: res.data.servicePackageInfos,
-        protocolId: res.data.protocolId,
-        protocolType: res.data.protocolType,
-        introductionsImage: res.data.introductionsImage,
-        introductionsContent: res.data.introductionsContent,
-        noticeText: noticeText,
-        price: price, //显示价格
-        rentList: rentList, //周期列表规格
-        buyList: buyList,
-        buyPicList: res.data.servicePackProductPicsBuy, //购买的图片列表
-        renPicList: res.data.servicePackProductPics, //租用图片列表
-      })
-      wx.setStorageSync('deptId', res.data.deptId)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     })
     let res = wx.getSystemInfoSync();
     let boxHeight = (res.windowHeight * 2) - 188;
@@ -199,9 +247,9 @@ Page({
     confirmInfo.rentRuleAmount = this.data.rentRuleAmount;
     confirmInfo.orderNo = this.data.orderId;
     confirmInfo.protocolId = this.data.id;
-    
+
     wx.setStorageSync('rentRuleDetail', confirmInfo)
-  
+
 
     wx.navigateTo({
       url: '../rentRuleConfirm/rentRuleConfirm',
@@ -223,6 +271,8 @@ Page({
     http('servicePack/queryRule', 'get', '', {
       id: this.data.servicePackId
     }).then(res => {
+
+
 
       console.log(res.data)
 
@@ -264,24 +314,24 @@ Page({
   },
 
 
-    // 查看规格大图
-    viewImg(){
+  // 查看规格大图
+  viewImg() {
 
-      wx.previewImage({
-        urls: [this.data.rentRuleImage],
-      })
-      wx.setStorageSync('noGetNewData', true)
-    },
-    viewImgRentRule(){
+    wx.previewImage({
+      urls: [this.data.rentRuleImage],
+    })
+    wx.setStorageSync('noGetNewData', true)
+  },
+  viewImgRentRule() {
 
-      wx.previewImage({
-        urls: [this.data.abbreviatedRentRuleImage],
-      })
-      wx.setStorageSync('noGetNewData', true)
-    },
+    wx.previewImage({
+      urls: [this.data.abbreviatedRentRuleImage],
+    })
+    wx.setStorageSync('noGetNewData', true)
+  },
 
 
-    
+
   /**
    * 生命周期函数--监听页面隐藏
    */

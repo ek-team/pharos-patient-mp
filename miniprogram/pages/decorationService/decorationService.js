@@ -1,5 +1,7 @@
 // pages/decorationService/decorationService.js
-import { http } from "../../utils/http"
+import {
+  http
+} from "../../utils/http"
 
 Page({
 
@@ -7,8 +9,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    id:0,//产品id
-    introductionsContent:'',//服务说明
+    id: 0, //产品id
+    introductionsContent: '', //服务说明
 
   },
 
@@ -17,7 +19,7 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      id:options.id
+      id: options.id
     })
   },
 
@@ -36,13 +38,44 @@ Page({
 
   },
   // 获得富文本
-  getServicePackById(){
-    http('servicePack/getServicePackById','get','',{
-      id:this.data.id
-    }).then(res=>{
-      this.setData({
-        introductionsContent:res.data.introductionsContent
-      })
+  getServicePackById() {
+    http('servicePack/getServicePackById', 'get', '', {
+      id: this.data.id
+    }).then(res => {
+
+
+      if (res.code == 0) {
+
+
+        this.setData({
+          introductionsContent: res.data.introductionsContent
+        })
+
+
+
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '获取富文本失败',
+          icon: 'none'
+        })
+      }
+
+
     })
   },
 

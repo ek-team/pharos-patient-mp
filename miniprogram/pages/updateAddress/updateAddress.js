@@ -1,5 +1,7 @@
 // pages/addAddress/addAddress.js
-const { http } = require("../../utils/http");
+const {
+  http
+} = require("../../utils/http");
 Page({
 
   /**
@@ -9,12 +11,12 @@ Page({
     region: ['省', '市', '区'],
     regionCode: [],
     defaultAddress: false,
-    name: '',//收货人姓名
-    phone: '',//联系电话
-    address: '',//详细地址
-    saveDisabled: false,//保存按钮的diasbled
-    addOrUpdate: 0,// 0添加地址 1修改地址
-    id: null,//修改地址，地址的id
+    name: '', //收货人姓名
+    phone: '', //联系电话
+    address: '', //详细地址
+    saveDisabled: false, //保存按钮的diasbled
+    addOrUpdate: 0, // 0添加地址 1修改地址
+    id: null, //修改地址，地址的id
   },
 
   /**
@@ -22,11 +24,11 @@ Page({
    */
   onLoad: function (options) {
     console.log(options)
-      this.setData({
-        id: options.id,
-        regionCode: [1]
-      })
-      this.getAddressDetail();
+    this.setData({
+      id: options.id,
+      regionCode: [1]
+    })
+    this.getAddressDetail();
   },
 
   /**
@@ -82,8 +84,7 @@ Page({
         title: '请填写收货人姓名',
         icon: 'none'
       })
-    }
-    else if (this.data.regionCode.length == 0) {
+    } else if (this.data.regionCode.length == 0) {
       wx.showToast({
         title: '请选择省市区',
         icon: 'none'
@@ -95,7 +96,7 @@ Page({
       })
     } else {
 
-        this.updateAddress()
+      this.updateAddress()
     }
   },
   // 修改收获地址
@@ -103,7 +104,7 @@ Page({
     this.setData({
       saveDisabled: true
     })
-    http('address/updateAddress', 'post', '',{
+    http('address/updateAddress', 'post', '', {
       id: this.data.id,
       addresseeName: this.data.name,
       addresseePhone: this.data.phone,
@@ -113,16 +114,53 @@ Page({
       address: this.data.address,
       isDefault: this.data.defaultAddress ? 1 : 0
     }).then(res => {
-      this.setData({
-        saveDisabled: false
-      })
-      wx.showToast({
-        title: '修改成功',
-        icon: 'none'
-      })
-      wx.navigateBack({
-        delta: 1,
-      })
+      if (res.code == 0) {
+
+        this.setData({
+          saveDisabled: false
+        })
+        wx.showToast({
+          title: '修改成功',
+          icon: 'none'
+        })
+        wx.navigateBack({
+          delta: 1,
+        })
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '修改成功',
+          icon: 'none'
+        })
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }).catch(err => {
       this.setData({
         saveDisabled: false
@@ -131,36 +169,97 @@ Page({
   },
   // 查询地址
   getAddressDetail() {
-    http('address/getById', 'get','', {
+    http('address/getById', 'get', '', {
       id: this.data.id
     }).then(res => {
-      console.log(res.data)
-      let addressInfo = res.data;
-      let region = [];
-      region[0] = addressInfo.province;
-      region[1] = addressInfo.city;
-      region[2] = addressInfo.area;
-      this.setData({
-        name: addressInfo.addresseeName,
-        phone: addressInfo.addresseePhone,
-        region: region,
-        address: addressInfo.address,
-        defaultAddress: addressInfo.isDefault == 1 ? true : false
-      })
+
+
+
+
+      if (res.code == 0) {
+
+        console.log(res.data)
+        let addressInfo = res.data;
+        let region = [];
+        region[0] = addressInfo.province;
+        region[1] = addressInfo.city;
+        region[2] = addressInfo.area;
+        this.setData({
+          name: addressInfo.addresseeName,
+          phone: addressInfo.addresseePhone,
+          region: region,
+          address: addressInfo.address,
+          defaultAddress: addressInfo.isDefault == 1 ? true : false
+        })
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '查询地址失败',
+          icon: 'none'
+        })
+      }
+
+
+
+
+
+
     })
   },
   // 删除收货地址
   delAddress() {
-    http('address/deleteAddress', 'get', '',{
-      id:this.data.id
+    http('address/deleteAddress', 'get', '', {
+      id: this.data.id
     }).then(res => {
-      wx.showToast({
-        title: '删除成功',
-        icon: 'none'
-      })
-      wx.navigateBack({
-        delta: 1,
-      })
+
+
+
+      if (res.code == 0) {
+        // console.log(res.data)
+        wx.showToast({
+          title: '删除成功',
+          icon: 'none'
+        })
+        wx.navigateBack({
+          delta: 1,
+        })
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '删除失败',
+          icon: 'none'
+        })
+      }
+
+
     })
   },
   /**

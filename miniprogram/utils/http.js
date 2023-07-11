@@ -1,6 +1,6 @@
 const {noticeLogin}=require("../utils/noticeLogin");
 // const baseUrl = 'https://pharos3.ewj100.com/';
-// const baseUrl = 'http://192.168.10.5:10049/';
+
 const  baseUrl = 'https://api.jhxiao-school.com/';
 const app = getApp();
 function http(url, method, auth,data = {}, isShowLoading = false) {
@@ -31,8 +31,15 @@ function http(url, method, auth,data = {}, isShowLoading = false) {
                 if (res.data.code == 200) {
                     resolve(res.data)
                 } else if (res.data.code == 401) {
+
+                  
+                  
                     wx.clearStorageSync();
                     noticeLogin();
+                    wx.showToast({
+                      title: '账号认证'+res.data.msg,
+                      icon: 'none'
+                    })
                 } else {
                     resolve(res.data)
                 }

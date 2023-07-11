@@ -47,9 +47,37 @@ Page({
     http('doctorPoint/getByPatientOtherOrderId', 'get', '', {
       id: this.data.id
     }).then(res => {
-      this.setData({
-        applyInfo: res.data
-      })
+
+
+      if(res.code==0){
+        this.setData({
+          applyInfo: res.data
+        })
+
+      } else if(res.code==1){
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      }else if(res.code==401){
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      }else if(res.code==500){
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      }else{
+        wx.showToast({
+          title: '获取数据失败',
+          icon: 'none'
+        })
+      }
+
+      
+     
       // console.log('图文咨询详情',res.data)
     })
   },

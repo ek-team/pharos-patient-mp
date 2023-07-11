@@ -65,12 +65,10 @@ Page({
     }
     let form = wx.getStorageSync('commitForm')
     http('doctorPoint/addPatientOtherOrder', 'post', '', form, true).then(res => {
-      // console.log('提交咨询',res.data)
+    
       wx.setStorageSync('noClose', true)
-      let payData = res.data
-
-     
-
+      
+   
       if (res.code != 0) {
 
         wx.showToast({
@@ -81,7 +79,7 @@ Page({
 
       }
 
-
+      let payData = res.data
       wx.requestPayment({
         nonceStr: payData.nonceStr,
         package: payData.packageValue,

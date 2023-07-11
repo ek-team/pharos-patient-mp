@@ -9,69 +9,75 @@ Page({
    * 页面的初始数据
    */
   data: {
-    team: [],
-    servicePackId: null, //产品id
-    doctorTeamId: 0, //选择的医生id
-    doctorTeamName: '', //选择的医生团队名字
-    checkedTeam: []
+    companyList: [],
+
+
+    searchName: '',
+    companyCreditCode: 0, //
+    companyName: '', //
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    let orderDetail = wx.getStorageSync('orderDetail')
-    this.setData({
-      servicePackId: orderDetail.servicePackId
-    })
-  },
-
+  onLoad: function (options) {},
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-
-  },
+  onReady: function () {},
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.getTeam();
-    if (wx.getStorageSync('doctorTeam')) {
-      this.setData({
-        doctorTeamId: wx.getStorageSync('doctorTeam').doctorTeamId,
-        doctorTeamName: wx.getStorageSync('doctorTeam').doctorTeamName
+
+    //this.getCompanyCode();
+
+  },
+
+  // 监听关键字change
+  onChange(e) {
+
+
+    this.setData({
+      searchName: e.detail
+    })
+
+
+
+
+  },
+
+  onSearch() {
+
+
+    if(this.data.searchName.length>=3){
+      this.getCompanyCode()
+    }else{
+
+      wx.showToast({
+        title: '请至少输入三个字获取公司抬头和税号',
+        icon: 'none'
       })
+
+      
     }
   },
 
   // 查询团队
-  getTeam() {
-    http('servicePack/queryDoctorTeamByServicePackId', 'get', '', {
-      servicePackId: this.data.servicePackId
+  getCompanyCode() {
+    http('bill/getCompany', 'get', '', {
+      name: this.data.searchName
     }).then(res => {
 
 
-
       if (res.code == 0) {
+        console.log(res.data)
+        let companyList = res.data.result;
 
-
-
-
-        // console.log(res.data)
-        let team = res.data;
-        team.map((item, index) => {
-          if (item.id == this.data.doctorTeamId) {
-            item.checked = true;
-            this.data.checkedTeam = [item.id]
-          } else {
-            item.checked = false;
-          }
-        })
         this.setData({
-          team: team,
-          checkedTeam: this.data.checkedTeam
+          companyList: companyList,
         })
       } else if (res.code == 1) {
         wx.showToast({
@@ -104,18 +110,15 @@ Page({
   },
   // 选择团队
   teamChange(e) {
-    console.log('选择',e.detail)
-    for (let i = 0, len = this.data.team.length; i < len; ++i) {
-      this.data.team[i].checked = this.data.team[i].id == e.detail.value.split('+')[0]
-      if (this.data.team[i].checked) {
-        this.data.checkedTeam = [this.data.team[i].id]
-      }
+    // console.log('选择',e.detail)
+    for (let i = 0, len = this.data.companyList.length; i < len; ++i) {
+      this.data.companyList[i].checked = this.data.companyList[i].creditCode == e.detail.value.split('+')[0]
+
     }
     this.setData({
-      doctorTeamId: e.detail.value.split('+')[0],
-      doctorTeamName: e.detail.value.split('+')[1],
-      team: this.data.team,
-      checkedTeam: this.data.checkedTeam
+      companyCreditCode: e.detail.value.split('+')[0],
+      companyName: e.detail.value.split('+')[1],
+
     })
   },
   // teamChoose(e){
@@ -130,17 +133,13 @@ Page({
   // },
   // 确认
   confirm() {
-    if (this.data.checkedTeam.length == 0) {
-      wx.showToast({
-        title: '请选择主治医生！',
-        icon: 'none'
-      })
-      return
-    }
-    wx.setStorageSync('doctorTeam', {
-      doctorTeamId: this.data.doctorTeamId,
-      doctorTeamName: this.data.doctorTeamName
-    })
+
+    wx.setStorageSync('selectComPanyName', this.data.companyName)
+    wx.setStorageSync('selectTaxNumber', this.data.companyCreditCode)
+
+
+    console.log(this.data.companyName)
+    console.log(this.data.companyCreditCode)
     wx.navigateBack({
       delta: 1,
     })

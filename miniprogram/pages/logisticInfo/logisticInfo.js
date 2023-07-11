@@ -1,6 +1,6 @@
 // pages/logisticInfo/logisticInfo.js
 const { http } = require("../../utils/http");
-const {noticeLogin}=require("../../utils/noticeLogin");
+
 Page({
 
     /**
@@ -55,7 +55,7 @@ Page({
   copy() {
     var that=this;
     wx.setClipboardData({
-      data: that.data.id,
+      data: that.data.logisticsCom+" 运单号："+that.data.userOrder.deliveryNumber,
       success (res) {
           console.log('物流信息',res.data)
         wx.getClipboardData({
@@ -74,25 +74,57 @@ Page({
     http('/express/user/retrieveExpressData','get','',{
       id:this.data.id
     }).then(res=>{
-      // console.log(res.data,'回收单物流信息')
-      if(!res.data){
-        wx.showToast({
-          title: res.msg,
-          icon:'none'
-        })
-          return
-      }
-      wx.hideLoading()
-      let logisticsInfo=res.data
-      this.setData({
-        logisticsInfo:res.data.data,
-        // logisticsInfo:[res.data.data[1]],
-        userOrder:res.data.userOrder,
-        logisticsCom:logisticsInfo.com=='zhongtong'?'中通':logisticsInfo.com=='jd'?'京东':logisticsInfo.com=='debangkuaidi'? '德邦':logisticsInfo.com=='shunfeng'?
-        '顺丰':logisticsInfo.com=='jtexpress'?'极兔':logisticsInfo.com=='yuantong'?'圆通':logisticsInfo.com=='shentong'?'申通': logisticsInfo.com=='yunda'?'韵达':
-        logisticsInfo.com=='youzhengguonei'?'邮政':logisticsInfo.com=='huitongkuaidi'?'百世':logisticsInfo.com=='annengwuliu'?'安能':logisticsInfo.com=='yousuwuliu'?'优速':''
 
-    })
+
+
+      
+      if (res.code == 0) {
+
+
+         // console.log(res.data,'回收单物流信息')
+         if(!res.data){
+          wx.showToast({
+            title: res.msg,
+            icon:'none'
+          })
+            return
+        }
+        wx.hideLoading()
+        let logisticsInfo=res.data
+        this.setData({
+          logisticsInfo:res.data.data,
+          // logisticsInfo:[res.data.data[1]],
+          userOrder:res.data.userOrder,
+          logisticsCom:logisticsInfo.com=='zhongtong'?'中通':logisticsInfo.com=='jd'?'京东':logisticsInfo.com=='debangkuaidi'? '德邦':logisticsInfo.com=='shunfeng'?
+          '顺丰':logisticsInfo.com=='jtexpress'?'极兔':logisticsInfo.com=='yuantong'?'圆通':logisticsInfo.com=='shentong'?'申通': logisticsInfo.com=='yunda'?'韵达':
+          logisticsInfo.com=='youzhengguonei'?'邮政':logisticsInfo.com=='huitongkuaidi'?'百世':logisticsInfo.com=='annengwuliu'?'安能':logisticsInfo.com=='yousuwuliu'?'优速':''
+  
+      })
+        
+        } else if (res.code == 1) {
+          wx.showToast({
+            title: res.msg,
+            icon: 'none'
+          })
+        } else if (res.code == 401) {
+          wx.showToast({
+            title: '账号过期',
+            icon: 'none'
+          })
+        } else if (res.code == 500) {
+          wx.showToast({
+            title: '服务器出现异常',
+            icon: 'none'
+          })
+        } else {
+          wx.showToast({
+            title: '获取物流数据失败',
+            icon: 'none'
+          })
+        }
+
+
+
     })
   },
   // 订单物流信息
@@ -100,17 +132,47 @@ Page({
     http('/express/user/orderMapTrace','get','',{
       id:this.data.id
     }).then(res=>{
-      // console.log('订单物流信息',res)
-        let logisticsInfo=res.data
-        this.setData({
-            logisticsInfo:res.data.data,
-            // logisticsInfo:[res.data.data[1]],
-            userOrder:res.data.userOrder,
-            logisticsCom:logisticsInfo.com=='zhongtong'?'中通':logisticsInfo.com=='jd'?'京东':logisticsInfo.com=='debangkuaidi'? '德邦':logisticsInfo.com=='shunfeng'?
-            '顺丰':logisticsInfo.com=='jtexpress'?'极兔':logisticsInfo.com=='yuantong'?'圆通':logisticsInfo.com=='shentong'?'申通': logisticsInfo.com=='yunda'?'韵达':
-            logisticsInfo.com=='youzhengguonei'?'邮政':logisticsInfo.com=='huitongkuaidi'?'百世':logisticsInfo.com=='annengwuliu'?'安能':logisticsInfo.com=='yousuwuliu'?'优速':''
 
-        })
+
+
+      if (res.code == 0) {
+
+
+         // console.log('订单物流信息',res)
+         let logisticsInfo=res.data
+         this.setData({
+             logisticsInfo:res.data.data,
+             // logisticsInfo:[res.data.data[1]],
+             userOrder:res.data.userOrder,
+             logisticsCom:logisticsInfo.com=='zhongtong'?'中通':logisticsInfo.com=='jd'?'京东':logisticsInfo.com=='debangkuaidi'? '德邦':logisticsInfo.com=='shunfeng'?
+             '顺丰':logisticsInfo.com=='jtexpress'?'极兔':logisticsInfo.com=='yuantong'?'圆通':logisticsInfo.com=='shentong'?'申通': logisticsInfo.com=='yunda'?'韵达':
+             logisticsInfo.com=='youzhengguonei'?'邮政':logisticsInfo.com=='huitongkuaidi'?'百世':logisticsInfo.com=='annengwuliu'?'安能':logisticsInfo.com=='yousuwuliu'?'优速':''
+ 
+         })
+       } else if (res.code == 1) {
+        //  wx.showToast({
+        //    title: res.msg,
+        //    icon: 'none'
+        //  })
+       } else if (res.code == 401) {
+         wx.showToast({
+           title: '账号过期',
+           icon: 'none'
+         })
+       } else if (res.code == 500) {
+         wx.showToast({
+           title: '服务器出现异常',
+           icon: 'none'
+         })
+       } else {
+         wx.showToast({
+           title: '获取物流数据失败',
+           icon: 'none'
+         })
+       }
+
+
+
     console.log('物流信息',res.data)
     })
   },

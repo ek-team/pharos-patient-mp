@@ -63,7 +63,7 @@
           </view>
           <view class="optionContainer">
 
-            <view class="buttonItem cancelBtn " wx:if="{{orderDetail.status==4&&orderDetail.orderType==1}}" bindtap="torentRuleOrder" >继续续租</view>
+            <view class="buttonItem cancelBtn " wx:if="{{orderDetail.status==4}}" bindtap="torentRuleOrder" >继续续租</view>
 
           </view>
 
