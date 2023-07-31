@@ -157,13 +157,13 @@ Page({
     //   url: '../servicePage/servicePage',
     // })
 
-//  wx.navigateTo({
-//       url: '../servicePage/servicePage?idCard=340123199403255796',
-//     })
+    //  wx.navigateTo({
+    //       url: '../servicePage/servicePage?idCard=340123199403255796',
+    //     })
     // wx.navigateTo({
     //   url: '../bindDoctor/bindDoctor?doctorId=2000',
     // })
-  
+
   },
 
   toUpdateUser(e) {
@@ -181,105 +181,76 @@ Page({
   },
   toMySportData() {
 
-    // wx.navigateTo({
-    //   url: '../bindDoctor/bindDoctor',
-    // })
-    // wx.navigateTo({
-    //   url: '../bindPatient/bindPatient?id=1688',
-    // })
-
-    if (this.data.info.idCard) {
-
-    //   wx.navigateTo({
-    //     url: '../exerciseData/exerciseData?idCard=' + this.data.trainCardId,
-
-    //     // url: '../savePersonInfo/savePersonInfo'
-
-    //       // url: '../login/login'
-    //   })
-    // } else {
-    //   wx.showToast({
-    //     title: '暂无数据！',
-    //     icon: 'none'
-    //   })
-    //   return
-    // }
-
 
     http('user/listPatientUser', 'get', '').then(res => {
       let patientList = res.data;
-     
+
       if (res.code == 0) {
+        if (patientList) {
 
+          if (patientList.length == 0) {
 
-        
-      if (patientList) {
+            if (this.data.trainCardId != null) {
 
-        if (patientList.length == 0) {
+              wx.navigateTo({
+                url: '../exerciseData/exerciseData?idCard=' + this.data.trainCardId
 
-
-
-          if(this.data.trainCardId!=null){
-
-
-            wx.navigateTo({
-              url: '../exerciseData/exerciseData?idCard=' + this.data.trainCardId
-
-            })
-      
-
-          }else{
-
-            wx.showModal({
-              title: '暂无就诊人，请先添加就诊人',
-              cancelText: '暂不',
-              cancelColor: '#666666',
-              confirmText: '添加',
-              confirmColor: '#576B95',
-              success(res) {
-                if (res.confirm) {
-                   wx.navigateTo({
-                url: '../addPatient/addPatient',
-  
               })
-                } else if (res.cancel) {
-                  console.log('用户点击取消')
+
+
+            } else {
+
+              wx.showModal({
+                title: '暂无就诊人以及未绑定设备用户',
+                cancelText: '暂不',
+                cancelColor: '#666666',
+                confirmText: '添加',
+                confirmColor: '#576B95',
+                success(res) {
+                  if (res.confirm) {
+                    wx.navigateTo({
+                      url: '../addPatient/addPatient',
+
+                    })
+                  } else if (res.cancel) {
+                    console.log('用户点击取消')
+                  }
                 }
-              }
-            })
+              })
+            }
+
+
+
+
+          } else {
+
+
+            if (patientList.length == 1) {
+              console.log(patientList[0].idCard)
+
+              wx.navigateTo({
+                url: '../exerciseData/exerciseData?idCard=' + patientList[0].idCard + '&phone=' + patientList[0].phone,
+
+              })
+
+
+
+            } else {
+              wx.navigateTo({
+                url: '../selectPatient/selectPatient',
+
+              })
+            }
           }
-  
-
-
 
         } else {
 
-
-          if (patientList.length == 1) {
-            console.log(patientList[0].idCard)
-
-            wx.navigateTo({
-              url: '../exerciseData/exerciseData?idCard=' + patientList[0].idCard+'&phone=' + patientList[0].phone,
-
-            })
-
-          
-
-          } else {
-            wx.navigateTo({
-              url: '../selectPatient/selectPatient',
-
-            })
-          }
+          wx.showToast({
+            title: '获取就诊人失败',
+            icon: 'none'
+          })
         }
 
-      } else{
-
-        wx.showToast({
-          title: '暂无就诊人无法查看锻炼数据',
-          icon: 'none'
-        })
-      }
       } else if (res.code == 1) {
         wx.showToast({
           title: res.msg,
@@ -302,18 +273,9 @@ Page({
         })
       }
 
-     
+
     })
 
-
-
-  }else{
-
-    wx.showToast({
-      title: '暂无就诊人无法查看锻炼数据',
-      icon: 'none'
-    })
-  }
   },
   toPage(e) {
     let url = e.currentTarget.dataset.url
@@ -384,39 +346,39 @@ Page({
 
 
       if (res.code == 0) {
-        
+
         console.log(res.data)
         this.setData({
           info: res.data
         })
-  
-  
+
+
         this.getOrderNum();
         this.getRetrieveOrder();
         this.getByXtUserId();
 
-        
-        } else if (res.code == 1) {
-          wx.showToast({
-            title: res.msg,
-            icon: 'none'
-          })
-        } else if (res.code == 401) {
-          wx.showToast({
-            title: '账号过期',
-            icon: 'none'
-          })
-        } else if (res.code == 500) {
-          wx.showToast({
-            title: '服务器出现异常',
-            icon: 'none'
-          })
-        } else {
-          wx.showToast({
-            title: '获取用户信息失败',
-            icon: 'none'
-          })
-        }
+
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '获取用户信息失败',
+          icon: 'none'
+        })
+      }
 
     })
   },
@@ -441,7 +403,7 @@ Page({
 
 
       if (res.code == 0) {
-        
+
         let orderStatus = this.data.orderStatus;
         orderStatus[0].num = res.data.pendingPayment;
         orderStatus[1].num = res.data.pendingDelivery;
@@ -450,27 +412,27 @@ Page({
         this.setData({
           orderStatus: orderStatus
         })
-        } else if (res.code == 1) {
-          wx.showToast({
-            title: res.msg,
-            icon: 'none'
-          })
-        } else if (res.code == 401) {
-          wx.showToast({
-            title: '账号过期',
-            icon: 'none'
-          })
-        } else if (res.code == 500) {
-          wx.showToast({
-            title: '服务器出现异常',
-            icon: 'none'
-          })
-        } else {
-          wx.showToast({
-            title: '获取数据失败',
-            icon: 'none'
-          })
-        }
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '获取数据失败',
+          icon: 'none'
+        })
+      }
 
 
 
@@ -489,7 +451,7 @@ Page({
 
 
 
-      
+
 
       if (res.code == 0) {
         let retrieveOrderStatus = this.data.retrieveOrderStatus;
@@ -500,27 +462,27 @@ Page({
         this.setData({
           retrieveOrderStatus: retrieveOrderStatus
         })
-        } else if (res.code == 1) {
-          wx.showToast({
-            title: res.msg,
-            icon: 'none'
-          })
-        } else if (res.code == 401) {
-          wx.showToast({
-            title: '账号过期',
-            icon: 'none'
-          })
-        } else if (res.code == 500) {
-          wx.showToast({
-            title: '服务器出现异常',
-            icon: 'none'
-          })
-        } else {
-          wx.showToast({
-            title: '获取数据失败',
-            icon: 'none'
-          })
-        }
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '获取数据失败',
+          icon: 'none'
+        })
+      }
 
       // console.log(res.data)
       // private int pendingPayment;//待收货

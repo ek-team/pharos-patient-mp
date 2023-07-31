@@ -591,17 +591,6 @@ Page({
             id: orderId
           }, true).then(res => {
 
-
-
-
-
-
-
-
-
-
-
-
             if (res.code == 0) {
               that.data.page.pageNum = 1
               that.setData({

@@ -324,6 +324,8 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
+
+  
     // let deliveryAddress=this.data.myAddress.city+' '+this.data.myAddress.province+' '+this.data.myAddress.area+' '+this.data.myAddress.address
     let albumPics = ''
     this.data.pictureList.map(item => {
@@ -340,18 +342,10 @@ Page({
 
     if (!this.data.weight) {
 
-
-
       this.setData({
-
         weight: 10.5
       })
 
-      // wx.showToast({
-      //     title: '请输入物品重量',
-      //     icon:'none',
-      //   })
-      //   return
     }
     if (!this.data.uploadExpressIndex) {
       wx.showToast({
@@ -367,14 +361,6 @@ Page({
       })
       return
     }
-
-    // else if(!this.data.deliverySn){
-    //     wx.showToast({
-    //         title: '请输入单号',
-    //         icon:'none',
-    //       })
-    //       return
-    // }
 
     if (!this.data.myAddress.addresseeName) {
       wx.showToast({
@@ -433,12 +419,8 @@ Page({
       dayType: this.data.dateList[this.data.dateIndex],
     }
 
-
-
-    // console.log('提交的数据',form)
-    // return
     http('retrieveOrder/xiadan', 'post', '', form).then(res => {
-      // console.log('提交了',res)
+     
       wx.hideLoading()
 
 
