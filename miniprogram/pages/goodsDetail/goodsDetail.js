@@ -11,7 +11,7 @@ Page({
     topSwiperIndex: 0,
     topSwiper: [], //轮播图
     modal: false, //弹出框显示或者隐藏
-    id: 34, //产品id
+    id: 10000000, //产品id
     token: '', //token
     name: '', //服务包名称
     showName: '', //服务包显示名称
@@ -50,18 +50,26 @@ Page({
     showIntroduction: false,
     toView: null,
     status: 0, //默认服务包启用
+
+    isTrigger: true,
+    isConnected: true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
     this.setData({
       id: options.id,
       token: options.token,
     })
+
+
+    wx.setStorageSync('servucePackageId', options.id)
     if (options.token) {
       wx.setStorageSync('token', options.token)
+
     }
   },
 
@@ -163,6 +171,27 @@ Page({
     //   }
     // })
   },
+
+
+
+  //   下拉刷新
+  pullRefresher() {
+
+    var that = this;
+    that.onShow()
+
+
+    setTimeout(() => {
+      that.setData({
+        isTrigger: false
+      })
+    }, 500)
+  },
+
+  getMoreOrder() {
+
+
+  },
   // 获取用户信息
   getUserInfo() {
 
@@ -240,13 +269,13 @@ Page({
   //选择产品规格
   async selectOnechooseSale(saleSpecItem) {
 
-  
+
     let saleSpecId = saleSpecItem.saleSpecId;
     let id = saleSpecItem.id;
     let remark = saleSpecItem.remark;
     let saleSpec = this.data.saleSpec;
 
- 
+
 
     let canCheckSpec = [];
     let ids = [];
@@ -258,7 +287,7 @@ Page({
 
         if (item.id == saleSpecId) {
           if (items.id == id) {
-          
+
             items.checked = true
           }
         }
@@ -314,6 +343,12 @@ Page({
 
   // 获取产品详情
   getDetailById() {
+
+
+    if (this.data.id == 10000000) {
+      this.data.id = wx.getStorageSync('servucePackageId')
+    }
+
     http('servicePack/getById', 'get', '', {
       id: this.data.id
     }).then(res => {
@@ -323,115 +358,115 @@ Page({
       if (res.code == 0) {
 
 
-      // console.log(res.data)
-      let productSpec = res.data.productSpec;
-      let saleSpec = res.data.saleSpec;
-      let chooseBuy = res.data.buy == 3 ? '1' : res.data.buy;
-      let rentDays = []
-      let rentList = res.data.saleSpec
-      let buyDays = []
-      let buyList = res.data.buySaleSpec
-      let noticeText = '';
-      let price = 0
-      // 产品数据处理
-      // productSpec.map((item, index) => {
-      //   item.productSpecDesc.map((items, indexs) => {
-      //     if (indexs == 0) {
-      //       items.checked = true;
-      //     } else {
-      //       items.checked = false
-      //     }
-      //   })
-      // })
-      // 服务周期处理
-      // res.data.buySaleSpec.map((item,index)=>{
-      //   buyDays.push(item.day)
-      //   if(index == 0){
-      //     noticeText=item.remark
-      //     price=item.rent
-      //   }
-      // })
-      // 租期数据处理
-      res.data.saleSpec.map((item, index) => {
-        rentDays.push(item.day)
-        if (index == 0) {
-          noticeText = item.remark
-          price = item.rent
+        // console.log(res.data)
+        let productSpec = res.data.productSpec;
+        let saleSpec = res.data.saleSpec;
+        let chooseBuy = res.data.buy == 3 ? '1' : res.data.buy;
+        let rentDays = []
+        let rentList = res.data.saleSpec
+        let buyDays = []
+        let buyList = res.data.buySaleSpec
+        let noticeText = '';
+        let price = 0
+        // 产品数据处理
+        // productSpec.map((item, index) => {
+        //   item.productSpecDesc.map((items, indexs) => {
+        //     if (indexs == 0) {
+        //       items.checked = true;
+        //     } else {
+        //       items.checked = false
+        //     }
+        //   })
+        // })
+        // 服务周期处理
+        // res.data.buySaleSpec.map((item,index)=>{
+        //   buyDays.push(item.day)
+        //   if(index == 0){
+        //     noticeText=item.remark
+        //     price=item.rent
+        //   }
+        // })
+        // 租期数据处理
+        res.data.saleSpec.map((item, index) => {
+          rentDays.push(item.day)
+          if (index == 0) {
+            noticeText = item.remark
+            price = item.rent
+          }
+
+        })
+
+        if (res.data.servicePackDetails) {
+          res.data.servicePackDetails.map((item, index, arr) => {
+            item.content = item.content.replace(/\<img/g, '<img style="max-width:100%;height:auto;margin:10px 0;"')
+          })
         }
 
-      })
+        this.setData({
+          showIntroduction: res.data.showIntroduction == 1 ? true : false, //服务装修简介是否显示
+          preSaleMobile: res.data.preSaleMobile,
+          preSaleText: res.data.preSaleText,
+          name: res.data.name,
+          showName: res.data.showName,
+          topSwiper: chooseBuy == 1 ? res.data.servicePackProductPicsBuy : res.data.servicePackProductPicsBuy, //1租用，2购买
+          servicePackDetails: res.data.servicePackDetails,
+          productSpec: productSpec,
+          saleSpec: saleSpec,
+          specDetailList: res.data.saleSpecGroupList, //规格组合详情项
+          buy: res.data.buy,
+          chooseBuy: chooseBuy,
+          rentDays: rentDays,
+          buyDays: buyDays,
+          servicePackageInfos: res.data.servicePackageInfos,
+          protocolId: res.data.protocolId,
+          protocolType: res.data.protocolType,
+          introductionsImage: res.data.introductionsImage,
+          introductionsContent: res.data.introductionsContent,
+          noticeText: noticeText,
+          price: price, //显示价格
+          rentList: rentList, //周期列表规格
+          buyList: buyList,
+          buyPicList: res.data.servicePackProductPicsBuy, //购买的图片列表
+          renPicList: res.data.servicePackProductPics, //租用图片列表
 
-      if (res.data.servicePackDetails) {
-        res.data.servicePackDetails.map((item, index, arr) => {
-          item.content = item.content.replace(/\<img/g, '<img style="max-width:100%;height:auto;margin:10px 0;"')
+          status: res.data.status, //服务包状态
+        })
+        wx.setStorageSync('deptId', res.data.deptId)
+
+        console.log('规格组', this.data.saleSpec)
+        // 销售数据处理
+
+
+
+
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+        this.setData({
+          disableClick: false,
+        })
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '获取订单详情失败',
+          icon: 'none'
         })
       }
 
-      this.setData({
-        showIntroduction: res.data.showIntroduction == 1 ? true : false, //服务装修简介是否显示
-        preSaleMobile: res.data.preSaleMobile,
-        preSaleText: res.data.preSaleText,
-        name: res.data.name,
-        showName: res.data.showName,
-        topSwiper: chooseBuy == 1 ? res.data.servicePackProductPicsBuy : res.data.servicePackProductPicsBuy, //1租用，2购买
-        servicePackDetails: res.data.servicePackDetails,
-        productSpec: productSpec,
-        saleSpec: saleSpec,
-        specDetailList: res.data.saleSpecGroupList, //规格组合详情项
-        buy: res.data.buy,
-        chooseBuy: chooseBuy,
-        rentDays: rentDays,
-        buyDays: buyDays,
-        servicePackageInfos: res.data.servicePackageInfos,
-        protocolId: res.data.protocolId,
-        protocolType: res.data.protocolType,
-        introductionsImage: res.data.introductionsImage,
-        introductionsContent: res.data.introductionsContent,
-        noticeText: noticeText,
-        price: price, //显示价格
-        rentList: rentList, //周期列表规格
-        buyList: buyList,
-        buyPicList: res.data.servicePackProductPicsBuy, //购买的图片列表
-        renPicList: res.data.servicePackProductPics, //租用图片列表
-
-        status: res.data.status, //服务包状态
-      })
-      wx.setStorageSync('deptId', res.data.deptId)
-
-      console.log('规格组', this.data.saleSpec)
-      // 销售数据处理
-
-
-           
-        
-        } else if (res.code == 1) {
-          wx.showToast({
-            title: res.msg,
-            icon: 'none'
-          })
-          this.setData({
-            disableClick:false,
-          })
-        } else if (res.code == 401) {
-          wx.showToast({
-            title: '账号过期',
-            icon: 'none'
-          })
-        } else if (res.code == 500) {
-          wx.showToast({
-            title: '服务器出现异常',
-            icon: 'none'
-          })
-        } else {
-          wx.showToast({
-            title: '获取订单详情失败',
-            icon: 'none'
-          })
-        }
 
 
 
-      
 
 
 
@@ -459,7 +494,7 @@ Page({
       scrollHeight: boxHeight
     });
 
-    
+
 
   },
   touchMove() {
@@ -477,6 +512,28 @@ Page({
   booking() {
 
 
+
+
+
+    wx.onNetworkStatusChange((result) => {
+
+
+      
+      this.setData({
+        isConnected: result.isConnected
+      })
+    })
+  
+  
+
+    // if (!this.data.isConnected) {
+    //   wx.showToast({
+    //     title: '当前网络异常，请检查网络',
+    //     icon: 'none'
+    //   })
+
+    //   return
+    // }
 
     if (this.data.status != 0) {
       wx.showToast({
@@ -526,7 +583,7 @@ Page({
       url: '../my/my',
     })
 
-    
+
   },
   // 打客服电话
   kefu() {
@@ -671,42 +728,42 @@ Page({
     }).then(res => {
 
 
-      
+
       if (res.code == 0) {
 
 
         this.setData({
           checkSpecListInfo: res.data
         })
-           
-        
-        } else if (res.code == 1) {
-          wx.showToast({
-            title: res.msg,
-            icon: 'none'
-          })
-        } else if (res.code == 401) {
-          wx.showToast({
-            title: '账号过期',
-            icon: 'none'
-          })
-        } else if (res.code == 500) {
-          wx.showToast({
-            title: '服务器出现异常',
-            icon: 'none'
-          })
-        } else {
-          wx.showToast({
-            title: '获取价格失败',
-            icon: 'none'
-          })
-        }
+
+
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '获取价格失败',
+          icon: 'none'
+        })
+      }
 
 
 
 
       // status为1此规格禁用，0为启用
-   
+
       console.log('查询价格', res.data)
     })
   },
@@ -792,7 +849,7 @@ Page({
     confirmInfo.protocolType = this.data.protocolType;
     confirmInfo.rentDay = this.data.rentDays[this.data.selectedRentIndex];
     confirmInfo.serviceCount = this.data.checkSpecListInfo.serviceCount;
-    confirmInfo.showName=this.data.showName;
+    confirmInfo.showName = this.data.showName;
 
     wx.setStorageSync('orderDetail', confirmInfo)
     wx.navigateTo({

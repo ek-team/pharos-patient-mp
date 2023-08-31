@@ -1,59 +1,61 @@
-<view class="container" >
-
-  <scroll-view scroll-y="{{modal?false:true}}" 	bindscroll="pageScroll" scroll-into-view="{{ toView }}"  style="height: {{scrollHeight+'rpx'}};" >
-  <!-- 轮播图 -->
-  <view class="swiper medicineDetail"> 
-    <view class="page-body">
-      <view class="page-section page-section-spacing swiper">
-        <swiper indicator-dots="true" autoplay="true" interval="3000" duration="1000" indicator-active-color='#F25F5F'>
-          <block wx:for="{{topSwiper}}" wx:key="index">
-            <swiper-item>
-              <view class="swiper-item swiper-image">
-                <image src="{{item.image}}" mode="aspectFit" class="slideImage" lazy-load='true' bindtap="moreImage" data-index="{{index}}"></image>
-              </view>
-            </swiper-item>
-          </block>
-        </swiper>
-      </view>
-    </view>
-  </view>
-  <!-- 标题 -->
-  <view class="goodsTitle">{{showName}}
-  </view>
-  <!-- class="{{modal?'colseScroll':'showScroll'}}" -->
+<view class="container">
 
 
-  <!-- 提供服务 -->
-  <view class="goodsService" bindtap="watch" wx:if="{{introductionsImage!=''&&showIntroduction}}">
-    <image class="introductionsImage" src="{{introductionsImage}}" mode="widthFix"></image>
-  </view>
-  <!-- 商品详情 -->
-  <view  class="detailView">
-    <view class="detailTitle" id="nodeId" >
-      <view class="detailTitleItem" wx:for="{{servicePackDetails}}" wx:key="index" bindtap="chooseCheck" data-index='{{index}}'>
-        <text class="detailName">{{item.title}}</text>
-        <view class="bluecheck" wx:if="{{servicePackDetailscheck==index}}"></view>
+
+  <scroll-view refresher-enabled="true" bindrefresherrefresh="pullRefresher" refresher-triggered="{{isTrigger}}" scroll-y="{{modal?false:true}}" bindscroll="pageScroll" scroll-into-view="{{ toView }}" style="height: {{scrollHeight+'rpx'}};">
+    <!-- 轮播图 -->
+    <view class="swiper medicineDetail">
+      <view class="page-body">
+        <view class="page-section page-section-spacing swiper">
+          <swiper indicator-dots="true" autoplay="true" interval="3000" duration="1000" indicator-active-color='#F25F5F'>
+            <block wx:for="{{topSwiper}}" wx:key="index">
+              <swiper-item>
+                <view class="swiper-item swiper-image">
+                  <image src="{{item.image}}" mode="aspectFit" class="slideImage" lazy-load='true' bindtap="moreImage" data-index="{{index}}"></image>
+                </view>
+              </swiper-item>
+            </block>
+          </swiper>
+        </view>
       </view>
     </view>
-  </view>
-  <view wx:if="{{toTop}}" class="detailView detailTitleTop">
-    <view class="detailTitle" >
-      <view class="detailTitleItem" wx:for="{{servicePackDetails}}" wx:key="index" bindtap="chooseCheck" data-index='{{index}}'>
-        <text class="detailName">{{item.title}}</text>
-        <view class="bluecheck" wx:if="{{servicePackDetailscheck==index}}"></view>
+    <!-- 标题 -->
+    <view class="goodsTitle">{{showName}}
+    </view>
+    <!-- class="{{modal?'colseScroll':'showScroll'}}" -->
+
+
+    <!-- 提供服务 -->
+    <view class="goodsService" bindtap="watch" wx:if="{{introductionsImage!=''&&showIntroduction}}">
+      <image class="introductionsImage" src="{{introductionsImage}}" mode="widthFix"></image>
+    </view>
+    <!-- 商品详情 -->
+    <view class="detailView">
+      <view class="detailTitle" id="nodeId">
+        <view class="detailTitleItem" wx:for="{{servicePackDetails}}" wx:key="index" bindtap="chooseCheck" data-index='{{index}}'>
+          <text class="detailName">{{item.title}}</text>
+          <view class="bluecheck" wx:if="{{servicePackDetailscheck==index}}"></view>
+        </view>
       </view>
     </view>
-  </view>
-  <view class="detailInfo">
-    <!-- wx:if="{{servicePackDetailscheck==index}}" -->
-    <view class="detailInfoItem" wx:for="{{servicePackDetails}}" id="{{'richId-'+index}}" wx:key="index" >   
-      <rich-text nodes="{{item.content}}" ></rich-text>
+    <view wx:if="{{toTop}}" class="detailView detailTitleTop">
+      <view class="detailTitle">
+        <view class="detailTitleItem" wx:for="{{servicePackDetails}}" wx:key="index" bindtap="chooseCheck" data-index='{{index}}'>
+          <text class="detailName">{{item.title}}</text>
+          <view class="bluecheck" wx:if="{{servicePackDetailscheck==index}}"></view>
+        </view>
+      </view>
     </view>
-  </view>
- 
+    <view class="detailInfo">
+      <!-- wx:if="{{servicePackDetailscheck==index}}" -->
+      <view class="detailInfoItem" wx:for="{{servicePackDetails}}" id="{{'richId-'+index}}" wx:key="index">
+        <rich-text nodes="{{item.content}}"></rich-text>
+      </view>
+    </view>
+
   </scroll-view>
-   <!-- 立即预定 -->
-   <view class="bottomBox">
+  <!-- 立即预定 -->
+  <view class="bottomBox">
     <!-- <view class="icon" bindtap="toHome">
       <image src='../../images/btn_hoom.png' class="bottomIcon"></image>
       <text class="iconText">首页</text>
@@ -65,20 +67,20 @@
     <button class="{{status==0?'reserve':'reserveGray'}}" bindtap="booking">{{status==0?'立即预定':'已售完'}}</button>
   </view>
   <!-- 弹框 -->
-  <van-popup show="{{modal}}" position="bottom"  closeable bind:close="cancelBook"  custom-style="height: 1100rpx;">
+  <van-popup show="{{modal}}" position="bottom" closeable bind:close="cancelBook" custom-style="height: 1100rpx;">
     <view class="modal">
       <view class="modalTop">
         <image class="moadlPic" src="{{checkSpecListInfo.urlImage?checkSpecListInfo.urlImage:topSwiper[0].image}}" bindtap="viewImg"></image>
         <view class="modalTitle">{{showName}}
           <view class="selectedText">
             <view class="choosePrice">￥{{checkSpecListInfo.price?checkSpecListInfo.price:price}} </view>
-            <view class="cheooseRemark" >{{checkSpecListInfo.remark?checkSpecListInfo.remark:noticeText}}</view>
+            <view class="cheooseRemark">{{checkSpecListInfo.remark?checkSpecListInfo.remark:noticeText}}</view>
           </view>
         </view>
       </view>
       <scroll-view scroll-y="true" style="height: 640rpx;">
         <!-- 购买或者租赁 -->
-         <!-- <view class="modalSubtitle">租赁/购买</view> -->
+        <!-- <view class="modalSubtitle">租赁/购买</view> -->
         <!-- <view>
           <view class="modalChoose">
             <view class="{{chooseBuy==1?'chooseViewCheck':''}} chooseView" wx:if="{{buy==1||buy==3}}" bindtap="chooseHas" data-buy="1">租赁</view>
@@ -109,11 +111,11 @@
         <!-- saleSpec 规格选择 -->
         <view wx:for="{{saleSpec}}" wx:key='index'>
           <!-- {{item.name=='服务周期'?'服务周期（天）':item.name}} -->
-          <view class="modalSubtitle"  wx:if="{{item.name!='模式'||item.saleSpecDescs.length!=1}}">
-        {{item.name=='服务周期'?'服务周期（天）':item.name}} </view>   
+          <view class="modalSubtitle" wx:if="{{item.name!='模式'||item.saleSpecDescs.length!=1}}">
+            {{item.name=='服务周期'?'服务周期（天）':item.name}} </view>
           <view class="modalChoose">
-            <view wx:for="{{item.saleSpecDescs}}" wx:for-index="id" wx:for-item="items" wx:key="id" class="{{items.checked?'chooseViewCheck':items.disabled?'disabledCheck':'chooseView'}} chooseView" bindtap="chooseSale" data-saleSpecId="{{items.saleSpecId}}" data-id="{{items.id}}" data-desc="{{items.remark}}"   wx:if="{{item.name!='模式'||item.saleSpecDescs.length!=1}}" >
-            <span>{{items.name}}</span>  
+            <view wx:for="{{item.saleSpecDescs}}" wx:for-index="id" wx:for-item="items" wx:key="id" class="{{items.checked?'chooseViewCheck':items.disabled?'disabledCheck':'chooseView'}} chooseView" bindtap="chooseSale" data-saleSpecId="{{items.saleSpecId}}" data-id="{{items.id}}" data-desc="{{items.remark}}" wx:if="{{item.name!='模式'||item.saleSpecDescs.length!=1}}">
+              <span>{{items.name}}</span>
             </view>
           </view>
         </view>

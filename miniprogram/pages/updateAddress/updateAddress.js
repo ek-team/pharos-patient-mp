@@ -96,7 +96,25 @@ Page({
       })
     } else {
 
-      this.updateAddress()
+
+
+      wx.showModal({
+        title: "修改地址【当前修改仅针对当前地址修改，如有订单使用原地址，请联系客服】",
+        cancelText: '取消',
+        cancelColor: '#666666',
+        confirmText: '确定',
+        confirmColor: '#576B95',
+        success(res) {
+          if (res.confirm) {
+            this.updateAddress()
+          } else if (res.cancel) {
+            console.log('取消')
+          }
+        }
+      })
+      
+
+
     }
   },
   // 修改收获地址
@@ -222,6 +240,17 @@ Page({
   },
   // 删除收货地址
   delAddress() {
+
+    wx.showModal({
+      title: "删除地址后该地址将不再保存",
+      cancelText: '取消',
+      cancelColor: '#666666',
+      confirmText: '确定',
+      confirmColor: '#576B95',
+      success(res) {
+        if (res.confirm) {
+        
+
     http('address/deleteAddress', 'get', '', {
       id: this.data.id
     }).then(res => {
@@ -261,6 +290,16 @@ Page({
 
 
     })
+        } else if (res.cancel) {
+          console.log('取消')
+        }
+      }
+    })
+    
+
+
+
+
   },
   /**
    * 生命周期函数--监听页面隐藏

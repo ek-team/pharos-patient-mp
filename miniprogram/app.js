@@ -82,11 +82,13 @@ App({
         id: wx.getStorageSync('id'),
         nickname: wx.getStorageSync('nickname')
       }
+
+    
       let author = {
         msgType: "REQUEST_AUTH",  //
         userInfo: JSON.stringify(userInfoData)			//发送的内容
       }
-      console.log('认证参数',author)
+      console.log('认证参数---',author)
       this.sendMessage(author)
 
     })

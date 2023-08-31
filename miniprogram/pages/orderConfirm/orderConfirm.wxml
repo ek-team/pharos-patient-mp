@@ -1,24 +1,34 @@
 <!--pages/orderConfirm/orderConfirm.wxml-->
+
 <view>
+
+
+
+
+
+  <scroll-view scroll-y="true" refresher-enabled="true" bindrefresherrefresh="pullRefresher" refresher-triggered="{{isTrigger}}" bindscrolltolower="getMoreOrder" style='height:{{boxHeight}}px;'>
+
+
     <view class="orderContainer">
-        <view class="orderItem">
-            <!-- 订单信息 -->
-            <view class="orderInfoContainer">
-                <view class="medecineItem">
-                    <view class="imgBox">
-                        <image src="{{orderDetail.img}}" class="goodsPictrue"></image>
-                    </view>
-                    <view class="rightInfoBox">
-                        <view class="infoItem">
-                            <view class="goodsName">
-                                {{orderDetail.showName}}
-                                <!-- <view class="goodsNum">x1</view> -->
-                            </view>
-                            <view>{{orderDetail.text}}</view>
-                        </view>
-                    </view>
+      <view class="orderItem">
+
+        <!-- 订单信息 -->
+        <view class="orderInfoContainer">
+          <view class="medecineItem">
+            <view class="imgBox">
+              <image src="{{orderDetail.img}}" class="goodsPictrue"></image>
+            </view>
+            <view class="rightInfoBox">
+              <view class="infoItem">
+                <view class="goodsName">
+                  {{orderDetail.showName}}
+                  <!-- <view class="goodsNum">x1</view> -->
                 </view>
-                <!-- <view class="payContainer" wx:if="{{orderDetail. orderType==1}}">
+                <view>{{orderDetail.text}}</view>
+              </view>
+            </view>
+          </view>
+          <!-- <view class="payContainer" wx:if="{{orderDetail. orderType==1}}">
                     <view class="payTitle">租金</view>
                     <view class="payNum">￥{{allMoney.rent}}/天</view>
                 </view>
@@ -26,46 +36,46 @@
                     <view class="payTitle">押金</view>
                     <view class="payNum">￥{{allMoney.deposit}}</view>
                 </view> -->
-                <view class="payContainer" wx:if="{{allMoney.recovery==0&&allMoney.recoveryPrice}}">
-                    <view class="payTitle">可回收</view>
-                    <view class="payNum">￥{{allMoney.recoveryPrice}}</view>
-                </view>
-            </view>
+          <view class="payContainer" wx:if="{{allMoney.recovery==0&&allMoney.recoveryPrice}}">
+            <view class="payTitle">可回收</view>
+            <view class="payNum">￥{{allMoney.recoveryPrice}}</view>
+          </view>
+        </view>
 
-        </view>
-        <!-- 收货人信息 -->
-        <view class="receiptContainer">
-            <view class="receiptTitle">收货信息</view>
-            <view class="receiptUserInfo" bindtap="chooseAddress">
-                <view class="infoLeft">收货人</view>
-                <view class="infoRight" >
-                    <view class="info">
-                        <text class="infoName"> {{address.addresseeName}}</text>{{address.addresseePhone}}
-                    </view>
-                    <image class="rightIcon" src="../../images/right.png"></image>
-                </view>
+      </view>
+      <!-- 收货人信息 -->
+      <view class="receiptContainer">
+        <view class="receiptTitle">收货信息</view>
+        <view class="receiptUserInfo" bindtap="chooseAddress">
+          <view class="infoLeft">收货人</view>
+          <view class="infoRight">
+            <view class="info">
+              <text class="infoName"> {{address.addresseeName}}</text>{{address.addresseePhone}}
             </view>
-            <view class="receiptUserInfo" bindtap="chooseAddress">
-                <view class="infoLeft">收货地址</view>
-                <view class="infoRight">
-                    <view class="info">
-                        {{address.province}} {{address.city}} {{address.area}} {{address.address}}
-                    </view>
-                </view>
-            </view>
+            <image class="rightIcon" src="../../images/right.png"></image>
+          </view>
         </view>
-        <!-- 发货时间 -->
-        <view class="receiptContainer">
-            <view class="checkDeliverTime" bindtap="chooseDate">
-                <view class="leftTitle">期望发货时间</view>
-                <view class="checkTimeOtion" >
-                    <text class="remindText">{{chooseDate?chooseDate:'请选择'}}</text>
-                    <image src="../../images/right.png" class="rightIcon"></image>
-                </view>
+        <view class="receiptUserInfo" bindtap="chooseAddress">
+          <view class="infoLeft">收货地址</view>
+          <view class="infoRight">
+            <view class="info">
+              {{address.province}} {{address.city}} {{address.area}} {{address.address}}
             </view>
+          </view>
         </view>
-        <!-- 手术时间 -->
-        <!-- <view class="receiptContainer">
+      </view>
+      <!-- 发货时间 -->
+      <view class="receiptContainer">
+        <view class="checkDeliverTime" bindtap="chooseDate">
+          <view class="leftTitle">期望发货时间</view>
+          <view class="checkTimeOtion">
+            <text class="remindText">{{chooseDate?chooseDate:'请选择'}}</text>
+            <image src="../../images/right.png" class="rightIcon"></image>
+          </view>
+        </view>
+      </view>
+      <!-- 手术时间 -->
+      <!-- <view class="receiptContainer">
             <view class="checkDeliverTime" bindtap="chooseOperateDate">
                 <view class="leftTitle">手术时间</view>
                 <view class="checkTimeOtion">
@@ -74,73 +84,84 @@
                 </view>
             </view>
         </view> -->
-        <!-- 支付方式 -->
-        <view class="receiptContainer">
-            <view class="methodsItem" bindtap="checkPayMethods" data-type="self">
-                <view class="payLeft">
-                    <image src="../../images/icon_wechat@2x.png" class="payIcon"></image>
-                    <text class="payMethodsText">微信支付</text>
-                    <image src="../../images/icon_tuijian@2x.png" class="payIcon"></image>
-                </view>
-                <image src="../../images/btn_sel@2x.png" class="checkImg" wx:if="{{payMethods=='self'}}"></image>
-                <view class="noCheck" wx:else></view>
-
-            </view>
-            <view class="methodsItem" bindtap="checkPayMethods" data-type="help">
-                <view class="payLeft">
-                    <image src="../../images/icon_pay@2x.png" class="payIcon"></image>
-                    <text class="payMethodsText">微信朋友代付</text>
-                </view>
-                <view class="noCheck" wx:if="{{payMethods=='alipay'||payMethods=='self'}}"></view>
-                <image src="../../images/btn_sel@2x.png" class="checkImg" wx:if="{{payMethods=='help'}}"></image>
-            </view>
-
-            <view class="methodsItem" bindtap="checkPayMethods" data-type="alipay">
-                <view class="payLeft">
-                    <image src="../../images/icon_alipay@2x.png" class="payIcon"></image>
-                    <text class="payMethodsText">支付宝支付</text>
-                </view>
-                <view class="noCheck" wx:if="{{payMethods=='help'||payMethods=='self'}}"></view>
-                <image src="../../images/btn_sel@2x.png" class="checkImg" wx:if="{{payMethods=='alipay'}}"></image>
-            </view>
+      <!-- 支付方式 -->
+      <view class="receiptContainer">
+        <view class="methodsItem" bindtap="checkPayMethods" data-type="self">
+          <view class="payLeft">
+            <image src="../../images/icon_wechat@2x.png" class="payIcon"></image>
+            <text class="payMethodsText">微信支付</text>
+            <image src="../../images/icon_tuijian@2x.png" class="payIcon"></image>
+          </view>
+          <image src="../../images/btn_sel@2x.png" class="checkImg" wx:if="{{payMethods=='self'}}"></image>
+          <view class="noCheck" wx:else></view>
 
         </view>
-        <!-- 产品协议 -->
-        <view class="receiptContainer bottomMargin">
-            <view class="methodsItem">
-                <view class="agreeText">同意<text class="agreementText" bindtap="watchProtocol">《产品协议》</text></view>
-                <image src="../../images/btn_sel@2x.png" class="checkImg" wx:if="{{agreeProtocol}}" bindtap="checkAgreeProtocol" data-agree="{{false}}"></image>
-                <view class="noCheck" bindtap="checkAgreeProtocol" data-agree="{{true}}" wx:else></view>
-            </view>
+        <view class="methodsItem" bindtap="checkPayMethods" data-type="help">
+          <view class="payLeft">
+            <image src="../../images/icon_pay@2x.png" class="payIcon"></image>
+            <text class="payMethodsText">微信朋友代付</text>
+          </view>
+          <view class="noCheck" wx:if="{{payMethods=='alipay'||payMethods=='self'}}"></view>
+          <image src="../../images/btn_sel@2x.png" class="checkImg" wx:if="{{payMethods=='help'}}"></image>
         </view>
+
+        <view class="methodsItem" bindtap="checkPayMethods" data-type="alipay">
+          <view class="payLeft">
+            <image src="../../images/icon_alipay@2x.png" class="payIcon"></image>
+            <text class="payMethodsText">支付宝支付</text>
+          </view>
+          <view class="noCheck" wx:if="{{payMethods=='help'||payMethods=='self'}}"></view>
+          <image src="../../images/btn_sel@2x.png" class="checkImg" wx:if="{{payMethods=='alipay'}}"></image>
+        </view>
+
+      </view>
+      <!-- 产品协议 -->
+      <view class="receiptContainer bottomMargin">
+        <view class="methodsItem">
+          <view class="agreeText">同意<text class="agreementText" bindtap="watchProtocol">《产品协议》</text></view>
+          <image src="../../images/btn_sel@2x.png" class="checkImg" wx:if="{{agreeProtocol}}" bindtap="checkAgreeProtocol" data-agree="{{false}}"></image>
+          <view class="noCheck" bindtap="checkAgreeProtocol" data-agree="{{true}}" wx:else></view>
+        </view>
+      </view>
+
+
+
+
     </view>
-    <view class="payOption">
-        <view class="payOptionContainer">
-            <view class="payAmount">￥{{allMoney.price}}</view>
-            <view class="{{disablePay?'disablePay':'payButton'}}" bindtap="toPay" wx:if="{{payMethods=='self'}}">立即支付</view>
-            <!-- <button open-type="share" class="sharetap" > -->
-                <view class="{{disablePay?'disablePay':'payButton'}}" bindtap="toPay" wx:if="{{payMethods=='help'}}">
-                好友代付
-                </view>
-            
-                <view class="{{disablePay?'disablePay':'payButton'}}" bindtap="toPay" wx:if="{{payMethods=='alipay'}}">支付宝支付</view>
-            <!-- </button> -->
-        </view>
+
+
+  </scroll-view>
+  <view class="payOption">
+    <view class="payOptionContainer">
+      <view class="payAmount">￥{{allMoney.price}}</view>
+      <view class="{{disablePay?'disablePay':'payButton'}}" bindtap="toPay" wx:if="{{payMethods=='self'}}">立即支付</view>
+      <!-- <button open-type="share" class="sharetap" > -->
+      <view class="{{disablePay?'disablePay':'payButton'}}" bindtap="toPay" wx:if="{{payMethods=='help'}}">
+        好友代付
+      </view>
+
+      <view class="{{disablePay?'disablePay':'payButton'}}" bindtap="toPay" wx:if="{{payMethods=='alipay'}}">支付宝支付</view>
+      <!-- </button> -->
     </view>
-    <!-- 期望发货时间 -->
-    <van-calendar show="{{showCalendar}}" show-confirm="{{ false }}" bind:confirm="onConfirm" title='期望发货时间' formatter="{{formatter}}" bind:close='closeCalendar' />
-    <!-- 协议 -->
-    <!-- height: 1100rpx; -->
-    <van-popup position='bottom' custom-style="height: 1000rpx;" bind:close="closeProrocol" show="{{showProtocol}}">
-        <view class="protocolName">{{protocoDetail.name}}</view>
-        <scroll-view scroll-y="true" class="scroll" bindscrolltolower='read'>
-            <rich-text nodes="{{protocoDetail.content}}"></rich-text>
-        </scroll-view>
-        <view class="{{hasRead?'hasReadProtocol' :''}} readProtocol " bindtap="hasRead">我已阅读并知晓相关使用协议</view>
-    </van-popup>
-    <!-- 手术时间 -->
-    <van-popup position='bottom' custom-style="height: 750rpx;" show="{{showOperatePicker}}">
-        <van-datetime-picker type="date" title='手术时间' v-model="{{operateTime}}" min-date="{{ minDate }}" max-date="{{ maxDate }}" bind:confirm='confirmOperateTime' bind:cancel='closeOperatePicker' />
-    </van-popup>
+  </view>
+  <!-- 期望发货时间 -->
+  <van-calendar show="{{showCalendar}}" show-confirm="{{ false }}" bind:confirm="onConfirm" title='期望发货时间' formatter="{{formatter}}" bind:close='closeCalendar' />
+  <!-- 协议 -->
+  <!-- height: 1100rpx; -->
+  <van-popup position='bottom' custom-style="height: 1000rpx;" bind:close="closeProrocol" show="{{showProtocol}}">
+    <view class="protocolName">{{protocoDetail.name}}</view>
+    <scroll-view scroll-y="true" class="scroll" bindscrolltolower='read'>
+      <rich-text nodes="{{protocoDetail.content}}"></rich-text>
+    </scroll-view>
+    <view class="{{hasRead?'hasReadProtocol' :''}} readProtocol " bindtap="hasRead">我已阅读并知晓相关使用协议</view>
+  </van-popup>
+  <!-- 手术时间 -->
+  <van-popup position='bottom' custom-style="height: 750rpx;" show="{{showOperatePicker}}">
+    <van-datetime-picker type="date" title='手术时间' v-model="{{operateTime}}" min-date="{{ minDate }}" max-date="{{ maxDate }}" bind:confirm='confirmOperateTime' bind:cancel='closeOperatePicker' />
+  </van-popup>
+
+
+
+
 
 </view>

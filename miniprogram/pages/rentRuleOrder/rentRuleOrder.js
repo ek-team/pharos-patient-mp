@@ -155,10 +155,6 @@ Page({
           abbreviatedRentRuleImage: res.data.abbreviatedRentRuleImage, //显示图
           status: res.data.status,
 
-
-
-
-
           showIntroduction: res.data.showIntroduction == 1 ? true : false, //服务装修简介是否显示
           preSaleMobile: res.data.preSaleMobile,
           preSaleText: res.data.preSaleText,

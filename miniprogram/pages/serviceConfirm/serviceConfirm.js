@@ -15,6 +15,8 @@ Page({
     teamDiseases: [], //病种
     diseasesPopup: false, //病种弹框
     checkedDiseases: {}, //选择的病种
+    isConnected:true,
+    isTrigger:true
   },
 
   /**
@@ -53,14 +55,68 @@ Page({
     }
 
   },
+ //   下拉刷新
+ pullRefresher() {
+
+
+  this.onShow()
+  setTimeout(() => {
+    this.setData({
+      isTrigger:false
+    })
+  }, 500)
+
+
+
+},
+
+getMoreOrder() {
+
+
+},
+
+  
   // 选择团队
   chooseTeam() {
+    wx.onNetworkStatusChange((result) => {
+      this.setData({
+        isConnected: result.isConnected
+      })
+    })
+  
+    // if (!this.data.isConnected) {
+    //   wx.showToast({
+    //     title: '当前网络异常，请检查网络',
+    //     icon: 'none'
+    //   })
+
+    //   return
+    // }
+
+
     wx.navigateTo({
       url: '../chooseServiceTeam/chooseServiceTeam',
     })
   },
   // 选择就诊人
   choosePatient() {
+
+    wx.onNetworkStatusChange((result) => {
+      this.setData({
+        isConnected: result.isConnected
+      })
+    })
+  
+    // if (!this.data.isConnected) {
+    //   wx.showToast({
+    //     title: '当前网络异常，请检查网络',
+    //     icon: 'none'
+    //   })
+
+    //   return
+    // }
+
+
     wx.navigateTo({
       url: '../choosePatient/choosePatient',
     })
@@ -152,6 +208,25 @@ Page({
         duration: 2000
       })
     } else {
+
+
+
+      wx.onNetworkStatusChange((result) => {
+        this.setData({
+          isConnected: result.isConnected
+        })
+      })
+    
+      // if (!this.data.isConnected) {
+      //   wx.showToast({
+      //     title: '当前网络异常，请检查网络',
+      //     icon: 'none'
+      //   })
+  
+      //   return
+      // }
+
+      
       wx.navigateTo({
         url: '../orderConfirm/orderConfirm',
       })

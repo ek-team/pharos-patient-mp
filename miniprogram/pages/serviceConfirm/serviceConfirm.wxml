@@ -1,61 +1,77 @@
 <!--pages/serviceConfirm/serviceConfirm.wxml-->
+
+
+
+
+
+
+
+
+
+
 <view class="container">
-  <!-- 服务框 -->
-  <view class="confirmView">
-    <!-- 服务内容 -->
-    <view class="serviceItem">
-      <image class="servicePic" src="{{orderDetail.img}}"></image>
-      <view class="serviceRight">
-        <view class="serviceName">{{orderDetail.showName}}</view>
-        <view class="serviceInfo">
-          <view>{{orderDetail.text}}</view>
-          <!-- <van-stepper value="{{ 1 }}" bind:change="onChange" /> -->
+  <scroll-view scroll-y="true" refresher-enabled="true" bindrefresherrefresh="pullRefresher" refresher-triggered="{{isTrigger}}" bindscrolltolower="getMoreOrder" style='height:{{boxHeight}}px;'>
+
+
+    <!-- 服务框 -->
+    <view class="confirmView">
+      <!-- 服务内容 -->
+      <view class="serviceItem">
+        <image class="servicePic" src="{{orderDetail.img}}"></image>
+        <view class="serviceRight">
+          <view class="serviceName">{{orderDetail.showName}}</view>
+          <view class="serviceInfo">
+            <view>{{orderDetail.text}}</view>
+            <!-- <van-stepper value="{{ 1 }}" bind:change="onChange" /> -->
+          </view>
         </view>
       </view>
     </view>
-  </view>
-  <!-- 医生指导 -->
-  <view class="doctorGuidance">
-    <view class="doctorView" wx:for="{{orderDetail.servicePackageInfos}}" wx:key="index">
-      <image class="servicePic" src="{{item.image}}"></image>
-      <view class="serviceRight">
-        <view class="serviceRightTop">
-          <view class="serviceName">{{item.name}}</view>
-          <!-- <view class="gift">赠品</view> -->
+    <!-- 医生指导 -->
+    <view class="doctorGuidance">
+      <view class="doctorView" wx:for="{{orderDetail.servicePackageInfos}}" wx:key="index">
+        <image class="servicePic" src="{{item.image}}"></image>
+        <view class="serviceRight">
+          <view class="serviceRightTop">
+            <view class="serviceName">{{item.name}}</view>
+            <!-- <view class="gift">赠品</view> -->
+          </view>
+          <view class="serviceRightBottom">
+            <view class="money"></view>
+            <view class="servicenum">x {{orderDetail.serviceCount?orderDetail.serviceCount:item.count}}</view>
+          </view>
         </view>
-        <view class="serviceRightBottom">
-          <view class="money"></view>
-          <view class="servicenum">x {{orderDetail.serviceCount?orderDetail.serviceCount:item.count}}</view>
+      </view>
+      <view class="serviceIntroduceBox">
+        <text>服务介绍</text>
+        <view class="serviceDetailExplain">
+          {{orderDetail.servicePackageInfos?orderDetail.servicePackageInfos[0].serviceDetail:''}}
         </view>
       </view>
-    </view>
-    <view class="serviceIntroduceBox">
-     <text>服务介绍</text>
-     <view class="serviceDetailExplain">
-      {{orderDetail.servicePackageInfos?orderDetail.servicePackageInfos[0].serviceDetail:''}}
-    </view>
-    </view>
-    
-    <!-- 选择主治医生和就诊人 -->
-    <view class="chooseTeam">
-      <view class="notice">
-        <image src="../../images/icon_tishi.png" class="tishi"></image>
-        医生服务需要先行确定服务团队及就诊人
-      </view>
-      <view class="chooseView" bindtap="chooseTeam">
-        <view class="chooseTitle">主治医生</view>
-        <view class="choosePlaceholder">{{doctorTeam.doctorTeamName?doctorTeam.doctorTeamName:'请选择您的医生服务团队 >'}}</view>
-      </view>
-      <!-- <view class="chooseView" bindtap="chooseDisease">
+
+      <!-- 选择主治医生和就诊人 -->
+      <view class="chooseTeam">
+        <view class="notice">
+          <image src="../../images/icon_tishi.png" class="tishi"></image>
+          医生服务需要先行确定服务团队及就诊人
+        </view>
+        <view class="chooseView" bindtap="chooseTeam">
+          <view class="chooseTitle">主治医生</view>
+          <view class="choosePlaceholder">{{doctorTeam.doctorTeamName?doctorTeam.doctorTeamName:'请选择您的医生服务团队 >'}}</view>
+        </view>
+        <!-- <view class="chooseView" bindtap="chooseDisease">
         <view class="chooseTitle">病种</view>
         <view class="choosePlaceholder">{{checkedDiseases.name?checkedDiseases.name:'请选择病种 >'}}</view>
       </view> -->
-      <view class="chooseView" bindtap="choosePatient">
-        <view class="chooseTitle">就诊人</view>
-        <view class="choosePlaceholder">{{patient.patientName?patient.patientName:'请选择就诊人 >'}}</view>
+        <view class="chooseView" bindtap="choosePatient">
+          <view class="chooseTitle">就诊人</view>
+          <view class="choosePlaceholder">{{patient.patientName?patient.patientName:'请选择就诊人 >'}}</view>
+        </view>
       </view>
+
+
     </view>
-  </view>
+  </scroll-view>
   <!-- 下一步 -->
   <view class="nextView">
     <button class="confirm" bindtap="nextStep">下一步</button>

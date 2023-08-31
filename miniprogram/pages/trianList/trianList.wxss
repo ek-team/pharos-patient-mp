@@ -1,0 +1,210 @@
+/* pages/serviceDetail/serviceDetail.wxss */
+
+.orderContainer{
+  display: flex;
+  flex-direction: column;
+}
+.orderItem{
+  /* margin-top: 24rpx; */
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 24rpx 30rpx 22rpx 32rpx;
+  border-radius: 16rpx;
+}
+.orderTop{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #888888;
+  font-size: 13px;
+  line-height: 36rpx;
+  margin-bottom: 32rpx;
+}
+.orderInfoContainer{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24rpx;
+}
+.medecineItem{
+  display: flex;
+  flex-direction: row;
+}
+.imgBox{
+  margin-right: 24rpx;
+}
+.goodsPictrue{
+  width: 156rpx;
+  height: 156rpx;
+}
+.rightInfoBox{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex: 1;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #888888;
+  font-size: 13px;
+  line-height: 36rpx;
+}
+.goodsName{
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  font-size: 16px;
+  color: #333333;
+  line-height: 44rpx;
+  display: flex;
+  flex-direction: row;
+}
+.goodsNum{
+  margin-left: 20rpx;
+  font-size: 13px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #888888;
+}
+.useContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.useButton{
+  background-color: #3C9EE9;
+  color: #fff;
+  font-size: 13px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  padding: 4rpx 10rpx;
+  border-radius: 10rpx;
+}
+.infoItem{
+  margin-bottom: 8rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.rightIconBox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.rightIcon{
+  width: 36rpx;
+  height: 36rpx;
+}
+.bottomContainer{
+  display: flex;
+  flex-direction: column;
+}
+.payInfo{
+  display: flex;
+  justify-content: flex-end;
+  font-size: 15px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #333333;
+}
+.optionContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 32rpx;
+}
+.buttonItem{
+  width: 200rpx;
+  height: 72rpx;
+  border-radius: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  line-height: 42px;
+}
+.cancelBtn{
+  border: 1px solid #DBDBDB;
+  color: #585858;
+  margin-right: 32rpx;
+}
+.confirmBtn{
+  border: 1px solid #F79600;
+  color: #F79600;
+}
+/* 医生团队 */
+.doctorTeamContainer{
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 18rpx 26rpx 0rpx 26rpx;
+  margin: 24rpx 30rpx 24rpx 32rpx;
+  border-radius: 16rpx;
+}
+.teamName{
+  font-size: 16px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 6rpx;
+  line-height: 44rpx;
+}
+.remark{
+  font-size: 13px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #888888;
+  line-height: 36rpx;
+  margin-bottom: 16rpx;
+}
+.doctorContainer{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  min-height: 100rpx;
+  box-sizing: border-box;
+}
+.userContainer{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20rpx;
+  margin-right: 24rpx;
+  color:#9c9c9c;
+  font-size: 14px;
+  width: 100rpx;
+  justify-content: center;
+}
+.headImg{
+  width: 76rpx;
+  height: 76rpx;
+  border-radius: 50%;
+  background-color: #F4F4F4;
+  
+  margin-bottom: 14rpx;
+}
+.contentContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background: #fff;
+  padding:24rpx 0 20rpx 0;
+  font-size: 16px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: bold;
+  color: #333333;
+}
+.serviceTitle{
+
+}
+.borderActive{
+  height: 8rpx;
+  background: linear-gradient(270deg, #3C9EE9 0%, #6FC3F6 100%);
+}
+.textDetail{
+  padding: 20rpx;
+  margin-top:20rpx;
+  background-color: #fff;
+  min-height: 300rpx;
+}

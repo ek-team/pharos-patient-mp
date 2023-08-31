@@ -120,6 +120,7 @@ Page({
     info: {}, //用户信息
 
     trainCardId: null,
+    settingPhone: '400-900-1022'
 
   },
 
@@ -305,28 +306,48 @@ Page({
 
       if (url == '../help/help') {
 
-        var that = this;
-        wx.showModal({
-          title: '拨打客服电话' + '\n' + '400-900-1022',
-          cancelText: '暂不',
-          cancelColor: '#666666',
-          confirmText: '立即拨打',
-          confirmColor: '#576B95',
-          success(res) {
-            if (res.confirm) {
-              wx.makePhoneCall({
-                phoneNumber: '4009001022',
-                success: function () {
-                  console.log('拨打电话成功')
-                },
-                fail: function () {
-                  console.log('拨打电话失败')
-                }
-              })
-            } else if (res.cancel) {
-              console.log('用户点击取消')
+
+
+
+        http('dept/getSettingPhone', 'get', '', {
+
+          deptId: this.data.info.deptId
+
+        }).then(resp => {
+
+
+
+          let phone = this.data.settingPhone
+          if (resp.code == 0) {
+            if (resp.data != null || resp.data == undefined) {
+
+              phone=resp.data
             }
           }
+
+          wx.showModal({
+            title: '拨打客服电话' + '\n' + phone,
+            cancelText: '暂不',
+            cancelColor: '#666666',
+            confirmText: '立即拨打',
+            confirmColor: '#576B95',
+            success(res) {
+              if (res.confirm) {
+                wx.makePhoneCall({
+                  phoneNumber: phone,
+                  success: function () {
+                    console.log('拨打电话成功')
+                  },
+                  fail: function () {
+                    console.log('拨打电话失败')
+                  }
+                })
+              } else if (res.cancel) {
+                console.log('用户点击取消')
+              }
+            }
+          })
+
         })
 
 

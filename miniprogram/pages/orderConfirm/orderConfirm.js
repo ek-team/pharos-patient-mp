@@ -37,6 +37,8 @@ Page({
     disablePay: false,
     isDefault: 0, //是否默认地址 全部 -0 默认-1
     addressList: [], //地址列表
+
+    isTrigger: true,
   },
 
   /**
@@ -254,15 +256,7 @@ Page({
 
 
 
-
-
-
       if (res.code == 0) {
-
-
-
-
-
 
         //holidays:0节假日不发货,1节假日发货
         if (res.data) {
@@ -462,14 +456,11 @@ Page({
       rentDay: this.data.orderDetail.rentDay
     }).then(res => {
 
-
-
       if (res.code == 0) {
 
-
-
         this.setData({
-          allMoney: res.data
+          allMoney: res.data,
+        
         })
 
       } else if (res.code == 1) {
@@ -501,12 +492,45 @@ Page({
   },
   // 选择地址
   chooseAddress() {
+
+    wx.onNetworkStatusChange((result) => {
+      this.setData({
+        isConnected: result.isConnected
+      })
+    })
+  
+    // if (!this.data.isConnected) {
+    //   wx.showToast({
+    //     title: '当前网络异常，请检查网络',
+    //     icon: 'none'
+    //   })
+
+    //   return
+    // }
+
     wx.navigateTo({
       url: '../myAddress/myAddress?type=check' + '&id=' + this.data.address.id,
     })
   },
   // 去支付
   toPay() {
+
+
+    wx.onNetworkStatusChange((result) => {
+      this.setData({
+        isConnected: result.isConnected
+      })
+    })
+  
+    // if (!this.data.isConnected) {
+    //   wx.showToast({
+    //     title: '当前网络异常，请检查网络',
+    //     icon: 'none'
+    //   })
+
+    //   return
+    // }
+    
     if (!this.data.address.id) {
       wx.showToast({
         title: '请选择收货人信息',
@@ -542,6 +566,9 @@ Page({
         })
         return
       }
+
+
+
 
       this.getOrder();
 
@@ -829,7 +856,7 @@ Page({
           let that = this
 
 
-          
+
           that.setData({
             disablePay: false
           })
@@ -895,6 +922,22 @@ Page({
   //     }
   // },
 
+
+
+  //   下拉刷新
+  pullRefresher() {
+    this.onShow()
+    setTimeout(() => {
+      this.setData({
+        isTrigger:false
+      })
+    }, 500)
+  },
+
+  getMoreOrder() {
+
+
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

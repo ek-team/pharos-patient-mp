@@ -1,0 +1,44 @@
+<!--pages/serviceDetail/serviceDetail.wxml-->
+<view>
+    <view class="orderContainer">
+        <view class="orderItem" wx:key="id" bindtap="toChat" data-item="{{serviceInfo}}">
+            <!-- 订单信息 -->
+            <view class="orderInfoContainer">
+                <view class="medecineItem">
+                    <view class="imgBox">
+                        
+       
+                        <image src="../../images/service.png" class="goodsPictrue"></image>
+                    </view>
+                    <view class="rightInfoBox">
+                        <view class="infoItem">
+                            <view class="goodsName">
+                             
+             
+                            </view>
+                            <view></view>
+                        </view>
+                    </view>
+                    <view class="useContainer">
+                        <!-- wx:if="{{serviceInfo.useCount<=serviceInfo.totalCount&&serviceStatus==0}}" -->
+                        <view class="useButton" bindtap="goTrian">去训练</view>
+                    </view>
+                </view>
+            </view>
+
+        </view>
+    </view>
+
+    <view class="contentContainer">
+        <view class="serviceTitle" bindtap="changeNav" data-value="0">
+            蓝牙鞋训练介绍
+            <view class="borderActive" wx:if="{{activeIndex==0}}"></view>
+        </view>
+        <!-- <view bindtap="changeNav" data-value="1">
+            使用记录
+            <view class="borderActive" wx:if="{{activeIndex==1}}" ></view>
+        </view> -->
+    </view>
+    <view class="textDetail">
+  </view>
+</view>

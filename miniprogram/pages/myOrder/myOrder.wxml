@@ -4,6 +4,8 @@
     <view class="{{activeIndex==index?'activeItem':'navItem'}}" wx:key="id" data-index="{{index}}" bindtap="checkNav" wx:for="{{navList}}">{{item.title}}</view>
   </view>
   <scroll-view scroll-y="true" refresher-enabled="true" bindrefresherrefresh="pullRefresher" refresher-triggered="{{isTrigger}}" bindscrolltolower="getMoreOrder" style='height:{{boxHeight}}px;'>
+
+  
     <view class="orderContainer">
       <view class="orderItem" wx:key="id" wx:for="{{orderList}}" wx:key="id">
         <!-- 订单号、状态 -->
