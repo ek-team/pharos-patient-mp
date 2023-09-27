@@ -8,7 +8,7 @@
                     <view class="imgBox">
                         
        
-                        <image src="../../images/service.png" class="goodsPictrue"></image>
+                        <image src="../../images/icon_train.png" class="goodsPictrue"></image>
                     </view>
                     <view class="rightInfoBox">
                         <view class="infoItem">
@@ -29,16 +29,4 @@
         </view>
     </view>
 
-    <view class="contentContainer">
-        <view class="serviceTitle" bindtap="changeNav" data-value="0">
-            蓝牙鞋训练介绍
-            <view class="borderActive" wx:if="{{activeIndex==0}}"></view>
-        </view>
-        <!-- <view bindtap="changeNav" data-value="1">
-            使用记录
-            <view class="borderActive" wx:if="{{activeIndex==1}}" ></view>
-        </view> -->
-    </view>
-    <view class="textDetail">
-  </view>
 </view>

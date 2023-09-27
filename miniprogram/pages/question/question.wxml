@@ -1,0 +1,10 @@
+<!--pages/question/question.wxml-->
+<view class="menuview">
+    <view class="menuItem" wx:for="{{menuList}}" wx:key="index" bindtap="toPage" data-url='{{item.path}}'>
+      <view class="menuLeft">
+        <image src='{{item.pic}}' class="menuPic"></image>
+        <text class="menuName">{{item.name}}</text>
+      </view>
+      <image src='../../images/right.png' class="arrow" data-url="{{item.path}}" bindtap="toPage"></image>
+    </view>
+  </view>

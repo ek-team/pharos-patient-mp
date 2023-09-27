@@ -113,9 +113,17 @@ Page({
       {
         id: 5,
         name: '隐私政策',
-        pic: '../../images/icon_mine_5.png',
+        pic: '../../images/icon_mine_6.png',
         path: '../privacy/privacy'
+      },
+      
+      {
+        id: 6,
+        name: '问题解答',
+        pic: '../../images/icon_mine_5.png',
+        path: '../question/question'
       }
+
     ],
     info: {}, //用户信息
 

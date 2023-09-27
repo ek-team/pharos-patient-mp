@@ -104,13 +104,16 @@ Page({
         cancelColor: '#666666',
         confirmText: '确定',
         confirmColor: '#576B95',
-        success(res) {
+
+        success: (res) => {
           if (res.confirm) {
-            this.updateAddress()
+            this.updateAddressPost()
           } else if (res.cancel) {
             console.log('取消')
           }
+          
         }
+       
       })
       
 
@@ -118,7 +121,7 @@ Page({
     }
   },
   // 修改收获地址
-  updateAddress() {
+  updateAddressPost() {
     this.setData({
       saveDisabled: true
     })
@@ -165,17 +168,6 @@ Page({
           icon: 'none'
         })
       }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

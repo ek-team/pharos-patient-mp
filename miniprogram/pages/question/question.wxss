@@ -1,0 +1,42 @@
+/* pages/question/question.wxss */
+
+
+.menuview{
+  width: 686rpx;
+  background: #FFFFFF;
+  border-radius: 8rpx;
+  margin: 0 auto;
+  margin-top: 24rpx;
+  padding: 16rpx;
+  box-sizing: border-box;
+}
+.menuItem{
+  height: 94rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1rpx solid #EBEBEB;
+}
+
+.menuItem:last-child{
+  border-bottom:none;
+}
+.menuLeft{
+  display: flex;
+  align-items: center;
+}
+.menuPic{
+  width: 48rpx;
+  height: 48rpx;
+  object-fit: cover;
+}
+.menuName{
+  color: #333;
+  font-size: 26rpx;
+  margin-left: 16rpx;
+}
+.arrow{
+  width: 36rpx;
+  height: 36rpx;
+  object-fit: cover;
+}
