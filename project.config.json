@@ -44,7 +44,7 @@
     "useCompilerPlugins": false,
     "ignoreUploadUnusedFiles": true
   },
-  "appid": "wx347d83ad4078ede4",
+  "appid": "wxad59cd874b45bb96",
   "projectname": "fls-admin",
   "libVersion": "2.14.1",
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",

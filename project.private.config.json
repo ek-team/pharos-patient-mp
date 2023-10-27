@@ -100,7 +100,7 @@
           "scene": null
         },
         {
-          "name": "法罗适健康跳转到服务列表页",
+          "name": "益慷护Pro健康跳转到服务列表页",
           "pathName": "pages/servicePage/servicePage",
           "query": "idCard=411627199208254415",
           "launchMode": "default",
