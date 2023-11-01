@@ -2,7 +2,7 @@
 App({
   globalData: {
     // url: 'wss://pharos3.ewj100.com/ws',
-    url: 'wss://api.jhxiao-school.com/ws',
+    url: 'ws://192.168.9.10:8071/ws',
     socketTask: '',
     callback: function () { },
     idCard:null,

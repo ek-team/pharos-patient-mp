@@ -417,7 +417,7 @@ Page({
 
       console.log(res.data)
 
-      this.setData({
+      res.data && this.setData({
 
         trainCardId: res.data.idCard
 

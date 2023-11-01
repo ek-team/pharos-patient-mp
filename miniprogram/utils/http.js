@@ -1,7 +1,7 @@
 const {noticeLogin}=require("../utils/noticeLogin");
 // const baseUrl = 'https://pharos3.ewj100.com/';
 
-const  baseUrl = 'https://api.jhxiao-school.com/';
+const  baseUrl = 'http://192.168.9.20:10011/';
 const app = getApp();
 function http(url, method, auth,data = {}, isShowLoading = false) {
     // data.token = wx.getStorageSync('token')
@@ -23,7 +23,7 @@ function http(url, method, auth,data = {}, isShowLoading = false) {
     }
     return new Promise(function (resolve, reject) {
         wx.request({
-            url: baseUrl + url, //仅为示例，并非真实接口地址。
+            url: `${baseUrl}${url.replace(/^\/?(.*)/, '$1')}`, //仅为示例，并非真实接口地址。
             data: data,
             header: headerData,
             method: method || 'GET',
@@ -49,7 +49,7 @@ function http(url, method, auth,data = {}, isShowLoading = false) {
                     icon: 'none',
                     title: '加载失败,请稍后重试'
                 })
-                reject(res)
+                reject()
             },
             complete() {
                 if (isShowLoading) {
