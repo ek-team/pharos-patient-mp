@@ -2,7 +2,11 @@
 App({
   globalData: {
     // url: 'wss://pharos3.ewj100.com/ws',
-    url: 'ws://192.168.9.10:8071/ws',
+
+    //测试环境
+    //url: 'ws://192.168.9.10:8071/ws',
+    //生产环境
+    url: 'ws://47.103.93.211:8071/ws',
     socketTask: '',
     callback: function () { },
     idCard:null,
