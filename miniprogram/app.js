@@ -6,7 +6,7 @@ App({
     //测试环境
     //url: 'ws://192.168.9.10:8071/ws',
     //生产环境
-    url: 'ws://47.103.93.211:8071/ws',
+    url: 'wss://home.lifwatch.com/ws',
     socketTask: '',
     callback: function () { },
     idCard:null,
