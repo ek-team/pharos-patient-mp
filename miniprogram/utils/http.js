@@ -3,7 +3,7 @@ const {noticeLogin}=require("../utils/noticeLogin");
 //测试环境
 // const  baseUrl = 'http://192.168.9.105:10011/';
 //生产环境
-const  baseUrl = 'https://home.lifwatch.com/';
+const  baseUrl = 'https://home.ekang.tech/';
 const app = getApp();
 function http(url, method, auth,data = {}, isShowLoading = false) {
     // data.token = wx.getStorageSync('token')

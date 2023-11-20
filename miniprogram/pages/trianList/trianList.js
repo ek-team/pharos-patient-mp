@@ -33,7 +33,7 @@ Page({
   
   goTrian(e) {
     wx.navigateToMiniProgram({
-      appId: 'wx5e46dffdc68e71cd',
+      appId: 'wx769527d269714369',
       path: 'pages/home/home',
       success(res) {
         console.log('跳转成功');

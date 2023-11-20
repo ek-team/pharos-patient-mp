@@ -115,20 +115,21 @@ Page({
         name: '隐私政策',
         pic: '../../images/icon_mine_6.png',
         path: '../privacy/privacy'
-      },
-      
-      {
-        id: 6,
-        name: '问题解答',
-        pic: '../../images/icon_mine_5.png',
-        path: '../question/question'
       }
+      // ,
+      
+      // {
+      //   id: 6,
+      //   name: '问题解答',
+      //   pic: '../../images/icon_mine_5.png',
+      //   path: '../question/question'
+      // }
 
     ],
     info: {}, //用户信息
 
     trainCardId: null,
-    settingPhone: '400-900-1022'
+    settingPhone: '021-63056365'
 
   },
 
@@ -327,7 +328,7 @@ Page({
 
           let phone = this.data.settingPhone
           if (resp.code == 0) {
-            if (resp.data != null || resp.data == undefined) {
+            if (resp.data != null) {
 
               phone=resp.data
             }
