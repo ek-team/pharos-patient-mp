@@ -115,16 +115,15 @@ Page({
         name: '隐私政策',
         pic: '../../images/icon_mine_6.png',
         path: '../privacy/privacy'
-      }
-      // ,
+      },
       
-      // {
-      //   id: 6,
-      //   name: '问题解答',
-      //   pic: '../../images/icon_mine_5.png',
-      //   path: '../question/question'
-      // }
-
+      {
+        id: 6,
+        name: '下肢智能训练',
+        pic: '../../images/exercise-walking.png',
+        path: 'exercise'
+      }
+      
     ],
     info: {}, //用户信息
 
@@ -154,7 +153,19 @@ Page({
   onShow: function () {
     this.getUserInfo();
 
+  },
 
+  goTrian(e) {
+    wx.navigateToMiniProgram({
+      appId: 'wx769527d269714369',
+      path: 'pages/home/home',
+      success(res) {
+        console.log('跳转成功');
+      },
+      fail(res) {
+        console.log('跳转失败', res);
+      }
+    });
   },
 
   toMyOrder(e) {
@@ -361,6 +372,10 @@ Page({
 
 
 
+        return
+      }
+      if (url === 'exercise') {
+        this.goTrian()
         return
       }
       wx.navigateTo({
