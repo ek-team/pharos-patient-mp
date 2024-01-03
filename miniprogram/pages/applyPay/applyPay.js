@@ -80,6 +80,7 @@ Page({
       }
 
       let payData = res.data
+     
       wx.requestPayment({
         nonceStr: payData.nonceStr,
         package: payData.packageValue,

@@ -615,8 +615,8 @@ Page({
 
           let that = this
 
-          console.log(res.data)
           let payData = res.data;
+          console.log('payData', payData)
           wx.requestPayment({
             nonceStr: payData.nonceStr,
             package: payData.packageValue,

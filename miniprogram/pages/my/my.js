@@ -119,16 +119,16 @@ Page({
       
       {
         id: 6,
-        name: '问题解答',
-        pic: '../../images/icon_mine_5.png',
-        path: '../question/question'
+        name: '下肢智能训练',
+        pic: '../../images/exercise-walking.png',
+        path: 'exercise'
       }
-
+      
     ],
     info: {}, //用户信息
 
     trainCardId: null,
-    settingPhone: '400-900-1022'
+    settingPhone: '021-63056365'
 
   },
 
@@ -153,7 +153,19 @@ Page({
   onShow: function () {
     this.getUserInfo();
 
+  },
 
+  goTrian(e) {
+    wx.navigateToMiniProgram({
+      appId: 'wx769527d269714369',
+      path: 'pages/home/home',
+      success(res) {
+        console.log('跳转成功');
+      },
+      fail(res) {
+        console.log('跳转失败', res);
+      }
+    });
   },
 
   toMyOrder(e) {
@@ -327,7 +339,7 @@ Page({
 
           let phone = this.data.settingPhone
           if (resp.code == 0) {
-            if (resp.data != null || resp.data == undefined) {
+            if (resp.data != null) {
 
               phone=resp.data
             }
@@ -360,6 +372,10 @@ Page({
 
 
 
+        return
+      }
+      if (url === 'exercise') {
+        this.goTrian()
         return
       }
       wx.navigateTo({
@@ -417,7 +433,7 @@ Page({
 
       console.log(res.data)
 
-      this.setData({
+      res.data && this.setData({
 
         trainCardId: res.data.idCard
 

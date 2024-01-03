@@ -191,7 +191,7 @@ Page({
   },
   backFaros() {
     wx.navigateToMiniProgram({
-      appId: 'wx5e46dffdc68e71cd',
+      appId: 'wx769527d269714369',
       // extraData: data,
       path: 'pages/consulting/consulting',
       success: res => {

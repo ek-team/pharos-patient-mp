@@ -64,6 +64,7 @@ Page({
     http('user/info', 'get').then(res => {
       if (res.code == 0 && res.data) {
         wx.setStorageSync('id', res.data.id)
+        console.info('000000000000000000qqqqqqqqqqqqqqqqqqq')
         app.linkInit()
 
         this.setData({

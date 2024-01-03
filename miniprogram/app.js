@@ -2,7 +2,11 @@
 App({
   globalData: {
     // url: 'wss://pharos3.ewj100.com/ws',
-    url: 'wss://api.jhxiao-school.com/ws',
+
+    //测试环境
+    //url: 'ws://192.168.9.10:8071/ws',
+    //生产环境
+    url: 'wss://home.ekang.tech/ws',
     socketTask: '',
     callback: function () { },
     idCard:null,
