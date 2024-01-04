@@ -355,7 +355,7 @@ Page({
         // wx.hideLoading()
         if (resp.data) {
           wx.downloadFile({
-            // url:'https://ewj-pharos.oss-cn-hangzhou.aliyuncs.com/avatar/1673839083879_94a380d7.png',//分享的图片的链接
+            // url:'https://oss.ekang.tech/avatar/1673839083879_94a380d7.png',//分享的图片的链接
             url: resp.data, //分享的图片的链接
             success: (res) => {
               wx.hideLoading()
@@ -460,26 +460,26 @@ Page({
 
       if (res.code == 0) {
 
-      
+
         console.log('支付', res.data)
         let payData = res.data
-  
-  
+
+
         if (typeof (payData) == 'undefined') {
-  
+
           console.log(payData)
-  
-  
+
+
           wx.showToast({
             title: '当前订单已经过期',
             icon: 'none'
           });
-  
-  
+
+
           return
         }
-  
-  
+
+
         wx.requestPayment({
           nonceStr: payData.nonceStr,
           package: payData.packageValue,
@@ -510,7 +510,7 @@ Page({
             })
           }
         })
-  
+
       } else if (res.code == 1) {
         wx.showToast({
           title: res.msg,

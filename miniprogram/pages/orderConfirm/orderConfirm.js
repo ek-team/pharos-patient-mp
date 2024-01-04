@@ -460,7 +460,7 @@ Page({
 
         this.setData({
           allMoney: res.data,
-        
+
         })
 
       } else if (res.code == 1) {
@@ -498,7 +498,7 @@ Page({
         isConnected: result.isConnected
       })
     })
-  
+
     // if (!this.data.isConnected) {
     //   wx.showToast({
     //     title: '当前网络异常，请检查网络',
@@ -521,7 +521,7 @@ Page({
         isConnected: result.isConnected
       })
     })
-  
+
     // if (!this.data.isConnected) {
     //   wx.showToast({
     //     title: '当前网络异常，请检查网络',
@@ -530,7 +530,7 @@ Page({
 
     //   return
     // }
-    
+
     if (!this.data.address.id) {
       wx.showToast({
         title: '请选择收货人信息',
@@ -550,7 +550,7 @@ Page({
     //         icon: 'none',
     //         duration: 2000
     //     })
-    // } 
+    // }
     else if (!this.data.agreeProtocol) {
       wx.showToast({
         title: '请同意产品协议',
@@ -744,7 +744,7 @@ Page({
           // console.log('好友代付返回图片链接',resp)
           if (resp.data) {
             wx.downloadFile({
-              // url:'https://ewj-pharos.oss-cn-hangzhou.aliyuncs.com/avatar/1673839083879_94a380d7.png',//分享的图片的链接
+              // url:'https://oss.ekang.tech/avatar/1673839083879_94a380d7.png',//分享的图片的链接
               url: resp.data, //分享的图片的链接
               success: (res) => {
                 // wx.hideLoading()
@@ -917,8 +917,8 @@ Page({
   //     })
   //     return {
   //       title: '代付',
-  //       imageUrl: 'https://ewj-pharos.oss-cn-hangzhou.aliyuncs.com/avatar/1673839083879_94a380d7.png',
-  //       promise 
+  //       imageUrl: 'https://oss.ekang.tech/avatar/1673839083879_94a380d7.png',
+  //       promise
   //     }
   // },
 

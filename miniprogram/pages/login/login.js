@@ -45,24 +45,24 @@ Page({
             code: res.code
           })
 
-         
+
         } else {
           wx.showToast({
             title: '微信授权登录失败',
             icon: 'none'
           })
 
-          
+
           that.setData({
             agreeProtocol: wx.getStorageSync('privacyOk', false),
-           
+
           })
         }
       }
     })
 
     that.setData({
-    
+
     })
 
   },
@@ -106,7 +106,7 @@ Page({
         success: function (res) {
           if (res.cancel) {
             //点击取消,默认隐藏弹框
-          } else { 
+          } else {
 
             wx.setStorageSync('privacyOk', true)
             wx.navigateTo({
@@ -125,8 +125,8 @@ Page({
 
     }
 
-    
-  
+
+
         // 获取用户信息
         wx.getUserProfile({
           desc: '获取你的昵称、头像',
@@ -134,7 +134,7 @@ Page({
             console.log('获取头像', res.userInfo)
             let userInfo = res.userInfo
             if (userInfo.nickName == '微信用户' && userInfo.avatarUrl == 'https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132') {
-              res.userInfo.avatarUrl = 'https://ewj-pharos.oss-cn-hangzhou.aliyuncs.com/image/I1lUJHY3kx2Jeb029b45223cf0b345e93c5aba955867.png'
+              res.userInfo.avatarUrl = 'https://oss.ekang.tech/image/I1lUJHY3kx2Jeb029b45223cf0b345e93c5aba955867.png'
               // https://thirdwx.qlogo.cn/mmopen/vi_32/3ibjhMNTPzZA06rHicBvLSh5HOlRY8q7kQloTX2dfZ9qAoGdEqCprz3BHBdyBONKiaia85kKWq4SMOqGlYhZXOGk7A/132
               // https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132
             }
@@ -192,8 +192,8 @@ Page({
             return;
           }
         })
-      
-  
+
+
 
   },
   // 更新身份信息
