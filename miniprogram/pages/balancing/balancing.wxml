@@ -1,0 +1,2 @@
+<!--pages/balancing/balancing.wxml-->
+<web-view src="{{src}}"/>

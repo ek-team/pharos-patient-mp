@@ -28,7 +28,7 @@
           </view>
         </view>
         <!-- wx:if="{{type=='edit'}}" -->
-        <view class="edit" catchtap="toLook" data-item="{{item}}" >查看训练数据</view>
+        <view class="edit" catchtap="toLook" data-item="{{item}}" >{{balancing ? '查看数据' : '查看训练数据'}}</view>
         
       </label>
     </radio-group>

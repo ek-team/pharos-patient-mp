@@ -22,6 +22,7 @@ Page({
   onLoad: function (options) {
     this.setData({
       type: options.type,
+      balancing: !!options.balancing
     })
 
   },
@@ -135,9 +136,17 @@ Page({
     // console.log('选择就诊人',item)
   },
   // 点击编辑
-  toLook(e) {
+  async toLook(e) {
     let item = e.currentTarget.dataset.item
     console.log(item)
+
+    if (this.data.balancing) {
+      const data = await http('palnUser/getByPhoneAndIdCard', 'get', '', {idCard: item.idCard})
+      wx.navigateTo({
+        url: '../balancing/balancing?userId='+data.data.userId,
+      })
+      return
+    }
 
     wx.navigateTo({
       url: '../exerciseData/exerciseData?idCard=' + item.idCard+'&phone=' + item.phone,

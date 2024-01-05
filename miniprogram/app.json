@@ -44,9 +44,9 @@
     "pages/bindDoctor/bindDoctor",
     "pages/bindPatient/bindPatient",
     "pages/getCompany/getCompany",
-
     "pages/trianList/trianList",
-    "pages/question/question"
+    "pages/question/question",
+    "pages/balancing/balancing"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -65,16 +65,12 @@
         "pagePath": "pages/news/news",
         "text": "消息"
       },
-
-     
       {
         "iconPath": "/images/icon_fuwu_not.png",
         "selectedIconPath": "/images/icon_fuwu_sel.png",
         "pagePath": "pages/service/service",
         "text": "服务"
       },
-
- 
       {
         "iconPath": "/images/icon_mine_not.png",
         "selectedIconPath": "/images/icon_mine_sel.png",

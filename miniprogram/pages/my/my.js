@@ -193,6 +193,76 @@ Page({
       url: '../savePersonInfo/savePersonInfo',
     })
   },
+  async toBalancing() {
+    http('user/listPatientUser', 'get', '').then(async res => {
+      let patientList = res.data;
+
+      if (res.code == 0) {
+        if (patientList) {
+
+          if (patientList.length == 0) {
+              wx.showModal({
+                title: '暂无就诊人以及未绑定设备用户',
+                cancelText: '暂不',
+                cancelColor: '#666666',
+                confirmText: '添加',
+                confirmColor: '#576B95',
+                success(res) {
+                  if (res.confirm) {
+                    wx.navigateTo({
+                      url: '../addPatient/addPatient',
+
+                    })
+                  } else if (res.cancel) {
+                    console.log('用户点击取消')
+                  }
+                }
+              })
+          } else if (patientList.length == 1) {
+            const data = await http('palnUser/getByPhoneAndIdCard', 'get', '', {idCard: patientList[0].idCard})
+            wx.navigateTo({
+              url: '../balancing/balancing?userId='+data.data.userId,
+            })
+          } else {
+            wx.navigateTo({
+              url: '../selectPatient/selectPatient?balancing=1',
+
+            })
+          }
+        } else {
+
+          wx.showToast({
+            title: '获取就诊人失败',
+            icon: 'none'
+          })
+        }
+
+      } else if (res.code == 1) {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      } else if (res.code == 401) {
+        wx.showToast({
+          title: '账号过期',
+          icon: 'none'
+        })
+      } else if (res.code == 500) {
+        wx.showToast({
+          title: '服务器出现异常',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '获取就诊人失败',
+          icon: 'none'
+        })
+      }
+
+
+    })
+
+  },
 
   toMyRetrieveOrder(e) {
     let status = e.currentTarget.dataset.status

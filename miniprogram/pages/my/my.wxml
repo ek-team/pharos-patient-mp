@@ -32,6 +32,10 @@
         <image class="orderIcon" src="../../images/icon_shouhuo.png"></image>
         <view class="orderName">锻炼数据</view>
       </view>
+      <view class="orderItem" bindtap="toBalancing">
+        <image class="orderIcon" src="../../images/cfc8171251f935b82109e3c78f8a737.png"></image>
+        <view class="orderName">平衡训练</view>
+      </view>
     </view>
   </view>
   <!-- 我的回收单 -->
