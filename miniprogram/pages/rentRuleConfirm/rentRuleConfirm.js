@@ -267,7 +267,7 @@ Page({
           // console.log('好友代付返回图片链接',resp)
           if (resp.data) {
             wx.downloadFile({
-              // url:'https://ewj-pharos.oss-cn-hangzhou.aliyuncs.com/avatar/1673839083879_94a380d7.png',//分享的图片的链接
+              // url:'https://oss.ekang.tech/avatar/1673839083879_94a380d7.png',//分享的图片的链接
               url: resp.data, //分享的图片的链接
               success: (res) => {
                 // wx.hideLoading()

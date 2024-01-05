@@ -14,7 +14,7 @@ Page({
    */
   data: {
 
-    videoSrc: 'https://ewj-pharos.oss-cn-hangzhou.aliyuncs.com/image/USwluot0sCx3f9f7b164332a517b3ff38c2065b9c488.mp4',
+    videoSrc: 'https://oss.ekang.tech/image/USwluot0sCx3f9f7b164332a517b3ff38c2065b9c488.mp4',
 
 
     targetUid: null,
